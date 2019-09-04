@@ -1,0 +1,224 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">New Facility</h3>
+</div>
+<div class="modal-body">
+    <form name="facilityDemography" class="sky-form">
+        <fieldset>
+            <section ng-if="vm.isEditMode">
+                <div class="form-group">
+                    <label class="label">Facility Number</label>
+                    <label class="input">
+                        <input type="text" name="facilityNumber" ng-value="vm.facility.facilityNumber" readonly="readonly"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Name</label>
+                    <label class="input">
+                        <input id="facName" type="text" ng-model="vm.facility.facilityName" name="siteName" required maxlength="200" ng-disabled="vm.readOnly"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Type</label>
+                    <label class="select">
+                        <select id="facType" name="facilityType" ng-model="vm.facility.masterServiceTypeId" ng-change="vm.masterServiceTypeChange()" ng-options="masterServiceType.id as masterServiceType.name for masterServiceType in vm.masterServiceTypes" required ng-disabled="vm.readOnly"></select>                       
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Service Type</label>
+                    <label class="select">                      
+                        <select id="serviceType" name="serviceType" ng-model="vm.facility.serviceTypeId" ng-options="serviceType.id as serviceType.name for serviceType in vm.serviceTypes" required ng-disabled="vm.readOnly"></select>                       
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <div class="row space-bot">
+                        <div class="col-md-8">
+                            <label class="label"><span class="required-field">*</span>Director</label>
+                        </div>
+                        <div class="col-md-4">
+                            <button id="addNewUser" class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.addUser()">
+                                <span>Add New User</span>
+                            </button>
+                        </div>
+                    </div>
+                    <label class="select">                      
+                        <select id="director" name="user" ng-model="vm.facility.facilityDirectorId" ng-options="user.userId as user.fullName for user in vm.users" required ng-disabled="vm.readOnly"></select>                                               
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.isEditMode">
+                <div class="form-group">
+                    <label class="label">Primary Organization</label>
+                    <label class="select">
+                        <select id="org" name="organization" ng-model="vm.facility.primaryOrganizationId" ng-options="org.organizationId as org.organizationName for org in vm.organizations" ng-disabled="vm.readOnly"></select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Facility Accreditations</label>
+                    <!--<label class="select">                       
+                        <select name="facAccreditations" ng-model="vm.facility.facilityAccreditationId" ng-options="facilityAcc.id as facilityAcc.name for facilityAcc in vm.facilityAccredidations" ng-disabled="vm.readOnly"></select>
+                    </label>-->           
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label class="checkbox" ng-repeat="j in vm.facilityAccredidations" style="float:left;">
+                                <input id="facAccred" type="checkbox" name="acc{{j.id}}" value="{{j.id}}" ng-model="j.isSelected" ng-change="vm.onFacilityChecked(j)"><i></i>{{j.name}}&nbsp;
+                            </label>&nbsp;
+                        </div>
+                    </div>        
+                </div>
+            </section>
+            <section ng-show="vm.showOther">
+                <div>
+                    <label class="label"><span class="required-field">*</span>Other Site Accreditation Details</label>
+                    <label class="input">
+                        <input id="otherSiteAccred" type="text" ng-model="vm.facility.otherSiteAccreditationDetails" name="other" ng-required="vm.showOther" ng-disabled="vm.readOnly"/>
+                    </label>
+                </div>
+            </section>                   
+            <section>
+                <div class="form-group">
+                    <label class="label">QM Restrictions</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.facility.qmRestrictions = true" ng-class="{active: vm.facility.qmRestrictions == true}">
+                            <input id="qmYes" type="radio" name="qmRestrictions" ng-model="vm.facility.qmRestrictions" ng-value="true" ng-disabled="vm.readOnly"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.facility.qmRestrictions = false" ng-class="{active: vm.facility.qmRestrictions == false}">
+                            <input id="qmNo" type="radio" name="qmRestrictions" ng-model="vm.facility.qmRestrictions" ng-value="false" ng-disabled="vm.readOnly"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>          
+            <!--<section ng-if="vm.facility.masterServiceTypeId == 2">
+                <div class="form-group">
+                    <label class="label">NetCord Membership Status</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.facility.netCordMembership = true" ng-class="{active: vm.facility.netCordMembership == true}">
+                            <input type="radio" name="netCord" ng-value="true" ng-disabled="vm.readOnly"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.facility.netCordMembership = false" ng-class="{active: vm.facility.netCordMembership == false}">
+                            <input type="radio" name="netCord" ng-model="vm.facility.netCordMembership" ng-init="vm.facility.netCordMembership = false" ng-value="false" ng-disabled="vm.readOnly"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>-->
+            <section ng-if="vm.facility.masterServiceTypeId == 2">
+                <div class="form-group">
+                    <label class="label">Netcord Membership Status</label>
+                    <label class="select">
+                        <select id="membership" ng-model="vm.facility.netcordMembershipTypeId">
+                            <option ng-repeat="x in vm.netcordMembershipTypes" value="{{x.id}}">{{x.name}}</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.facility.masterServiceTypeId == 2">
+                <div class="form-group">
+                    <label class="label">Provisional Membership Date</label>
+                    <label class="select">
+                        <input id="provMemberDate" class="date-fix" kendo-date-picker k-ng-model="vm.facility.provisionalMembershipDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.facility.masterServiceTypeId == 2">
+                <div class="form-group">
+                    <label class="label">Associate Membership Date</label>
+                    <label class="select">
+                        <input id="assocMemberDate" class="date-fix" kendo-date-picker  k-ng-model="vm.facility.associateMembershipDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.facility.masterServiceTypeId == 2">
+                <div class="form-group">
+                    <label class="label">Full Membership Date</label>
+                    <label class="select">
+                        <input id="fullMemberDate" class="date-fix" kendo-date-picker  k-ng-model="vm.facility.fullMembershipDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+
+
+
+
+            <section ng-if="vm.facility.masterServiceTypeId == 2">
+                <div class="form-group">
+                    <label class="label">HRSA</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.facility.hrsa = true" ng-class="{active: vm.facility.hrsa == true}">
+                            <input id="hrsaYes" type="radio" name="hrsa" ng-model="vm.facility.hrsa" ng-value="true" ng-disabled="vm.readOnly"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.facility.hrsa = false" ng-class="{active: vm.facility.hrsa == false}">
+                            <input id="hrsaNo" type="radio" name="hrsa" ng-model="vm.facility.hrsa" ng-init="vm.facility.hrsa = vm.facility.hrsa ?? false" ng-value="false" ng-disabled="vm.readOnly"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>     
+            <section ng-if="vm.isEditMode">
+                <div class="form-group">
+                    <label class="label">MatrixMaxx Number</label>
+                    <label class="input">
+                        <input id="facNumber" type="text" name="facilityNumber" ng-value="vm.facility.maxtrixMax" readonly="readonly" />
+                    </label>
+                </div>
+            </section>         
+            <section ng-if="vm.isEditMode && vm.facility.masterServiceTypeId == 1">
+                <div class="form-group" data-ng-show="vm.resultsCT.length > 0">
+                    <label class="label">Site Lists</label>
+                    <div id="reportGrid" class="searchResults"
+                         kendo-grid="grid"                          
+                         k-options="vm.gridOptionsCT">
+                    </div>
+                </div>
+            </section>
+            <section ng-if="vm.isEditMode && vm.facility.masterServiceTypeId == 2">
+                <div class="form-group" data-ng-show="vm.resultsCB.length > 0">
+                    <label class="label">Site Lists</label>
+                    <div id="reportGrid1" class="searchResults"
+                         kendo-grid="grid"
+                         k-options="vm.gridOptionsCB">
+                    </div>
+                </div>
+            </section>
+            <section ng-if="vm.isEditMode && vm.facility.masterServiceTypeId == 1">
+                <div class="form-group" data-ng-show="vm.resultsSiteTotalsCT.length > 0">
+                    <label class="label">Site Totals</label>
+                    <div id="reportGrid2" class="searchResults"
+                         kendo-grid="grid"
+                         k-options="vm.gridOptionsSiteTotalsCT"
+                         k-columns='[
+                         { "field":"inPatient" , "title":"InPatient"},
+                         { "field":"outPatient" , "title":"OutPatient"},
+                         { "field":"marrowCollection" , "title":"Marrow Collection"},
+                         { "field":"apheresisCollection" , "title":"Apheresis Collection"},
+                         { "field":"processing" , "title":"Processing"}]'>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="vm.isEditMode && vm.facility.masterServiceTypeId == 2">
+                <div class="form-group" data-ng-show="vm.resultsSiteTotalsCB.length > 0">
+                    <label class="label">Site Totals</label>
+                    <div id="reportGrid3" class="searchResults"
+                         kendo-grid="grid"
+                         k-options="vm.gridOptionsSiteTotalsCB"
+                         k-columns='[                       
+                         { "field":"fixed" , "title":"Fixed"},
+                         { "field":"nonFixed" ,"title": "Non Fixed"},
+                         { "field":"fixedNonFixed" ,"title": "Fixed And Non Fixed"}]'>
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" id="save" name="save" ng-click="vm.save()"  ng-disabled="facilityDemography.$invalid" >Save</button>
+    <button class="btn btn-warning" type="button" id="cancel" name="cancel" ng-click="vm.cancel()">Cancel</button>
+</div>

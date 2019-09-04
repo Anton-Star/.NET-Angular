@@ -1,0 +1,5 @@
+﻿@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .sky-form .input input[type=file] {
+    height: 50px;
+  }
+}

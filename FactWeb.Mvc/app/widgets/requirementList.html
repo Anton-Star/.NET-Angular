@@ -1,0 +1,10 @@
+﻿<div class="requirements">
+    <!--<div class="btns">
+        <button class="btn btn-base pull-right" type="submit" ng-focus="addNew()">
+            <span>Add New</span>
+        </button>
+    </div>-->
+    <uib-accordion close-others="oneAtATime">
+        <requirement ng-repeat="row in rows" ng-model="row" parent="parent" id="{{row.id}}" current-version="currentVersion" questions="questions" is-requirement-set="{{isRequirementSet}}" applicationtype="{{applicationtype}}" scope-types="scopeTypes" question-types="questionTypes"></requirement>
+    </uib-accordion>
+</div>

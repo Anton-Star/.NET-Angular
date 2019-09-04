@@ -1,0 +1,28 @@
+﻿<div class="requirements">
+    <uib-accordion close-others="oneAtATime">
+        <application-requirement
+            app-status="{{appStatus}}"
+            level="{{nextLevel}}"
+            ng-repeat="row in rows"
+            access-toke="accessToken"
+            multi-sites="multiSites"
+            site="site"
+            organization="{{organization}}"
+            access-type="{{accessType}}"
+            ng-model="row"
+            app-type="{{appType}}"
+            parent="parent"
+            id="{{row.id}}"
+            current-version="currentVersion"
+            questions="questions"
+            is-requirement-set="{{isRequirementSet}}"
+            is-review="{{isReview}}"
+            is-multisite="{{isMultisite}}"
+            applicationtype="{{applicationtype}}"
+            scope-types="scopeTypes"
+            question-types="questionTypes"
+            duedate="{{dueDate}}"
+            appsubmitteddate="{{submittedDate}}"
+            app-unique-id="{{appUniqueId}}"></application-requirement>
+    </uib-accordion>
+</div>

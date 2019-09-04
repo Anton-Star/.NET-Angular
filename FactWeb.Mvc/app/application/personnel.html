@@ -1,0 +1,119 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-12 compApp">
+    <application-header class="requirements" application="vm.application" compliance="vm.compApplication" isComplianceApplication="vm.isComplianceApplication"></application-header>
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Personnel</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <section>
+                        <fieldset class="no-padding">
+                            <section ng-show="vm.isInspectorPresent">
+                                <div id="reportGrid" class="searchResults"
+                                     kendo-grid="grid"
+                                     k-options="vm.gridOptions"
+                                     k-columns='[
+                                     { field: "fullName" , title: "Staff" , width: "110px" },
+                                     { field: "roleName" , title: "Role" , width: "120px" },
+                                     { field: "inspectionCategoryName" , title: "Inspection Category" , width: "160px" },
+                                     { field: "siteName" , title: "Site" , width: "180px" }]'>
+                                </div>
+                            </section>
+                            <section ng-if="vm.isFact">
+                                <div class="form-group">
+                                    <a href="mailto: {{vm.orgDirectorEmail}}?cc={{vm.staffEmail}}" class="view">Email Org Staff</a>
+                                </div>
+                            </section>
+                            <section ng-if="vm.isFact">
+                                <div class="form-group">
+                                    <a href="mailto: {{vm.leadInspectorEmail}}?cc={{vm.inspectorEmails}}" class="view">Email Inspectors</a>
+                                </div>
+                            </section>
+                            <section>
+                                <label class="label">{{vm.staffOverview}}</label>
+                                <div class="form-group" data-ng-show="vm.orgStaff.length > 0">
+                                    <div id="reportGrid" class="searchResults"
+                                         kendo-grid="grid"
+                                         k-options="vm.gridOrgStaff"
+                                         k-columns='[
+                                            {
+                                                 field: "userId" ,
+                                                 title: "Id" ,
+                                                 hidden: "true"
+                                            },
+                                            {
+                                                 field: "fullName" ,
+                                                 title: "Full Name"
+                                            },
+                                            {
+                                                 field: "roleName" ,
+                                                 title: "Role"
+                                            },
+                                            {
+                                                 field: "jobFunctions",
+                                                 title: "Job Function"
+                                            },
+                                            {
+                                                title: "Email Address",
+                                                template: "<a href=\"mailto:#=emailAddress#\">#=emailAddress#</a>",
+                                                width: "350px"
+                                            },
+                                            {
+                                                template: "<button class=\"k-button\" ng-click=\"vm.editUser(dataItem)\" ng-if=\"vm.canManage\">Edit </button>"
+                                            }
+                                        ]'>
+                                    </div>
+                                </div>
+                            </section>
+                            <section ng-if="!vm.common.currentUser.isImpersonation && !vm.isStaff && !vm.common.isInspector()">
+                                <label class="label" ng-show="vm.orgConsultants.length > 0">Consultants</label>
+                                <div class="form-group" data-ng-show="vm.orgConsultants.length > 0">
+                                    <div id="reportGrid" class="searchResults"
+                                         kendo-grid="grid"
+                                         k-options="vm.gridOrgConsultants"
+                                         k-columns='[
+                                            {
+                                                 field: "userId" ,
+                                                 title: "Id" ,
+                                                 hidden: "true"
+                                            },
+                                            {
+                                                 field: "fullName" ,
+                                                 title: "Full Name" ,
+                                                 width: "320px"
+                                            },
+                                            {
+                                                 field: "roleName" ,
+                                                 title: "Role" ,
+                                                 width: "140px"
+                                            },
+                                            {
+                                                 field: "jobFunctions",
+                                                 title: "Job Function" ,
+                                                 width: "250px"
+                                            },
+                                            {
+                                                title: "Email Address" ,
+                                                width: "200px",
+                                                template: "<a href=\"mailto:#=emailAddress#\">#=emailAddress#</a>"
+                                            }
+                                        ]'>
+                                    </div>
+                                </div>
+                            </section>
+                            <section ng-if="vm.canManage">
+                                <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.addUser()">
+                                    <span>Add New User</span>
+                                </button>
+                            </section>
+                        </fieldset>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

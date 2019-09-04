@@ -1,0 +1,50 @@
+﻿<link href="content/application.css" rel="stylesheet">
+<div class="modal-header">
+    <h3 class="modal-title"><span ng-bind-html="vm.section.parentName"></span></h3>
+</div>
+<div class="modal-body">
+    <form name="application" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>
+                                {{vm.section.uniqueIdentifier}}: <span ng-bind-html="vm.section.name"></span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section ng-repeat="question in vm.sectionQuestions">
+                <div class="form-group" ng-class="{radios: question.type == 'Radio Buttons'}">
+                    {{$index + 1}}.&nbsp;<span ng-bind-html="question.text"></span>
+                    <div class="row pd-10">
+                        <div class="col-md-{{vm.columnWidth}} bold" ng-repeat="section in vm.sections">
+                            {{section.site.siteName}}
+                        </div>
+                    </div>
+                    <div class="row multi">
+                        <div class="col-md-{{vm.columnWidth}} bold" ng-repeat="section in vm.sections">
+                            <b>Answer</b><br />
+                            <label><span ng-if="question.type != 'Checkboxes' && question.type != 'Radio Buttons' && question.type != 'Document Upload' " ng-bind-html="section.section.questions[$parent.$parent.$index].questionResponses[0].otherText" style="text-transform:none;"></span></label>
+                            <!--<label><span ng-if="question.type == 'Checkboxes' || question.type == 'Radio Buttons' " ng-bind-html="vm.getSelectedAnswer(section.section.questions[$parent.$parent.$index].answers)" style="text-transform:none;"></span></label>-->
+                            <div ng-if="question.type == 'Checkboxes' || question.type == 'Radio Buttons' " ng-repeat="answer in vm.getSelectedAnswer(question.answers)"><li>{{answer}}</li></div>
+                            <label><span ng-if="question.type == 'Document Upload'" style="text-transform:none;">File: <a href="" ng-click="vm.trueVaultService.onDocumentDownload(question.questionResponses[0].document, vm.organization)" target="_blank" class="ng-binding">{{question.questionResponses[0].document.name}}</a></span></label>
+                            
+                            <br /><b>Review Status</b><br />
+                            <label ng-repeat="status in vm.statusTypes" ng-click="vm.onStatusSelected(section.section.questions[$parent.$parent.$index], status )" style="display:block;">                            
+                                <input type="radio" name="{{section.site.siteId+question.id}}" value="{{status.id}}" ng-checked="section.section.questions[$parent.$parent.$index].answerResponseStatusId == status.id" />{{status.name}}                                
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save(false)" ng-disabled="vm.isBusy">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()" ng-disabled="vm.isBusy">Cancel</button>
+</div>
+

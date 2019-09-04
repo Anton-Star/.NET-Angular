@@ -1,0 +1,52 @@
+﻿<link href="content/application.css" rel="stylesheet">
+<div class="modal-header">
+    <h3 class="modal-title" ng-if="vm.site"><span ng-bind-html="vm.site.siteName"></span></h3>
+    <h3 class="modal-title" ng-if="vm.isTrainee">
+        (Trainee) <span class="modal-title" style="text-transform:none;" ng-bind-html="vm.section.parentName"></span>
+    </h3>
+    <h3 class="modal-title" ng-if="!vm.isTrainee">
+        <span class="modal-title" style="text-transform:none;" ng-bind-html="vm.section.parentName"></span>
+    </h3>
+</div>
+
+<style>
+    .modal-dialog {
+        width: 78% !important;
+        top: -20px !important;
+    }
+
+    .glyphicon-flag-red {
+        color: #FF0000 !important;
+        cursor: pointer;
+    }
+
+    .glyphicon-flag-grey {
+        color: gray !important;
+        cursor: pointer;
+    }
+</style>
+
+<div class="modal-body reviewer">
+    <form name="application" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <h4>
+                        {{vm.section.uniqueIdentifier || vm.section.applicationSectionUniqueIdentifier}}: <span ng-bind-html="vm.section.applicationSectionName || vm.section.name" style="text-transform:none !important;"></span>
+                    </h4>
+
+                </div>
+            </section>
+            <div class="wrapper">
+                <div name="divQuestion" ng-repeat="question in vm.section.questions" ng-if="question.isHidden == false" class="panel panel-default">
+                    <answer-review-common iscoordinatorview="false" application="vm.application" question="question" statustypes="vm.statusTypes" commenttypes="vm.commentTypes" accesstoken="vm.accessToken"></answer-review-common>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save()" ng-show="!vm.readOnly">Save</button>
+    <button class="btn btn-primary" type="button" ng-click="vm.onNext()" ng-disabled="vm.readOnly || vm.isUser">Save and go to next</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()" ng-disabled="vm.disableCancel">Cancel</button>
+</div>

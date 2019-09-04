@@ -1,0 +1,121 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-12 application review">
+    <application-header class="requirements" application="vm.application" compliance="vm.compApplication" isComplianceApplication="vm.isComplianceApplication"></application-header>
+    <div class="wp-block default user-form review">
+        <div class="form-header light">
+            <h2><span ng-if="vm.isTrainee">(Trainee) </span>Inspection</h2>
+        </div>
+        <div class="form-body">
+            <form class="sky-form" name="inspection">
+                <fieldset>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">
+                                {{vm.application.applicationTypeName}} - {{vm.application.organizationName}}
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Site</label>
+                            <label class="select">
+                                <select name="site" ng-model="vm.selectedSiteName" ng-change="vm.onSiteSelected()" required>
+                                    <option ng-repeat="site in vm.sites">{{site.siteName}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <label class="label">Inspectors</label>
+                        <div id="reportGrid" class="searchResults"
+                             kendo-grid="vm.grid"
+                             k-options="vm.gridOptions"></div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Site Description</label>
+                            <label class="textarea" ng-if="!vm.app.isReinspection && vm.isUserSite">
+                                <textarea required kendo-editor k-encoded="false" k-ng-model="vm.siteDescription"></textarea>
+                            </label>
+                            <label class="textarea" ng-if="vm.app.isReinspection || !vm.isUserSite">
+                                <textarea required ng-model="vm.siteDescription" disabled="disabled"></textarea>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Overall Site Impressions</label>
+                            <label class="textarea" ng-if="vm.isUserSite || vm.isLead">
+                                <textarea required kendo-editor k-encoded="false" k-ng-model="vm.overallImpressions"></textarea>
+                            </label>
+                            <label class="textarea" ng-if="!vm.isUserSite && !vm.isLead">
+                                <textarea required ng-model="vm.overallImpressions" disabled="disabled"></textarea>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Commendable Practices</label>
+                            <label class="textarea" ng-if="!vm.app.isReinspection && vm.isUserSite">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="vm.commendablePractices"></textarea>
+                            </label>
+                            <label class="textarea" ng-if="vm.app.isReinspection || !vm.isUserSite">
+                                <textarea ng-model="vm.commendablePractices" disabled="disabled"></textarea>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="reset" ng-click="vm.cancel()">
+                            <span>Cancel</span>
+                        </button>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.save()" ng-disabled="inspection.$invalid && !vm.app.isReinspection">
+                            <span>Save</span>
+                        </button>
+                    </section>
+                    <section ng-if="vm.isInspector && !vm.isComplete && vm.isUserSite">
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.onInspectorComplete()" ng-disabled="!vm.isOutcomeReviewed || !vm.isSaved">
+                            <span>Mark Complete</span>
+                        </button>
+                        <a class="btn btn-base" href="https://www.surveymonkey.com/r/FACTInspectorEvaluation" target="_blank">Inspection Evaluation</a>
+                        <br />
+                        <span ng-if="vm.isOutcomeReviewed">By selecting this button, I confirm that I have reviewed the application, indicated the applicant's compliance and non-compliance where relevant, and provided the site description and overall impressions for my assigned site(s). </span>
+                        <span class="red-color" ng-if="!vm.isOutcomeReviewed">Reminder: As a Clinical Program Inspector you are required to review the Outcome/Data information.  Access it using the link in the left navigation pane. </span>
+                        <span>To help us ensure the quality of the inspection process, please complete and submit an Inspection Evaluation</span>
+                    </section>
+                    <section ng-if="vm.isLead && (vm.canComplete && vm.isOutcomeReviewed) && vm.isComplete">
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.onInspectorComplete()" ng-disabled="">
+                            <span>Submit to FACT</span>
+                        </button>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check" type="button" ng-click="vm.onEval()">
+                            <span>Inspection Evaluation</span>
+                        </button><br />
+                        <span ng-if="vm.canComplete && vm.isOutcomeReviewed">By selecting this button, I confirm that I have reviewed the application, indicated the applicant's compliance and non-compliance where relevant, and provided the site description and overall impressions for my assigned site(s). </span>
+                        <span class="red-color" ng-if="vm.canComplete && !vm.isOutcomeReviewed">Reminder: As a Clinical Program Inspector you are required to review the Outcome/Data information.  Access it using the link in the left navigation pane. </span>
+                        <span>To help us ensure the quality of the inspection process, please complete and submit an Inspection Evaluation</span>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="name">
+    {{dataItem.user.firstName}} {{dataItem.user.lastName}}
+</script>
+<script type="text/x-kendo-template" id="complete">
+    <div class="circle" ng-class="{red: !dataItem.isInspectionComplete, green: dataItem.isInspectionComplete}">
+        <span class="glyphicon" ng-class="{'glyphicon-remove': !dataItem.isInspectionComplete, 'glyphicon-ok': dataItem.isInspectionComplete}"></span>
+    </div>
+</script>
+<script type="text/x-kendo-template" id="complete">
+    <div class="circle" ng-class="{red: !dataItem.isInspectionComplete, green: dataItem.isInspectionComplete}">
+        <span class="glyphicon" ng-class="{'glyphicon-remove': !dataItem.isInspectionComplete, 'glyphicon-ok': dataItem.isInspectionComplete}"></span>
+    </div>
+</script>
+<script type="text/x-kendo-template" id="completionDate">
+    <span ng-if="dataItem.isInspectionComplete">{{dataItem.inspectionCompletionDate | date: 'MM/dd/yyyy' }}</span>
+    <span ng-if="!dataItem.isInspectionComplete">In Progress</span>
+</script>

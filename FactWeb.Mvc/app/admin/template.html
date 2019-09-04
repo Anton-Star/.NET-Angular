@@ -1,0 +1,60 @@
+﻿<link href="/content/admin.css" rel="stylesheet">
+
+<div class="wp-block default user-form template">
+    <div class="form-header light">
+        <h2>Manage Templates</h2>
+    </div>
+    <div class="form-group" data-ng-show="vm.templates.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+                    { 
+                        field: "name" , 
+                        title: "Name"
+                    },
+                    { 
+                        field: "text" , 
+                        title: "Text"
+                    },
+                    { 
+                        template: "<button class=\"k-button\" ng-click=\"vm.onEdit(dataItem)\">Edit </button><button class=\"k-button\" ng-click=\"vm.onDelete(dataItem)\">Delete </button>" 
+                    }
+            ]'>
+        </div>
+    </div>
+    <div class="form-group padding-bottom">
+        <button class="btn btn-base pull-right" type="submit" ng-click="vm.onAddNew()">
+            <span>Add Template</span>
+        </button>
+    </div>
+    <div class="form-group" ng-if="vm.selected != null">
+        <form name="registration" class="sky-form">
+            <fieldset class="no-padding">
+                <section>
+                    <div class="form-group">
+                        <label class="label">Name</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.selected.name" required/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Name</label>
+                        <label class="input">
+                            <textarea kendo-editor k-encoded="false" k-encoded="false" k-ng-model="vm.selected.text" required></textarea>
+                        </label>
+                    </div>
+
+                </section>
+                <section>
+                    <button class="btn btn-base pull-right" type="submit" ng-click="vm.onCancel()">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-base pull-right" type="submit" ng-click="vm.onSave()" ng-disabled="registration.$invalid || !vm.isValid">
+                        <span>Save</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+</div>

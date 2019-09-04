@@ -1,0 +1,126 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+
+<div class="col-md-12 application">
+    <application-header class="requirements" application="vm.application" compliance="vm.compApplication" isComplianceApplication="vm.isComplianceApplication" iscoordinatorview=false></application-header>
+
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>RFI Report</h2>
+        </div>
+        <div class="form-body">
+            <form class="sky-form" name="rfiView">
+                <section>
+                    <div class="form-group">
+                        <label class="label">RFIs before Inspection:&nbsp;&nbsp;<a href ng-click="vm.onViewRfis(true)">{{vm.rfisBeforeInspection}}</a></label>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">RFIs after Inspection:&nbsp;&nbsp;<a href ng-click="vm.onViewRfis(false)">{{vm.rfisAfterInspection}}</a></label>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Total RFI standards:&nbsp;&nbsp;<a href ng-click="vm.onViewRfis(null)">{{vm.rfisBeforeInspection + vm.rfisAfterInspection}}</a></label>
+                    </div>
+                </section>
+                <hr>
+                <div name="level-1" ng-repeat="siteApp in vm.allSiteApplicationSection">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>{{siteApp.siteItem.siteName}}</h6>Total Number of RFIs:&nbsp;{{siteApp.siteItem.rfiInSite}}
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div name="level-2" ng-repeat="section in siteApp.applicationSectionItem">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6><a href ng-click="vm.onShowRfi(section)"><span ng-bind-html="section.uniqueIdentifier"></span>: <span ng-bind-html="section.name"></span></a></h6>
+                                    </div>
+                                </div>
+                                <div class="row" ng-repeat="question in  section.questions">
+                                    <div class="col-md-12">
+                                        <div name="level-2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h6><a href ng-click="vm.onShowRfi(section)">{{question.complianceNumber}}</a>.&nbsp;<span ng-bind-html="question.text" style="text-transform: none !important;"></span></h6>
+                                                </div>
+                                            </div>
+                                            <div class="row" ng-repeat="comment in question.applicationResponseComments">
+                                                <div class="col-md-12">
+                                                    <div class="row" name="rfiRequest" ng-if="comment.commentFrom.role.roleId != 3">
+                                                        <div class="col-md-2">
+                                                            <h6>RFI Request:</h6>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span ng-bind-html="comment.comment"></span>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            {{comment.createdDte | date: 'MM/dd/yyyy'}}
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            {{comment.commentFrom.fullName}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" name="applicantResponse" ng-if="comment.commentFrom.role.roleId == 3">
+                                                        <div class="col-md-2">
+                                                            <h6>Response:</h6>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span ng-bind-html="comment.comment"></span>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            {{comment.updatedDt | date: 'MM/dd/yyyy'}}
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            {{comment.commentFrom.fullName}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" name="document" ng-if="(comment.document != null) || (comment.commentDocuments && comment.commentDocuments.length > 0)">
+                                                        <div class="col-md-2">
+                                                            File Attachments:
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <div ng-if="comment.document != null">
+                                                                <label class="label"><a href ng-click="vm.onDocumentDownload(comment.document)">{{comment.document.name}}</a></label>
+                                                            </div>
+                                                            <div ng-if="comment.commentDocuments && comment.commentDocuments.length > 0" ng-repeat="doc in comment.commentDocuments">
+                                                                <label class="label"><a href ng-click="vm.onDocumentDownload(doc)">{{doc.name}}</a></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div class="col-md-3">
+                                                    <label class="label">File attachments: <a href="/Download?fileName={{comment.document.path}}" target="_blank">{{comment.document.name}}</a></label>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    {{comment.commentTo}}
+                                                </div>
+                                                <div class="col-md-1">
+                                                    {{comment.updatedDate}}
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <span ng-bind-html="comment.comment"></span>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    {{comment.commentFrom.fullName}}
+                                                </div>-->
+                                            </div>
+                                            <br/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+

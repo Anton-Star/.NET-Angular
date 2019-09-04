@@ -1,0 +1,179 @@
+﻿<style>
+    .app-modal-window .modal-dialog {
+        width: 1000px;
+    }
+
+    .closebtn {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        font-size: 18px;
+        margin-left: 40px;
+        color:black;
+    }
+</style>
+
+<div class="widget pull-left" ng-controller="app.layout.SidebarController as vm">    
+    <ul ng-if="vm.role">
+        <li style="float:right;">            
+            <a href="javascript:void(0)" class="closebtn" ng-click="vm.closeNav()" style="position:inherit;margin-right:6px;margin-left:0px;" >&times;</a>
+        </li>
+    </ul>
+    
+    <!-- REGION: Inspector -->
+    <ul class="inspector" ng-if="vm.role === vm.config.roles.inspector">
+
+        <li><span>Inspector Dashboard</span></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Inspections')"><a id="inspMyInspec" name="inspMyInspec" href="#/Inspector/Inspections">My Inspections</a></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Applications')"><a id="inspMyApps" name="inspMyApps" href="#/Inspector/Applications">My Applications</a></li>
+        <li ng-class="vm.getCurrentClass('Forms')"><a id="inspForms" name="inspForms" href="http://www.factwebsite.org/inspectorevals/" target="_blank">Forms</a></li>
+        <li ng-class="vm.getCurrentClass('Tools')"><a id="inspTools" name="inspTools" href="http://www.factwebsite.org/inspectorarea/" target="_blank">Tools</a></li>
+        <li ng-class="vm.getCurrentClass('Help')"><a id="inspHelp" name="inspHelp" href="http://factwebsite.org/portal/" target="_blank">Help</a></li>
+        <li ng-if="vm.showAppMenu && vm.inspectorHasAccess" class="text"></li>
+        <li ng-if="vm.showAppMenu && vm.inspectorHasAccess"><span>Inspector Action Required</span></li>
+        <li ng-class="vm.getCurrentClass('Reviewer/View')" ng-if="vm.showAppMenu && vm.inspectorHasAccess"><a id="inspReview" name="inspReview" href="#/Reviewer/View?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Reviewer View</a></li>
+        <li ng-class="vm.getCurrentClass('Application/OutcomeData')" ng-if="vm.showAppMenu && vm.showOutcome && vm.inspectorHasAccess"><a id="inspOutcome" name="inspOutcome" href="#/Application/OutcomeData?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Outcomes/Data</a></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Overview')" ng-if="vm.showAppMenu && vm.isComplianceApp && vm.inspectorHasAccess"><a id="inspOver" name="inspOver" href="#/Inspector/Overview?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Inspection Overview</a></li>
+        <li class="text"></li>
+        <!--<li ng-if="vm.showAppMenu"><span>Inspection Menu</span></li>-->
+        <li ng-class="vm.getCurrentClass('Compliance')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a id="inspComp" name="inspComp" href="#/Compliance?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Site Checklist</a></li>
+        <li ng-class="vm.getCurrentClass('Application?')" ng-if="vm.showAppMenu && vm.isApplication"><a id="inspApp" name="inspApp" href="#/Application?app={{vm.appId}}&ver={{vm.versionTitle}}"><span ng-if="vm.hasRfi && !vm.inspectorHasAccess" class="red-text">(RFI) </span>Site Checklist</a></li>
+        <li ng-class="vm.getCurrentClass('StatusView')" ng-if="vm.showAppMenu"><a id="inspStatus" name="inspStatus" href="#/Application/StatusView?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Quick View</a></li>
+        <li ng-class="vm.getCurrentClass('History')" ng-if="vm.showAppMenu"><a id="inspHistory" name="inspHistory" href="#/Admin/documentLibrary?org={{vm.orgName}}&app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Document Library</a></li>
+        <li ng-class="vm.getCurrentClass('Staff')" ng-if="vm.showAppMenu"><a id="inspStaff" name="inspStaff" href="#/Application/Personnel?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Personnel</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationHistory')" ng-if="vm.showAppMenu"><a id="inspAppHist" name="inspAppHist" href="#/Application/History?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">History</a></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Eval')" ng-if="vm.showAppMenu && vm.isComplianceApp && vm.inspectorHasAccess"><a id="inspEval" name="inspEval" href="https://www.surveymonkey.com/r/FACTInspectorEvaluation" target="_blank">Inspection Evaluation</a></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Eval')" ng-if="vm.showAppMenu && vm.isComplianceApp && !vm.inspectorHasAccess"><a id="inspMyEval" name="inspMyEval" href="https://www.surveymonkey.com/r/FACTApplicantEvaluation" target="_blank">Inspection Evaluation</a></li>
+        <li class="text"></li>
+        <li ng-class="vm.getCurrentClass('rfiView')" ng-if="vm.showAppMenu && vm.hadRFI">View: <a id="inspRfi" name="inspRfi" href="#/Admin/rfiView?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}" class="view">RFI Report</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu && vm.isComplianceApp && (vm.isInspectionComplete || !vm.isTrainee) && vm.inspectorHasAccess">View: <a id="inspInspRep" name="inspInspRep" href ng-click="vm.onReport(vm.config.reportNames.inspectionSummary)" class="view">Inspection report</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu && vm.isComplianceApp && (vm.isTrainee || vm.isInspectionComplete || vm.isMentor) && vm.inspectorHasAccess">View: <a id="inspTraineeRep" name="inspTraineeRep" href ng-click="vm.onReport(vm.config.reportNames.traineeInspectionSummary)" class="view">Trainee report</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu && vm.isEmailSent && (vm.inspectorHasAccess || vm.showAccredReport)">View: <a id="inspAccRep" name="inspAccRep" href ng-click="vm.onReport(vm.config.reportNames.accreditationReport)" class="view">Accreditation report</a></li>
+        <li ng-class="vm.getCurrentClass('Application/Report')" ng-if="vm.showAppMenu">Export/Print: <a id="inspAppRep" name="inspAppRep" href="#/Application/Report?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}" class="view">Application</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationAddOn')" ng-if="vm.showAppMenu && vm.isComplianceApp && !vm.inspectorHasAccess">Request: <a id="inspAddOn" name="inspAddOn" href="mailto: {{vm.coordinator.emailAddress}}?cc=portal@factwebsite.org&subject=FACT Add-On Request - {{vm.orgName}}" class="view">Application add-on</a></li>
+        <li class="text" ng-if="vm.showAppMenu"></li>
+        <li ng-if="vm.showAppMenu"><a id="inspShowLegend" name="inspShowLegend" href ng-click="vm.onShowLegend()" class="view">Show Legend</a></li>
+    </ul>
+
+    <!-- REGION: User, Organizational Director || vm.role === vm.config.roles.organizationalDirector-->
+    <ul class="inspector" ng-if="vm.role === vm.config.roles.user || vm.role === vm.config.roles.factConsultant">
+
+        <li><span>Applicant</span></li>
+        <li ng-class="vm.getCurrentClass('Overview')"><a id="appMyApps" name="appMyApps" href="#/Overview">My Applications</a></li> 
+        <li ng-class="vm.getCurrentClass('Help')"><a id="appHelp" name="appHelp" href="http://factwebsite.org/portal/" target="_blank">Help</a></li>
+        <li ng-class="vm.getCurrentClass('Compliance')" ng-if="vm.showAppMenu && vm.isComplianceApp"><span ng-if="vm.hasRfi" class="red-text">(RFI) </span><a id="appComp" name="appComp" href="#/Compliance?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Site Checklist</a></li>
+        <li ng-class="vm.getCurrentClass('Application?')" ng-if="vm.showAppMenu && vm.isApplication"><span ng-if="vm.hasRfi" class="red-text">(RFI) </span><a id="appApp" name="appApp" href="#/Application?app={{vm.appId}}&ver={{vm.versionTitle}}">Site Checklist</a></li>
+        <li ng-class="vm.getCurrentClass('StatusView')" ng-if="vm.showAppMenu"><a id="appQuick" name="appQuick" href="#/Application/StatusView?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Quick View</a></li>
+        <!--<li ng-class="vm.getCurrentClass('Multiview')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a href="#/Compliance/Multiview?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Multi View</a></li>-->
+        <li ng-class="vm.getCurrentClass('History')" ng-if="vm.showAppMenu"><a id="appDoc" name="appDoc" href="#/Admin/documentLibrary?org={{vm.orgName}}&app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Document Library</a></li>
+        <li ng-class="vm.getCurrentClass('Personnel')" ng-if="vm.showAppMenu"><a id="appPersonnel" name="appPersonnel" href="#/Application/Personnel?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Personnel</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationHistory')" ng-if="vm.showAppMenu"><a id="appHistory" name="appHistory" href="#/Application/History?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">History</a></li>
+        <li ng-class="vm.getCurrentClass('Approval')" ng-if="vm.showAppMenu && vm.submittedCompId != null"><a id="appApproval" name="appApproval" href="#/Compliance/ManageCompliance?app={{vm.appId}}&sub={{vm.submittedCompId}}">Approval</a></li>
+        <li class="text"></li>
+        <li ng-class="vm.getCurrentClass('rfiView')" ng-if="vm.showAppMenu && vm.hadRFI">View: <a id="appRfi" name="appRfi" href="#/Admin/rfiView?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}" class="view">RFI Report</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu && vm.isComplianceApp && vm.application.outcomeStatusName != null && vm.application.outcomeStatusName != ''">View: <a id="appAccRep" name="appAccRep" href ng-click="vm.onReport(vm.config.reportNames.accreditationReport)" class="view">Accreditation report</a></li>
+        <li ng-class="vm.getCurrentClass('Application/Report')" ng-if="vm.showAppMenu">Export/Print: <a id="appAppRep" name="appAppRep" href="#/Application/Report?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}" class="view">Application</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationAddOn')" ng-if="vm.showAppMenu && vm.isComplianceApp">Request: <a id="appAddOn" name="appAddOn" href="mailto: {{vm.coordinator.emailAddress}}?cc=portal@unmc.edu&subject=FACT Add-On Request - {{vm.orgName}}" class="view">Application add-on</a></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Eval')" ng-if="vm.showAppMenu && vm.isComplianceApp">Complete: <a id="appInspEval" name="appInspEval" href="https://www.surveymonkey.com/r/FACTApplicantEvaluation" class="view" target="_blank">Inspection Evaluation</a></li>
+        <li class="text" ng-if="vm.showAppMenu"></li>
+        <li ng-if="vm.showAppMenu"><a id="appLegend" name="appLegend" href ng-click="vm.onShowLegend()" class="view">Show Legend</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationVersion')" ng-if="vm.showAppMenu ">Version: {{vm.versionTitle}}</li>
+    </ul>
+    
+    <!--REGION: coord-->
+    <ul class="inspector" ng-if="vm.role === vm.config.roles.factConsultantCoordinator">
+
+        <li ng-class="vm.getCurrentClass('Inspector/Inspections?a=Y')"><a id="conAllApp" name="conAllApp" href="#/Coordinator/Applications?a=Y">All Applications</a></li>
+        <li ng-class="vm.getCurrentClass('OrganizationConsultant')"><a id="conOrgCon" name="conOrgCon" href="#/OrganizationConsultant">Organization Consultants</a></li>
+        <li ng-class="vm.getCurrentClass('Reporting')" id="reporting-menu">
+            <a tabindex="-1" ng-click="vm.setOpen('Reporting')" data-target="#item2" data-toggle="collapse" data-parent="#reporting-menu">Reports</a>
+            <ul class="nav nav-stacked collapse left-submenu" id="item2">
+                <li><a id="conActRep" name="conActRep" href ng-click="vm.onReport(vm.config.reportNames.activity)" ng-class="vm.getCurrentClass('Activity')" class="view">Activity Report</a></li>
+            </ul>
+        </li>
+        <li class="text"></li>
+        <li ng-if="vm.showInspectionMenu"><span>Inspection Menu</span></li>
+        <li ng-class="vm.getCurrentClass('Reviewer/View')" ng-if="vm.showAppMenu"><a id="conReviewer" name="conReviewer" href="#/Reviewer/View?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Reviewer View</a></li>
+        <li ng-class="vm.getCurrentClass('Compliance')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a id="conComp" name="conComp" href="#/Compliance?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Site Checklist</a></li>
+        <li ng-class="vm.getCurrentClass('Application?')" ng-if="vm.showAppMenu && vm.isApplication"><a id="conApp" name="conApp" href="#/Application?app={{vm.appId}}&ver={{vm.versionTitle}}">Site Checklist</a></li>
+        <li ng-class="vm.getCurrentClass('StatusView')" ng-if="vm.showAppMenu"><a id="conQuick" name="conQuick" href="#/Application/StatusView?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Quick View</a></li>
+        <li ng-class="vm.getCurrentClass('documentLibrary')" ng-if="vm.showAppMenu"><a id="conDoc" name="conDoc" href="#/Admin/documentLibrary?org={{vm.orgName}}&app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Document Library</a></li>
+        <li ng-class="vm.getCurrentClass('Personnel')" ng-if="vm.showAppMenu"><a id="conPersonnel" name="conPersonnel" href="#/Application/Personnel?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Personnel</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationHistory')" ng-if="vm.showAppMenu"><a id="conHistory" name="conHistory" href="#/Application/History?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">History</a></li>
+        <li class="text"></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu">View: <a id="conAccRep" name="conAccRep" href ng-click="vm.onReport(vm.config.reportNames.accreditationReport)" class="view">Accreditation report</a></li>
+        <li class="text" ng-if="vm.showAppMenu"></li>
+        <li ng-if="vm.showAppMenu"><a id="conLegend" name="conLegend" href ng-click="vm.onShowLegend()" class="view">Show Legend</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationVersion')" ng-if="vm.showAppMenu">Version: {{vm.versionTitle}}</li>
+    </ul>
+
+    <!-- REGION: FactAdministrator, FactCoordinator, QualityManager, FactConsultant -->
+    <ul class="inspector" ng-if="vm.role === vm.config.roles.factAdministrator || vm.role === vm.config.roles.factCoordinator || vm.role === vm.config.roles.factQualityManager || vm.role.indexOf('Fact Consultant') != -1">
+
+        <li ng-class="vm.getCurrentClass('Inspector/Inspections')"><a id="admMyApps" name="admMyApps" href="#/Coordinator/Applications">My Applications</a></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Inspections?a=Y')"><a id="admAllApps" name="admAllApps" href="#/Coordinator/Applications?a=Y">All Applications</a></li>
+        <!--<li ng-class="vm.getCurrentClass('Inspector/Inspections')"><a href="#/Inspector/Inspections">Inspector View</a></li>-->
+        <li ng-class="vm.getCurrentClass('ManageCompliance')"><a id="admManageComp" name="admManageComp" href="#/Compliance/ManageCompliance">Manage Compliance</a></li>
+        <li ng-class="vm.getCurrentClass('AppManagement')"><a id="admAppMgmt" name="admAppMgmt" href="#/AppManagement">Application Management</a></li>
+        <li ng-class="vm.getCurrentClass('InspectionScheduler')"><a id="admScheduler" name="admScheduler" href="#/InspectionScheduler">Inspection Scheduler</a></li>
+        <li ng-class="vm.getCurrentClass('OrganizationConsultant')" ng-if="vm.role !== vm.config.roles.factQualityManager && vm.role !== vm.config.roles.factCoordinator"><a id="admOrgCon" name="admOrgCon" href="#/OrganizationConsultant">Organization Consultants</a></li>
+        <li ng-class="vm.getCurrentClass('Reporting')" id="reporting-menu">
+            <a tabindex="-1" ng-click="vm.setOpen('Reporting')" data-target="#item2" data-toggle="collapse" data-parent="#reporting-menu">Reports</a>
+            <ul class="nav nav-stacked collapse left-submenu" id="item2">
+                <li><a id="admActRep" name="admActRep" href ng-click="vm.onReport(vm.config.reportNames.activity)" ng-class="vm.getCurrentClass('Activity')" class="view">Activity Report</a></li>
+            </ul>
+        </li>
+        <li ng-class="vm.getCurrentClass('Admin')" id="admin-menu">
+            <a tabindex="-1" ng-click="vm.setOpen('Admin')" data-target="#item1" data-toggle="collapse" data-parent="#admin-menu">Admin Utilities</a>
+            <ul class="nav nav-stacked collapse left-submenu" id="item1">
+                <li ng-if="vm.role === vm.config.roles.factAdministrator || vm.role === vm.config.roles.factCoordinator || vm.role === vm.config.roles.factQualityManager"><a id="admImpersonate" name="admImpersonate" href="#/Admin/Impersonate" ng-class="vm.getCurrentClass('Impersonate')">Impersonate</a></li>
+                <li><a id="admusers" name="admUsers" href="#/Admin/manageUsers" ng-class="vm.getCurrentClass('manageUsers')">Manage Users</a></li>
+                <li ng-if="vm.role !== vm.config.roles.factCoordinator"><a id="admAuditObs" name="admAuditObs" href="#/Admin/AuditorObserverManagement" ng-class="vm.getCurrentClass('AuditorObserverManagement')">Manage Auditor/Observer</a></li>
+                <li><a id="admOrgs" name="admOrgs" href="#/Admin/manageOrganization" ng-class="vm.getCurrentClass('manageOrganization')">Manage Organizations</a></li>
+                <li><a id="admFacs" name="admFacs" href="#/Admin/facilityDemography" ng-class="vm.getCurrentClass('facilityDemography')">Manage Facilities</a></li>
+                <li><a id="admSites" name="admSites" href="#/Admin/manageSites" ng-class="vm.getCurrentClass('manageSites')">Manage Sites</a></li>
+                <li><a id="admOrgFac" name="admOrgFac" href="#/Admin/organizationFacility" ng-class="vm.getCurrentClass('organizationFacility')">Org Facility Relationships</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator || vm.role === vm.config.roles.factQualityManager"><a id="admTemplates" name="admTemplates" href="#/Admin/Templates" ng-class="vm.getCurrentClass('templates')">Manage Templates</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator || vm.role === vm.config.roles.factQualityManager"><a id="admScopes" name="admScopes" href="#/Admin/scopeType" ng-class="vm.getCurrentClass('scopeType')">Manage Scope</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator"><a id="admAppStatuses" name="admAppStatuses" href="#/Admin/applicationStatus" ng-class="vm.getCurrentClass('applicationStatus')">Application Statuses</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator"><a id="admAppRespStatuses" name="admAppRespStatuses" href="#/Admin/applicationResponseStatus" ng-class="vm.getCurrentClass('applicationResponseStatus')">Application Response Statuses</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator || vm.role === vm.config.roles.factQualityManager"><a id="admReqImport" name="admReqImport" href="#/Admin/Requirement/Import" ng-class="vm.getCurrentClass('Requirement/Import')">Requirement Import</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator || vm.role === vm.config.roles.factQualityManager"><a id="admStandards" name="admStandards" href="#/Admin/RequirementManagement" ng-class="vm.getCurrentClass('RequirementManagement')">Standards Management</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator || vm.role === vm.config.roles.factQualityManager"><a id="admModule" name="admModule" href="#/Admin/ModuleManagement" ng-class="vm.getCurrentClass('ModuleManagement')">Module Management</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator"><a id="admSettings" name="admSettings" href="#/Admin/Settings" ng-class="vm.getCurrentClass('Settings')">Settings</a></li>
+                <li ng-if="vm.role === vm.config.roles.factAdministrator"><a id="admAuditLog" name="admAuditLog" href="#/Admin/auditLog" ng-class="vm.getCurrentClass('auditLog')">Audit Log</a></li>
+                <li><a id="admOrgToFac" name="admOrgToFac" href="#/Admin/OrgFacilityView" ng-class="vm.getCurrentClass('OrgFacilityView')">Org To Facility View</a></li>
+                <li ng-class="vm.getCurrentClass('AccreditationOutcome')"><a id="admAccOutcomes" name="admAccOutcomes" href="#/AccreditationOutcome">Accreditation Outcomes</a></li>
+            </ul>
+        </li>
+        <li class="text"></li>
+        <li ng-if="vm.showInspectionMenu"><span>Inspection Menu</span></li>
+        <li ng-class="vm.getCurrentClass('Reviewer/View')" ng-if="vm.showAppMenu"><a id="admReviewer" name="admReviewer" href="#/Reviewer/View?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Reviewer View</a></li>
+        <li ng-class="vm.getCurrentClass('Application/OutcomeData')" ng-if="vm.showAppMenu && vm.showOutcome"><a id="admOutcomes" name="admOutcomes" href="#/Application/OutcomeData?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Outcomes/Data</a></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Overview')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a id="admInspOver" name="admInspOver" href="#/Inspector/Overview?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Inspection Overview</a></li>
+        <li ng-class="vm.getCurrentClass('Inspector/Eval')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a id="admInspEval" name="admInspEval" href="https://www.surveymonkey.com/r/FACTInspectorEvaluation" target="_blank">Inspection Evaluation</a></li>
+        <li ng-class="vm.getCurrentClass('Compliance')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a id="admComp" name="admComp" href="#/Compliance?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Site Checklist</a></li>
+        <li ng-class="vm.getCurrentClass('Application?')" ng-if="vm.showAppMenu && vm.isApplication"><a id="admApp" name="admApp" href="#/Application?app={{vm.appId}}&ver={{vm.versionTitle}}">Site Checklist</a></li>
+        <li ng-class="vm.getCurrentClass('StatusView')" ng-if="vm.showAppMenu"><a id="admQuick" name="admQuick" href="#/Application/StatusView?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Quick View</a></li>
+        <!--<li ng-class="vm.getCurrentClass('Multiview')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a href="#/Compliance/Multiview?app={{vm.appId}}&c={{vm.compAppId}}">Multi View</a></li>--> 
+        <li ng-class="vm.getCurrentClass('documentLibrary')" ng-if="vm.showAppMenu"><a id="admDoc" name="admDoc" href="#/Admin/documentLibrary?org={{vm.orgName}}&app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Document Library</a></li>
+        <li ng-class="vm.getCurrentClass('Personnel')" ng-if="vm.showAppMenu"><a id="admPersonnel" name="admPersonnel" href="#/Application/Personnel?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Personnel</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationHistory')" ng-if="vm.showAppMenu"><a id="admHistory" name="admHistory" href="#/Application/History?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">History</a></li>
+        <li ng-class="vm.getCurrentClass('CoordinatorView')" ng-if="vm.showAppMenu && vm.isComplianceApp && vm.showCoordinatorView"><a id="admCoordView" name="admCoordView" href="#/Coordinator/View?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Coordinator View</a></li>
+        <li ng-class="vm.getCurrentClass('Signatures')" ng-if="vm.showAppMenu"><a id="admManageApp" name="admManageApp" href="#" ng-click="$event.preventDefault(); vm.onEdit()">Manage Application</a></li>
+        <li ng-class="vm.getCurrentClass('Signatures')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a id="admInspReq" name="admInspReq" href="#" ng-click="$event.preventDefault(); vm.onInspectionReport()">Manage Inspection Request</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationOutcome')" ng-if="vm.showAppMenu && vm.isComplianceApp"><a id="admAccOutcome" name="admAccOutcome" href="#/AccreditationOutcome?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}">Accreditation Outcome</a></li>
+
+        <li class="text"></li>
+        <li ng-class="vm.getCurrentClass('rfiView')" ng-if="vm.showAppMenu">View: <a id="admRfi" name="admRfi" href="#/Admin/rfiView?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}" class="view">RFI Report</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu && vm.isComplianceApp">View: <a id="admInspReq" name="admInspReq" href ng-click="vm.onReport(vm.isCb ? vm.config.reportNames.cbInspectionRequest : vm.config.reportNames.ctInspectionRequest)" class="view">Inspection request</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu && vm.isComplianceApp">View: <a id="admInspRep" name="admInspRep" href ng-click="vm.onReport(vm.config.reportNames.inspectionSummary)" class="view">Inspection report</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu && vm.isComplianceApp">View: <a id="admTraineeRep" name="admTraineeRep" href ng-click="vm.onReport(vm.config.reportNames.traineeInspectionSummary)" class="view">Trainee report</a></li>
+        <li ng-class="vm.getCurrentClass('Application/Report')" ng-if="vm.showAppMenu">Export/Print: <a id="admAppRep" name="admAppRep" href="#/Application/Report?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.versionTitle}}" class="view">Application</a></li>
+        <li ng-class="vm.getCurrentClass('AccreditationReport')" ng-if="vm.showAppMenu && vm.isComplianceApp">View: <a id="admAccRep" name="admAccRep" href ng-click="vm.onReport(vm.config.reportNames.accreditationReport)" class="view">Accreditation report</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationAddOn')" ng-if="vm.showAppMenu">Request: <a id="admAddOn" name="admAddOn" href="mailto: {{vm.coordinator.emailAddress}}?cc=portal@factwebsite.org&subject=FACT Add-On Request - {{vm.orgName}}" class="view">Application add-on</a></li>
+        <li class="text" ng-if="vm.showAppMenu"></li>
+        <li ng-if="vm.showAppMenu"><a id="admLegend" name="admLegend" href ng-click="vm.onShowLegend()" class="view">Show Legend</a></li>
+        <li ng-class="vm.getCurrentClass('ApplicationVersion')" ng-if="vm.showAppMenu">Version: {{vm.versionTitle}}</li>
+    </ul>
+</div>

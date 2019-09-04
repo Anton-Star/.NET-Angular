@@ -1,0 +1,73 @@
+﻿<link href="content/organizationfacility.css" rel="stylesheet">
+
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Org Facility Relationships</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="organizationFacility">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Organization</label>
+                        <label class="select">
+                            <select id="organization" name="organization" ng-model="vm.selectedOrganization" required>
+                                <option ng-repeat="org in vm.organizations" value="{{org.organizationId}}">{{org.organizationName}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                        
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Facility</label>
+                        <label class="select">
+                            <select id="facility" name="facility" ng-model="vm.selectedFacility" required>
+                                <option ng-repeat="fac in vm.facilities" value="{{fac.facilityId}}">{{fac.facilityName}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Relation</label>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default radios" ng-repeat="relationType in vm.relationTypes"  ng-click="vm.onRelationSelected(relationType)">
+                                <input type="radio" id="relation{{relationType.id}}" value="{{relationType.name}}" name="relationType"/>{{relationType.title}}
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" id="clear" name="clear" ng-click="vm.clearForm()" ng-hide="vm.saveMode">
+                        <span>Clear</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" id="save" name="save" ng-click="vm.saveRelation()" ng-disabled="organizationFacility.$invalid || !vm.selectedRelationType || vm.selectedRelationType == ''" ng-hide="vm.saveMode">
+                        <span>Add</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="reset" id="cancel" name="cancel" ng-click="vm.cancel()" ng-show="vm.saveMode">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" id="saveRelation" name="saveRelation" ng-click="vm.saveRelation()" ng-disabled="organizationFacility.$invalid || !vm.selectedRelationType || vm.selectedRelationType == ''" ng-show="vm.saveMode">
+                        <span>Save</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+                             { "field": "organizationFacilityId" , "title": "Id", "hidden": "true"},
+                             { "field": "organizationName" , "title": "Organization" , "width":"280px"},
+                             { "field": "facilityName" , "title": "Facility" , "width":"340px"},
+                             { "field": "relation" , "title": "Relation" , "width":"100px"},
+                             { "template": "<button class=\"k-button\" id=\"edit\" name=\"edit\" ng-click=\"vm.editRelation(dataItem)\">Edit </button><button id=\"delete\" name=\"delete\" class=\"k-button\" ng-click=\"vm.deleteRelation(#=organizationFacilityId#)\">Delete </button>"}
+                     ]'>
+            </div>
+        </div>
+</div>

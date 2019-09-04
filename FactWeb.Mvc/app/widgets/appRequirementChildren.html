@@ -1,0 +1,32 @@
+﻿<uib-accordion-group ng-if="row.isVisible" is-open="status.open" id="{{row.id}}">
+    <uib-accordion-heading>
+        <div>
+            <div class="col-lg-7">
+                <div class="row no-margin-row">
+                    <div class="col-md-3" style="width: 120px;">
+                        <div class="pull-left">
+                            <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        </div>
+                        <div class="pull-left circle RFI" ng-if="row.hasRfi == true"></div>
+                        <div class="pull-left circle {{row.sectionStatusName.replace(' ', '').replace('/', '')}}" title="{{row.sectionStatusName}}" ng-if="(row.hasRfi == false || row.hasRfi == null) && row.sectionStatusName != ''"></div>
+                        <div class="head-text">{{row.applicationSectionUniqueIdentifier}}.</div>
+                    </div>
+                    <div class="col-md-9">
+                        <span class="head-text" ng-bind-html="row.applicationSectionName"></span>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-lg-2" ng-hide="{{common.isUser() || accessType === 'User'|| common.isConsultantCoordinator()}}">
+                <div class="head-text">
+                    <a ng-click="onBulkUpdate(row,$event)">Update Status (Bulk)</a>
+                </div>
+            </div>
+            <!--<div class="col-lg-2 complete pull-right" ng-hide="{{isReview}}" style="text-transform: lowercase !important; width: 14%;">
+                &nbsp;{{complete}} out of {{total}} complete {{isMultisitem}}
+            </div>-->
+        </div>
+    </uib-accordion-heading>
+
+    <app-requirement-list app-status="{{appStatus}}" ng-if="status.open" level="{{nextLevel}}" multi-sites="multiSites" access-token="accessToken" site="site" ng-model="row.children" organization="{{organization}}" access-type="{{accessType}}" parent="row" current-version="currentVersion" app-type="{{appType}}" questions="questions" is-requirement-set="false" is-review="{{isReview}}" is-multisite="{{isMultisite}}" id="{{row.id}}" applicationtype="{{applicationtype}}" scope-types="scopeTypes" question-types="questionTypes" duedate="{{dueDate}}" submitteddate="{{appSubmittedDate}}" app-unique-id="{{appUniqueId}}"></app-requirement-list>
+</uib-accordion-group>

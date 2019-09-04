@@ -1,0 +1,28 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Confirm</h3>
+</div>
+<div class="modal-body">
+    <form class="sky-form">
+        <fieldset>
+            <section>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="label">
+                            {{vm.message}}
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-primary" type="button" ng-click="vm.onYes()">Yes</button>
+                        <button class="btn btn-warning" type="button" ng-click="vm.onNo()">No</button>
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+

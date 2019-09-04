@@ -1,0 +1,194 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Inspection Schedule Detail - {{vm.organization.organizationName}}</h3>
+</div>
+<div class="modal-body">
+    <form name="inspectionScheduleDetail" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="row">
+                    <div class="col-xs-2" style="margin-top: 12px;">
+                        <label class="label">Org Description</label>
+                    </div>
+                    <div class="col-xs-10" ng-bind-html="vm.orgDescription">
+                        {{vm.orgDescription}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2" style="margin-top: 12px;">
+                        <label class="label">Org Spatial Relationship</label>
+                    </div>
+                    <div class="col-xs-10" ng-bind-html="vm.orgSpatialRelationship">
+                        {{vm.orgSpatialRelationship}}
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-2" style="margin-top: 12px;">
+                        <label class="label">Start Date</label>
+                    </div>
+                    <div class="col-xs-3">
+                        <label class="select">
+                            <input name="startDate" required class="date-fix" kendo-date-picker k-ng-model="vm.startDate" k-format="MM/dd/yyyy"/>
+                        </label>
+                    </div>
+                    <div class="col-xs-2" style="margin-top: 12px; padding-left: 30px;">
+                        <label class="label">End Date</label>
+                    </div>
+                    <div class="col-xs-5">
+                        <label class="select">
+                            <input name="endDate" required class="date-fix" kendo-date-picker k-ng-model="vm.endDate" k-format="MM/dd/yyyy"/>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+
+                <div class="k-widget k-grid" id="Grid">
+                    <div class="k-grid-header">
+                        <div class="k-grid-header-wrap">
+                            <table cellspacing="0" role="grid">
+                                <colgroup>
+                                    <col style="width: 250px">
+                                    <col style="width: 150px">
+                                    <col style="width: 100px">
+                                </colgroup>
+                                <thead role="rowgroup">
+                                <tr role="row">
+                                    <th class="k-header ng-scope k-with-icon">Site</th>
+                                    <th class="k-header ng-scope k-with-icon">Inspection Date</th>
+                                    <th class="k-header ng-scope k-with-icon">Override</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="k-grid-content">
+                        <table class="k-selectable" role="grid" data-role="selectable">
+                            <colgroup>
+                                <col style="width: 250px">
+                                <col style="width: 150px">
+                                <col style="width: 100px">
+                            </colgroup>
+                            <tbody role="rowgroup">
+                            <tr ng-repeat="site in vm.gridSites" ng-class-even="'k-alt'">
+                                <td>{{ site.siteName }}</td>
+                                <td><input name="inspectionDate" class="date-fix" kendo-date-picker k-ng-model="site.inspectionDate" k-format="MM/dd/yyyy"/></td>
+                                <td><input type="checkbox" ng-model="site.isOverridden"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+            <section>
+                <div class="form-group">
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="button" ng-show="vm.divNewStaffShow" ng-click="vm.addNewStaff()">
+                        <span>Add Assignments</span>
+                    </button>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+    <form name="inspectionScheduleAddStaff" class="sky-form">
+        <div id="divNewStaff" ng-hide="vm.divNewStaffShow">
+            <section>
+                <div class="form-group">
+                    <h2>Add/Update Assignment</h2>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Site</label>
+                    <label class="select">
+                        <select name="site" id="site" ng-model="vm.selectedSiteId" ng-change="vm.selectedSiteChange()" required><option ng-repeat="site in vm.gridSites" value="{{site.siteId}}">{{site.siteName}}</option></select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Staff</label>
+                    <label class="select">
+                        <select name="user" id="user" ng-model="vm.selectedUser" ng-disabled="vm.selectedUserEnable" required><option ng-repeat="user in vm.users" value="{{user.userId}}">{{user.fullName}}</option></select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Role</label>
+                    <label class="select">
+                        <select name="role" id="role" ng-model="vm.selectedRole" required><option ng-repeat="role in vm.roles" value="{{role.accreditationRoleId}}">{{role.accreditationRoleName}}</option></select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Inspection Category</label>
+                    <label class="select">
+                        <select name="organization" id="organization" ng-model="vm.selectedCategory" required><option ng-repeat="cat in vm.inspectionCategories" value="{{cat.inspectionCategoryId}}">{{cat.inspectionCategoryName}}</option></select>
+                    </label>
+                </div>
+            </section>            
+            <section>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <input type="checkbox" ng-model="vm.isLead" />&nbsp;&nbsp;<span class="bold">Lead</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <div class="form-group">
+                            <input type="checkbox" ng-model="vm.isMentor" />&nbsp;&nbsp;<span class="bold">Mentor</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="button" data-ng-click="vm.saveChanges()" ng-disabled="inspectionScheduleAddStaff.$invalid">Save Changes</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-10">
+                        <div class="form-group">
+                            <button class="btn btn-warning" type="button" data-ng-click="vm.cancelStaff()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="form-group" data-ng-show="vm.results.length > 0">
+            <div id="reportGrid" class="searchResults"
+                 kendo-grid="grid"
+                 k-options="vm.gridOptions"
+                 k-columns='[
+                     { field: "inspectionScheduleDetailId" , title: "inspectionScheduleDetailId", hidden:"true" },                     
+                     { field: "userId" , title: "Staff" , hidden:"true" },
+                     { field: "fullName" , title: "Staff" , width: "110px" },
+                     { field: "roleId" , title: "RoleId", hidden:"true"},
+                     { field: "roleName" , title: "Role", width: "120px"},
+                     { field: "inspectionCategoryId" , title: "Inspection Category Id", hidden:"true"},
+                     { field: "inspectionCategoryName" , title: "Inspection Category", width: "160px"},
+                     { field: "siteId" , title: "siteId", hidden:"true"},
+                     { field: "siteName" , title: "Site", width: "180px"},
+                     { field: "isLead" , title: "Lead", width: "80px", hidden:"true"},
+                     { field: "isLead", title: "Lead",width: "70px", template: "<input type=\"checkbox\" disabled=\"disabled\"  #= isLead ? checked=\"checked\" : \"\" #></input>"},                           
+                     { field: "isMentor" , title: "Mentor", width: "80px", hidden:"true"},                  
+                     { field: "isMentor", title: "Mentor",width: "70px", template: "<input type=\"checkbox\" disabled=\"disabled\"  #= isMentor ? checked=\"checked\" : \"\" #></input>"},                           
+                     { template: "<button class=\"k-button\" ng-click=\"vm.editStaff(#=inspectionScheduleDetailId#,#=userId#,#=roleId#,#=inspectionCategoryId#,#=isLead#,#=isMentor#,#=siteId#)\">Edit</button><button class=\"k-button\" ng-click=\"vm.deleteStaff(#=inspectionScheduleDetailId#)\">Delete</button>"}]'>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div id="siteGrid" class="searchResults" kendo-grid="siteGrid" k-options="vm.siteGridOptions"></div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.saveSchedule()" ng-disabled="inspectionScheduleDetail.$invalid">Save Schedule</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancelSchedule()">Cancel</button>
+</div>

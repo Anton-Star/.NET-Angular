@@ -1,0 +1,158 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Data Management</h3>
+</div>
+<div class="modal-body cibmtr">
+    <form class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <h4>CIBMTR #: {{vm.values.cibmtr.displayName}}</h4>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <h4>CIBMTR Data Audit Results</h4>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Data Audit Date</label>
+                    <input kendo-date-picker k-options="vm.dateOptions"
+                           k-parse-formats="['MM/dd/yyyy', 'MM/dd/yy']"
+                           ng-model="vm.auditDate"
+                           ng-blur="vm.blurDate()"
+                           k-ng-model="vm.dateObject"/>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Critical Field Error Rates (CER)</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.selectedCibmtr.criticalFieldErrorRate" min="0" max="100" focus="vm.showCer" ng-show="vm.showCer" ng-blur="vm.onBlur('cer')"/>
+                        <input type="text" ng-model="vm.cer" ng-show="!vm.showCer" ng-focus="vm.showCer = true"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Random Field Error Rates</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.selectedCibmtr.randomFieldErrorRate" min="0" max="100" focus="vm.showRandom" ng-show="vm.showRandom" ng-blur="vm.onBlur('random')"/>
+                        <input type="text" ng-model="vm.random" ng-show="!vm.showRandom" ng-focus="vm.showRandom = true"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Overall Field Error Rate</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.selectedCibmtr.overallFieldErrorRate" min="0" max="100" focus="vm.showOverall" ng-show="vm.showOverall" ng-blur="vm.onBlur('overall')"/>
+                        <input type="text" ng-model="vm.overall" ng-show="!vm.showOverall" ng-focus="vm.showOverall = true"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Systemic CAP Identified</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.selectedCibmtr.isCapIdentified = true" ng-class="{active: vm.selectedCibmtr.isCapIdentified == true}">
+                            <input type="radio" ng-model="vm.selectedCibmtr.isCapIdentified" ng-value="true"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.selectedCibmtr.isCapIdentified = false" ng-class="{active: vm.selectedCibmtr.isCapIdentified == false}">
+                            <input type="radio" ng-model="vm.selectedCibmtr.isCapIdentified" ng-value="false"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">CIBMTR Auditor Comments</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.auditorComments"></textarea>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <h4>CIMBTR Continous Process Improvement (CPI) Status</h4>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">CPI Letter Date</label>
+                    <input kendo-date-picker k-options="vm.dateOptions"
+                           k-parse-formats="['MM/dd/yyyy', 'MM/dd/yy']"
+                           ng-model="vm.cpiLetterDate"
+                           k-ng-model="vm.dateObject2" />
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">CPI</label>
+                    <label class="select">
+                        <select ng-model="vm.selectedCibmtr.cpiTypeId">
+                            <option value=""></option>
+                            <option ng-repeat="d in vm.cpiTypes" value="{{d.id}}">{{d.name}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Comments</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.cpiComments"></textarea>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label">Corrective Actions</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.correctiveActions"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">FACT-CIBMTR Data Audit Committee determination of adequacy of CAP and implementation progress</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.factProgressDetermination"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Internal Audit on data accuracy required</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.selectedCibmtr.isAuditAccuracyRequired = true" ng-class="{active: vm.selectedCibmtr.isAuditAccuracyRequired == true}">
+                            <input type="radio" ng-model="vm.selectedCibmtr.isAuditAccuracyRequired" ng-value="true" />Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.selectedCibmtr.isAuditAccuracyRequired = false" ng-class="{active: vm.selectedCibmtr.isAuditAccuracyRequired == false}">
+                            <input type="radio" ng-model="vm.selectedCibmtr.isAuditAccuracyRequired" ng-value="false" />No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Additional information, recommendations, and comments by FACT-CIBMTR Data Audit Committee</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.additionalInformation"></textarea>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSaveCibmtr()" ng-disabled="vm.isBusy">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

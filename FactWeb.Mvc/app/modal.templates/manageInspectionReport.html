@@ -1,0 +1,138 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Manage Inspection Report</h3>
+</div>
+<div class="modal-body">
+    <form class="sky-form">
+        <fieldset>
+            <section ng-if="vm.detail.id">
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" ng-click="vm.onAdd()">Add New</button>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Inspection</label>
+                    <label class="select">
+                        <select ng-model="vm.detail.inspectionScheduleIdString">
+                            <option ng-repeat="u in vm.schedules" value="{{u.inspectionScheduleId}}">{{u.startDate}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Number of Inspectors Needed</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.detail.inspectorsNeeded" required/>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="!vm.isCb">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Number of Clinical Inspectors</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.detail.clinicalNeeded"/>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="!vm.isCb">
+                <div class="form-group">
+                    <label class="label bold">Clinical Inspector IEC Experience</label>
+                </div>
+            </section>
+            <section ng-if="!vm.isCb">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Adult: Simple</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.detail.adultSimpleExperienceNeeded = true" ng-class="{active: vm.detail.adultSimpleExperienceNeeded == true}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.adultSimpleExperienceNeeded" ng-value="true"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.detail.adultSimpleExperienceNeeded = false" ng-class="{active: vm.detail.adultSimpleExperienceNeeded == false}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.adultSimpleExperienceNeeded" ng-value="false"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="!vm.isCb">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Adult: Medium</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.detail.adultMediumExperienceNeeded = true" ng-class="{active: vm.detail.adultMediumExperienceNeeded == true}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.adultMediumExperienceNeeded" ng-value="true"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.detail.adultMediumExperienceNeeded = false" ng-class="{active: vm.detail.adultMediumExperienceNeeded == false}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.adultMediumExperienceNeeded" ng-value="false"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="!vm.isCb">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Adult: Any</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.detail.adultAnyExperienceNeeded = true" ng-class="{active: vm.detail.adultAnyExperienceNeeded == true}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.adultAnyExperienceNeeded" ng-value="true"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.detail.adultAnyExperienceNeeded = false" ng-class="{active: vm.detail.adultAnyExperienceNeeded == false}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.adultAnyExperienceNeeded" ng-value="false"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="!vm.isCb">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Pediatric: Simple</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.detail.pediatricSimpleExperienceNeeded = true" ng-class="{active: vm.detail.pediatricSimpleExperienceNeeded == true}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.pediatricSimpleExperienceNeeded" ng-value="true"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.detail.pediatricSimpleExperienceNeeded = false" ng-class="{active: vm.detail.pediatricSimpleExperienceNeeded == false}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.pediatricSimpleExperienceNeeded" ng-value="false"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="!vm.isCb">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Pediatric: Medium</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.detail.pediatricMediumExperienceNeeded = true" ng-class="{active: vm.detail.pediatricMediumExperienceNeeded == true}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.pediatricMediumExperienceNeeded" ng-value="true"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.detail.pediatricMediumExperienceNeeded = false" ng-class="{active: vm.detail.pediatricMediumExperienceNeeded == false}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.pediatricMediumExperienceNeeded" ng-value="false"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="!vm.isCb">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Pediatric: Any</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.detail.pediatricAnyExperienceNeeded = true" ng-class="{active: vm.detail.pediatricAnyExperienceNeeded == true}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.pediatricAnyExperienceNeeded" ng-value="true"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.detail.pediatricAnyExperienceNeeded = false" ng-class="{active: vm.detail.pediatricAnyExperienceNeeded == false}">
+                            <input type="radio" name="isActive" ng-model="vm.detail.pediatricAnyExperienceNeeded" ng-value="false"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Comments</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.detail.comments"/>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSave()" ng-disabled="vm.isBusy">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

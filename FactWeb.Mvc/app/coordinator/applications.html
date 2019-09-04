@@ -1,0 +1,87 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+<link href="content/eligibility.css" rel="stylesheet">
+
+<div class="col-md-12 coordinator-applications">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>
+                <span ng-if="vm.isAll">All Applications</span>
+                <span ng-if="!vm.isAll">My Applications</span>
+            </h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <section class="search">
+                        <div class="row searching">
+                            <div class="col-md-1">
+                                <label class="checkbo-inline">
+                                    <input type="checkbox" ng-model="vm.eligibility" ng-click="vm.onSearch()"/> Eligibility
+                                </label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="checkbo-inline">
+                                    <input type="checkbox" ng-model="vm.compliance" ng-click="vm.onSearch()"/> Compliance
+                                </label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="checkbo-inline">
+                                    <input type="checkbox" ng-model="vm.annual" ng-click="vm.onSearch()"/> Annual
+                                </label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="checkbo-inline">
+                                    <input type="checkbox" ng-model="vm.renewal" ng-click="vm.onSearch()"/> Renewal
+                                </label>
+                            </div>
+                            <div class="col-md-1">
+                                <label class="checkbo-inline">
+                                    <input type="checkbox" ng-model="vm.netcord" ng-click="vm.onSearch()" /> Netcord
+                                </label>
+                            </div>
+                            <div class="col-md-1 inac" ng-if="!vm.isAll">
+                                <label class="checkbo-inline">
+                                    <input type="checkbox" ng-model="vm.inactive" ng-click="vm.onSearch()" /> Inactive Applications
+                                </label>
+                            </div>
+                            <div ng-class="{'col-md-3': vm.isAll, 'col-md-2': !vm.isVall}">
+                                <label class="input pull-right">
+                                    <input type="text" ng-model="vm.search" ng-keyup="vm.onSearch()" placeholder="Search" name="search" />
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <section ng-show="vm.results.length > 0">
+                        <div class="searchResults"
+                             kendo-grid="vm.grid"
+                             k-options="vm.gridOptions">
+                        </div>
+                    </section>
+                    <section class="bottom">
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="organizationEdit">
+    <a href="" ng-click="$event.preventDefault(); vm.editOrganization(dataItem)">{{dataItem.organizationName}}</a>
+</script>
+<script type="text/x-kendo-template" id="appType">
+    <a href="\\#/Reviewer/View?app={{dataItem.applicationUniqueId}}&c={{dataItem.complianceApplicationId}}&ver={{dataItem.applicationVersionTitle}}">{{dataItem.applicationTypeName}}</a>
+</script>
+<script type="test/x-kendo-template" id="reports">
+    <a href="\\#/Reporting?app={{dataItem.applicationUniqueId}}&c={{dataItem.complianceApplicationId}}&ver={{dataItem.applicationVersionTitle}}&r=Inspection%20Summary&org={{dataItem.organizationName}}" ng-if="dataItem.applicationTypeName.indexOf('Compliance') != -1">Inspection</a><br />
+    <a href="\\#/Reporting?app={{dataItem.applicationUniqueId}}&c={{dataItem.complianceApplicationId}}&ver={{dataItem.applicationVersionTitle}}&r=Accreditation%20Report&org={{dataItem.organizationName}}" ng-if="dataItem.applicationTypeName.indexOf('Compliance') != -1">Accreditation</a><br />        
+    <a href="\\#/Coordinator/View?app={{dataItem.applicationUniqueId}}&c={{dataItem.complianceApplicationId}}&ver={{dataItem.applicationVersionTitle}}"  ng-if="dataItem.applicationTypeName.indexOf('Compliance') != -1">Coordinator</a>
+</script>
+<script type="text/x-kendo-template" id="status">
+    <span class="pull-left circle {{dataItem.applicationStatusName.replace(' ', '')}}"></span>
+    <span>{{dataItem.applicationStatusName}}</span>
+</script>
+<script type="text/x-kendo-template" id="primarySite">
+    <div ng-if="dataItem.primarySite != null">
+        <span>{{dataItem.primarySite.siteCity}}</span><span ng-if="dataItem.primarySite.siteState != null">, {{dataItem.primarySite.siteState.name}}</span>
+    </div>
+</script>

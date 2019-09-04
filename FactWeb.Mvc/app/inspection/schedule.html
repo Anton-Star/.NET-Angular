@@ -1,0 +1,63 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-12 comp-application">
+    <div class="wp-block default">
+        <div class="row">
+            <div class="col-md-6">Compliance Application</div>
+            <div class="col-md-6">
+                <div class="pull-right">{{vm.application.applicantApplicationStatusName}}</div>
+                <div class="pull-right circle {{vm.application.applicantApplicationStatusName.replace(' ', '')}}"></div>
+            </div>
+        </div>
+        <div class="row boxes">
+            <div class="col-md-2">
+                <div class="box">
+                    <div class="title">submitted</div>
+                    <div class="details">
+                        <div class="date">{{vm.application.submittedDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="box">
+                    <div class="title">due</div>
+                    <div class="details">
+                        <div class="date">{{vm.application.dueDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="box">
+                    <div class="title">inspection</div>
+                    <div class="details">
+                        <div class="date">{{vm.application.inspectionDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="coordinator">
+                    <div class="head" ng-if="vm.application.coordinator != null">coordinator:</div>
+                    <div ng-if="vm.application.coordinator != null">
+                        {{vm.application.coordinator.lastName}}, {{vm.application.coordinator.firstName}}<br />
+                        <a href="mailto: {{vm.application.coordinator.emailAddress}}?subject=FACTWeb Portal&body={{location.protocol()}}://{{location.host()}}:{{location.port()}}/#/Application?app={{vm.application.uniqueId}}">{{vm.application.coordinator.emailAddress}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="wp-block default user-form">
+
+        <div class="form-body">
+            <form class="sky-form" name="applicationForm">
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.submit()">
+                        <span>Send to Inspection</span>
+                    </button>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>

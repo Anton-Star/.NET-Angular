@@ -1,0 +1,109 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<!--<div class="widget-content overview">-->
+    <h1 style="margin-left:14px;">Current Inspections</h1>
+
+    <div class="col-md-11 comp-application" ng-repeat="app in vm.results">        
+        <div class="wp-block default">
+            <div class="row">
+                <div class="col-md-8">
+                    <b>{{app.organizationName}}<br /></b>
+                    <a href="#/Application?app={{app.uniqueId}}&ver={{app.applicationVersionTitle}}" ng-if="app.applicationTypeName.indexOf('Compliance') == -1">{{app.applicationTypeName}}</a>
+                    <a href="#/Compliance?app={{app.uniqueId}}&c={{app.complianceApplicationId}}&ver={{app.applicationVersionTitle}}" ng-if="app.applicationTypeName.indexOf('Compliance') != -1">{{app.applicationTypeName}}</a>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-1">
+                        <div class="circle {{app.applicantApplicationStatusName.replace(' ', '')}}"></div>
+                    </div>
+                    <div class="col-md-10">{{app.applicantApplicationStatusName}}</div>
+                </div>
+            </div>
+            <div class="row boxes">
+                <div class="col-md-3">
+                    <div class="box">
+                        <div class="title">Submitted</div>
+                        <div class="details">
+                            <div class="date">{{app.submittedDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="box">
+                        <div class="title">Due</div>
+                        <div class="details">
+                            <!--<div class="date">{{app.dueDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>-->
+                            <div class="date">{{app.rfiDueDate != '' ? app.rfiDueDate : (app.dueDateString != '' ? app.dueDateString:'N/A')}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="box">
+                        <div class="title">Inspection</div>
+                        <div class="details">
+                            <div class="date">{{app.inspectionDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>View: <a href="#/Reporting?app={{app.uniqueId}}&c={{app.complianceApplicationId}}&ver={{app.applicationVersionTitle}}&r=Accreditation%20Report&org={{app.organizationName}}">Accreditation report</a><br /></div>
+                    View: <a href="#/Application/History?app={{app.uniqueId}}&c={{app.complianceApplicationId}}&ver={{app.applicationVersionTitle}}" class="view">Application history</a><br />                    
+                </div>
+            </div>
+            <div class="row coordinator">
+                <div class="col-md-2">
+                    <!--<div class="photo" ng-if="app.coordinator != null"></div>-->
+                    <div class="coordinator-photo" ng-if="app.coordinator != null" style="background-image: url('/content/images/staffPhotos/{{app.coordinator.firstName}}_{{app.coordinator.lastName}}.jpg')">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="head" ng-if="app.coordinator != null">Coordinator:</div>
+                    <div ng-if="app.coordinator != null">
+                        {{app.coordinator.lastName}}, {{app.coordinator.firstName}}<br />
+                        <a href="mailto: {{app.coordinator.emailAddress}}?subject=FACTWeb Portal&body={{location.protocol()}}://{{location.host()}}:{{location.port()}}/#/Application?app={{app.uniqueId}}">{{app.coordinator.emailAddress}}</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="open-app">
+                        <div style="height: 22px;">
+                            <a href="#/Reviewer/View?app={{app.uniqueId}}&ver={{app.applicationVersionTitle}}" ng-if="app.complianceApplicationId == null || app.complianceApplicationId == undefined">Open Inspection ></a>
+                            <a href="#/Reviewer/View?app={{app.uniqueId}}&c={{app.complianceApplicationId}}&ver={{app.applicationVersionTitle}}" ng-if="app.complianceApplicationId != null && app.complianceApplicationId != undefined">Open Inspection ></a>
+                        </div>
+                        <!--<div style="height: 22px;" ng-if="app.applicationTypeName.indexOf('Compliance') != -1">
+                            <a href="#/Compliance/Multiview?app={{app.uniqueId}}&c={{app.complianceApplicationId}}&ver={{app.applicationVersionTitle}}">Open Multi-Site View ></a>
+                        </div>-->
+                        <div style="height: 22px;" ng-if="app.isClinical">
+                            <a href="#/Application/OutcomeData?app={{app.uniqueId}}&c={{app.complianceApplicationId}}&ver={{app.applicationVersionTitle}}" ng-if="app.complianceApplicationId != null && app.complianceApplicationId != undefined">Open Outcomes/Data ></a>
+                        </div>
+                        <div>
+                            <a href="#/Inspector/Overview?app={{app.uniqueId}}&c={{app.complianceApplicationId}}&ver={{app.applicationVersionTitle}}" ng-if="app.complianceApplicationId != null && app.complianceApplicationId != undefined">Open Inspection Overview ></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--</div>-->
+<div class="col-md-12 comp-application past-apps">
+    <h1>Past Inspections</h1>
+    <div class="row" ng-repeat="org in vm.pastApps">
+        <section>
+            <div class="row">
+                <div class="col-md-5">
+                    <label class="pull-right">{{org.org}} </label>
+                </div>
+                <div class="col-md-6">
+                    <div class="row" ng-repeat="app in org.apps">
+                        <div class="col-md-12">
+                            <a href="#/Application?app={{app.uniqueId}}&ver={{app.applicationVersionTitle}}" ng-if="app.applicationTypeName.indexOf('Compliance') == -1">{{app.applicationTypeName}} &nbsp;-&nbsp;Cycle&nbsp; {{app.cycleNumber}}</a>
+                            <a href="#/Compliance?app={{app.uniqueId}}&c={{app.complianceApplicationId}}&ver={{app.applicationVersionTitle}}" ng-if="app.applicationTypeName.indexOf('Compliance') != -1">{{app.applicationTypeName}}&nbsp;-&nbsp;Cycle&nbsp; {{app.cycleNumber}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12"><hr /></div>
+            </div>
+        </section>
+    </div>
+</div>

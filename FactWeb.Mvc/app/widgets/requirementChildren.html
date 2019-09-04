@@ -1,0 +1,28 @@
+﻿<uib-accordion-group ng-if="!isHidden" is-open="isOpen">
+    <uib-accordion-heading>
+        <div class="col-lg-9">
+            <div class="head-text">{{row.uniqueIdentifier}}. <span ng-bind-html="row.name"></span> </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="pull-right icons">
+                <a class="glyphicon glyphicon-plus" title="Add New Requirement to '{{row.name}}'" ng-click="add()"></a>
+                <a class="glyphicon glyphicon-plus" title="Add New Question to '{{row.name}}'" ng-click="addQuestion()"></a>
+                <a class="glyphicon glyphicon-edit" title="Edit '{{row.name}}'" ng-click="edit()"></a>
+                <a class="glyphicon glyphicon-remove" title="Remove '{{row.name}}'" ng-click="delete()"></a>
+            </div>
+        </div>
+
+    </uib-accordion-heading>
+    <div class="row reqs" ng-repeat="q in row.questions" ng-class-odd="'odd'" ng-class-even="'even'">
+        <div class="col-lg-11">
+            {{$index+1}}. <span ng-bind-html="q.text"></span>
+        </div>
+        <div class="col-lg-1">
+            <div class="pull-right icons">
+                <a class="glyphicon glyphicon-edit" ng-click="editQuestion(q)"></a>
+                <a class="glyphicon glyphicon-remove" ng-click="deleteQuestion(q)"></a>
+            </div>
+        </div>
+    </div>
+    <requirement-list ng-model="row.children" parent="row" current-version="currentVersion" questions="questions" is-requirement-set="false" id="{{row.id}}" applicationtype="{{applicationtype}}" scope-types="scopeTypes" question-types="questionTypes" ng-if="isOpen"></requirement-list>
+</uib-accordion-group>

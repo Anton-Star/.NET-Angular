@@ -1,0 +1,74 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Accreditation Email</h3>
+</div>
+<div class="modal-body">
+    <form class="sky-form" id="frmAccredationEmail">
+        <fieldset>
+            <section>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label class="label">To</label>
+                    </div>
+                    <div class="col-sm-11">
+                        <label class="input">
+                            <input type="text" ng-model="vm.to" required/>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label class="label">Cc</label>
+                    </div>
+                    <div class="col-sm-11">
+                        <label class="input">
+                            <input type="text" ng-model="vm.cc" />
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label class="label">Subject</label>
+                    </div>
+                    <div class="col-sm-11">
+                        <label class="input">
+                            <input type="text" ng-model="vm.subject" required/>
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="input">
+                        <textarea kendo-editor k-encoded="false" k-ng-model="vm.html" required></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Attached Documents</label>
+                    <label class="label" ng-repeat="doc in vm.documents">                     
+                        <a href ng-click="vm.onDocumentDownload(doc)" target="_blank">{{doc.name}}</a>
+                    </label>
+                    <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" type="submit" ng-click="vm.showDocumentLibrary()">
+                        <span>Add Document</span>
+                    </button>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <input type="checkbox" ng-model="vm.includeAccreditationReport" /> Include Accreditation Report
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSave()" ng-disabled="frmAccredationEmail.$invalid">Continue</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

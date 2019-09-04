@@ -1,0 +1,82 @@
+﻿[
+  {
+    "outputFile": "Content/site.css",
+    "inputFile": "Content/site.less"
+  },
+  {
+    "outputFile": "Content/eligibility.css",
+    "inputFile": "Content/eligibility.less"
+  },
+  {
+    "outputFile": "Content/login.css",
+    "inputFile": "Content/login.less"
+  },
+  {
+    "outputFile": "Content/account.css",
+    "inputFile": "Content/account.less"
+  },
+  {
+    "outputFile": "Content/organizationfacility.css",
+    "inputFile": "Content/organizationfacility.less"
+  },
+  {
+    "outputFile": "Content/factwebstaff.css",
+    "inputFile": "Content/factwebstaff.less"
+  },
+  {
+    "outputFile": "Content/inspectionschedule.css",
+    "inputFile": "Content/inspectionschedule.less"
+  },
+  {
+    "outputFile": "Content/admin.css",
+    "inputFile": "Content/admin.less"
+  },
+  {
+    "outputFile": "Content/spin.css",
+    "inputFile": "Content/spin.less"
+  },
+  {
+    "outputFile": "Content/global-style.css",
+    "inputFile": "Content/global-style.less"
+  },
+  {
+    "outputFile": "Content/application.css",
+    "inputFile": "Content/application.less"
+  },
+  {
+    "outputFile": "Content/widgets.css",
+    "inputFile": "Content/widgets.less"
+  },
+  {
+    "outputFile": "Content/facilitysite.css",
+    "inputFile": "Content/facilitysite.less"
+  },
+  {
+    "outputFile": "Content/newsite.css",
+    "inputFile": "Content/newsite.less"
+  },
+  {
+    "outputFile": "Content/coordinator.css",
+    "inputFile": "Content/coordinator.less"
+  },
+  {
+    "outputFile": "Content/report.css",
+    "inputFile": "Content/report.less"
+  },
+  {
+    "outputFile": "Content/request.css",
+    "inputFile": "Content/request.less"
+  },
+  {
+    "outputFile": "Content/ie.css",
+    "inputFile": "Content/ie.less"
+  },
+  {
+    "outputFile": "Content/outcome.css",
+    "inputFile": "Content/outcome.less"
+  },
+  {
+    "outputFile": "Content/facilityDemography.css",
+    "inputFile": "Content/facilityDemography.less"
+  }
+]

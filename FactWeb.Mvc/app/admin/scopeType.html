@@ -1,0 +1,64 @@
+﻿<link href="content/scopeType.css" rel="stylesheet">
+
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Manage Scope</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="scopeType">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Name</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.scopeName" required/>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Import Name</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.importName" required/>
+                        </label>
+                    </div>
+                </section>
+                <section ng-if="vm.saveMode">
+                    <div class="form-group">                        
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="vm.isArchived"><i></i>Archive
+                        </label>                        
+                    </div>
+                </section>
+
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.clearForm()" ng-hide="vm.saveMode">
+                        <span>Clear</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.saveScope()" ng-disabled="scopeType.$invalid" ng-hide="vm.saveMode">
+                        <span>Add</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="reset" ng-click="vm.cancel()" ng-show="vm.saveMode">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.saveScope()" ng-disabled="scopeType.$invalid" ng-show="vm.saveMode">
+                        <span>Save</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+             { "field":"scopeTypeId" , "title":"Id" , "hidden":"true"},
+             { "field":"name" , "title":"Scope Name"},
+             { "field":"importName" , "title":"Import Name"},             
+             { "title":"Archived", "template":"<input name=\"isArchive\" type=\"checkbox\" ng-model=\"dataItem.isArchived\">" },
+             { "template":"<button class=\" k-button\" ng-click=\"vm.editScope(dataItem)\">Edit </button><button class=\"k-button\" ng-click=\"vm.deleteScope(dataItem)\">Delete </button>"}
+            ]'>
+        </div>
+    </div>
+</div>

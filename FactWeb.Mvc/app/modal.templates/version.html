@@ -1,0 +1,51 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Add New Version</h3>
+</div>
+<div class="modal-body">
+    <form name="version" class="sky-form version">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label">Copy From</label>
+                    <label class="select">
+                        <select ng-model="vm.version.copyFromId" required>
+                            <option value="">None</option>
+                            <option ng-repeat="v in vm.versions" value="{{v.id}}">{{v.title}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Version Title</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.version.title" required/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Version Number</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.version.versionNumber" required/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="vm.version.isActive"><i></i>Is Active Version
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save()" ng-disabled="vm.isInvalid() || vm.isBusy">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>
+

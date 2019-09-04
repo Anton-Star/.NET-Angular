@@ -1,0 +1,63 @@
+﻿<div class="col-md-6" ng-show="question.editIndex != editIndex">
+    <div style="display: list-item;margin-left: 2.0em;list-style-type: circle;">
+        <span ng-bind-html="comment.comment" style="text-transform:none;"></span><br />
+        <label class="label" ng-if="comment.commentDocuments.length > 0 && doc.id == undefined" ng-repeat="doc in comment.commentDocuments">
+            Attachment: <a ng-click="onDocumentDownload(doc)" target="_blank">{{doc.name}}</a>
+        </label>
+    </div>
+</div>
+<div class="col-md-4" ng-show="question.editIndex != editIndex">
+    {{comment.commentFrom.fullName}}: {{comment.updatedDate | date: 'MM/dd/yyyy'}}
+</div>
+<div class="col-md-2 pull-right" ng-if="(comment.fromUser == currentUserId && created > sub) || isCoordinatorView">
+    <button type="button" name="btnEdit{{editIndex}}" ng-show="question.editIndex != editIndex" class="btn btn-base btn-icon btn-icon-right" ng-click="editComment(question,comment,editIndex,'edit');">Edit</button>
+    <button type="button" name="btnDelete{{editIndex}}" ng-show="question.editIndex != editIndex" class="btn btn-base btn-icon btn-icon-right" ng-click="editComment(question,comment,editIndex,'delete');">Delete</button>
+</div>
+<!-- Panel for Inline Edit Comments -->
+<div uib-collapse="question.editIndex != editIndex" class="collapse panel panel-default" style="margin:5px 5px 5px 5px;">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <b>Comment Type</b><br />
+                <select name="commentTypeDropdownC{{editIndex}}" style="width:150px;" ng-model="comment.commentType" ng-options="commentType.id as commentType.name for commentType in commentTypes track by commentType.id" ng-disabled="readOnly || isUser"></select>
+                <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="saveComment(question, comment)" ng-disabled="question.responseComment == null || question.responseComment == ''">
+                    <span>Save Comment</span>
+                </button>
+            </div>
+            <div class="col-md-9 pull-left">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label id="lblCommentRequired{{editIndex}}" ng-if="!question.responseComment"><span class="required-field">Comment Required</span></label>
+                        <button type="button" name="btnEdit{{editIndex}}" ng-show="question.editIndex == editIndex" class="btn btn-base btn-icon btn-icon-right pullright" ng-click="question.editIndex = 0;">Close</button>
+                        <div text-angular id="comment{{editIndex}}" ng-model="question.responseComment"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="label" ng-repeat="document in question.documents">
+                        File Name: <a href ng-click="onDocumentDownload(document)" target="_blank">{{document.name}}</a>
+                    </label>
+                    <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" type="submit" ng-click="showDocumentLibrary(question)">
+                        <span>Document Library</span> 
+                    </button>
+                    <!--<div class="col-sm-2">
+                        <label class="label">
+                            File name:
+                        </label>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="input">
+                            <input type="text" ng-model="question.fileName" name="fileName{{editIndex}}"/>
+                        </label>
+                    </div>
+                    <div class="col-md-5 pull-left">
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="file" file-model="question.file" name="file{{editIndex}}"/>
+                        </label>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

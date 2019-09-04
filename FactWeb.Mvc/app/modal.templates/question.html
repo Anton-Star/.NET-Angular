@@ -1,0 +1,168 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">
+        <span ng-show="vm.isNew">Add New Question </span>
+        <span ng-show="!vm.isNew">Edit Question </span>
+    </h3>
+</div>
+<div class="modal-body">
+    <form name="requirements" class="sky-form questions">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label">Compliance Number</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.displayQuestion.complianceNumber" required/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Text/Description</label>
+                    <label class="textarea">
+                        <textarea kendo-editor k-encoded="false" k-ng-model="vm.displayQuestion.text"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Help Text</label>
+                    <label class="textarea">
+                        <textarea kendo-editor k-encoded="false" k-ng-model="vm.displayQuestion.description"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label">Scope</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6" ng-repeat="j in vm.scopeTypes">
+                        <label class="checkbox">
+                            <input type="checkbox" value="{{j.id}}" ng-model="j.isSelected"><i></i>{{j.name}}
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Response Type</label>
+                    <label class="select">
+                        <select name="facility" ng-model="vm.displayQuestion.type" required ng-change="vm.responseTypeChange()">
+                            <option ng-repeat="d in vm.questionTypes" value="{{d.name}}">{{d.name}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.displayQuestion.type == 'Multiple'">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Answer Types</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6" ng-repeat="j in vm.questionTypes" ng-if="j.name != 'Multiple'">
+                        <label class="checkbox">
+                            <input type="checkbox" value="{{j.id}}" ng-model="j.isSelected" ng-click="vm.onAnswerTypeSelected(j)"><i></i>{{j.name}}
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="vm.displayQuestion.type == 'Radio Buttons' || vm.displayQuestion.type == 'Checkboxes'">
+                <label class="label">Answers</label>
+                <div id="reportGrid" class="searchResults"
+                     kendo-grid="vm.grid"
+                     k-options="vm.gridOptions"
+                     k-editable='{"mode": "inline", "create": true, "update": true, "destroy": true, "confirmation": true}'
+                     k-columns='[
+                     { "field":"text" , "title":"Text"},
+                     { "field":"order" , "title":"Order Position"},
+                     { "field":"isExpectedAnswer" , "title":"Expected Answer", editor: vm.isExpectedValueEditor},
+                     { command: ["edit", "destroy"], title: "&nbsp;" }
+                    ]'>
+                </div>
+            </section>
+            <section ng-show="vm.selectedAnswer != null" class="hides">
+                <hr/>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label class="label">
+                                <span>Answer Hides Questions</span>
+                            </label>
+                        </div>
+                        <div class="col-lg-6">
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="button" ng-click="vm.closeHides()">
+                                <span>Close</span>
+                            </button>
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="button" ng-click="vm.addHides()">
+                                <span>Add</span>
+                            </button>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row" ng-show="vm.newHides != null">
+                        <label class="label">
+                            <span>Select the Questions to be hidden</span>
+                        </label>
+                        <div class="row">
+                            <div class="col-md-4">Filter:</div>
+                            <div class="col-md-8">
+                                <label class="input">
+                                    <i class="icon-append fa fa-lock"></i>
+                                    <input type="text" ng-model="vm.filter" ng-change="vm.addHides()" />
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="vm.selectAll" ng-click="vm.onSelectAllHides()"><i></i>Select All
+                            </label>
+                        </div>
+                        <div id="questionsGrid" class="searchResults"
+                             kendo-grid="vm.questionsGrid"
+                             k-options="vm.questionsGridOptions"
+                             k-columns='[
+                             { "field":"sectionUniqueIdentifier" , "title":"Requirement Set", "encoded": false},
+                             { "field":"complianceNumber" , "title":"Comp Number", "encoded": false},
+                                { "field":"text" , "title":"Text", "encoded": false}
+                            ]'>
+                        </div>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="button" ng-click="vm.cancelAddHides()">
+                            <span>Cancel</span>
+                        </button>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="button" ng-click="vm.saveHides()">
+                            <span>Save</span>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <label class="label">
+                            <span>Existing Questions to be hidden</span>
+                        </label>
+                        <div id="hidesGrid" class="searchResults"
+                             kendo-grid="vm.hidesGrid"
+                             k-options="vm.hidesGridOptions"
+                             k-editable='{"mode": "inline", "create": false, "update": false, "destroy": true, "confirmation": true}'
+                             k-columns='[
+                             { "field":"requirementNumber" , "title":"Requirement Set"},
+                             { "field":"complianceNumber" , "title":"Compliance Number"},
+                             { "field":"questionText" , "title":"Text"},
+                             { command: ["destroy"], title: "&nbsp;" }
+                    ]'>
+                        </div>
+                    
+                    </div>
+                </div>
+                <hr/>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save()" ng-disabled="vm.isInvalid() || vm.isBusy">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>
+

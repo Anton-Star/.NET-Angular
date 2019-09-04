@@ -1,0 +1,77 @@
+﻿<link href="content/login.css" rel="stylesheet">
+<div class="login">
+    <div class="row">
+        <img src="/content/images/fact-logo.png" alt="FACT Logo" />
+    </div>
+    <div class="row">
+        <div class="wp-block default user-form">
+            <div class="form-body">
+                <h1>Sign in to get started.</h1>
+                <form class="sky-form">
+                    <fieldset>
+                        <section ng-show="vm.loginFailure">
+                            <div class="form-group">
+                                <span class="alert">
+                                    <span class="error">
+                                        User Name or Password is incorrect. Please try again.
+                                    </span>
+                                </span>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <span class="fact-blue">If you are logging into your account for the first time, complete the <a href="#/Account/PasswordReminder">Reset Password Form</a>.</span>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="input">
+                                    <input name="email" type="text" placeholder="Email Address" ng-model="vm.username" />
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="input" ng-show="!vm.showPassword">
+                                    <input name="password" type="password" placeholder="Password" ng-model="vm.password" />
+                                </label>
+                                <label class="input" ng-show="vm.showPassword">
+                                    <input name="password" type="text" placeholder="Password" ng-model="vm.password" />
+                                </label>
+                            </div>
+                        </section>
+                        <div>
+                            <div class="form-group">
+                                <label class="checkbox">
+                                    <input name="showPassword" type="checkbox" ng-model="vm.showPassword"><i></i>Show Password
+                                </label>
+                                <label class="checkbox">
+                                    <input name="rememberMe" type="checkbox" ng-model="vm.rememeberMe"><i></i>Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <section>
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-base center" name="login" type="submit" ng-click="vm.login()">
+                                    <span>Sign In</span>
+                                </button>
+                            </div>
+                        </section>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p>
+            To reset your password, complete the <a href="#/Account/PasswordReminder">Reset Password Form</a>.
+        </p>
+        <p>
+            To apply for FACT accreditation, <a href="#/RequestAccess">Create an Organizational Profile</a>.
+        </p>
+        <p>
+            If you do not have an account, please contact your organization’s Director or Primary Contact to create your account.
+        </p>
+    </div>
+</div>
+

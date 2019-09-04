@@ -1,0 +1,78 @@
+﻿<div class="modal-header">
+    <span ng-show="vm.isNewAddress">New Address</span>
+    <span ng-show="!vm.isNewAddress">Edit Address</span>
+</div>
+<div class="modal-body">
+    <form name="manageAddress" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Address Type</label>
+                    <label class="select">
+                        <select name="addressType" ng-model="vm.address.addressType.id" required ng-options="addressType.id as addressType.name for addressType in vm.addressTypesList"></select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Address Line 1</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.address.street1" name="street1" required maxlength="200" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Address Line 2</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.address.street2" name="street2" maxlength="200" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>City</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.address.city" name="city" required maxlength="50" />
+                    </label>
+                </div>
+            </section>
+            <section ng-show="vm.isCountryUSA">
+                <div class="form-group">
+                    <label class="label">State</label>
+                    <label class="select">
+                        <select name="addressState" ng-model="vm.address.state.id" ng-options="state.id as state.name for state in vm.statesList"></select>
+                    </label>
+                </div>
+            </section>
+            <section ng-show="!vm.isCountryUSA">
+                <div class="form-group">
+                    <label class="label">Province/Region</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.address.province" name="province" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Zip Code</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.address.zipCode" name="zipCode" required maxlength="16" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Country</label>
+                    <label class="select">
+                        <select name="addressCountry" ng-model="vm.address.country.id" ng-change="vm.selectedCountryChange()" ng-options="country.id as country.name for country in vm.countriesList" required></select>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save()" ng-disabled="manageAddress.$invalid">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

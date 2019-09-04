@@ -1,0 +1,39 @@
+﻿<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Manage Sites</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="manageSites">
+            <fieldset>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" name="addSite" type="submit" ng-click="vm.addSite()">
+                        <span>Add New Site</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="vm.grid"
+             k-options="vm.gridOptions">
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="edit">
+    <button class="k-button" ng-click="vm.editSite(dataItem)">Edit</button> 
+    <button class="k-button" ng-click="vm.onTotals(dataItem)">Transplant Totals</button>
+</script>
+<script type="text/x-kendo-template" id="organizationEdit">
+    <a href="" ng-click="$event.preventDefault(); vm.editOrganization(dataItem)">{{dataItem.organizationName}}</a>
+</script>
+<script type="text/x-kendo-template" id="facilityEdit">
+    <a href="" ng-click="$event.preventDefault(); vm.editFacility(dataItem)">{{dataItem.facilityName}}</a>
+</script>
+<script type="text/x-kendo-template" id="siteEdit">
+    <a href="" ng-click="$event.preventDefault(); vm.editSite(dataItem)">{{dataItem.siteName}}</a>
+</script>
+<script type="text/x-kendo-template" id="startDate">
+    {{dataItem.siteStartDate | date: 'MM/dd/yyyy' }}
+</script>

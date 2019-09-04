@@ -1,0 +1,49 @@
+﻿<link href="content/inspectionschedule.css" rel="stylesheet">
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Inspection Scheduler</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="inspectionSchedule">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Organization</label>
+                        <label class="select">
+                            <input kendo-combo-box ng-model="vm.selectedOrganization"
+                                   ng-disabled="vm.saveMode"
+                                   k-data-source="vm.organizations" k-data-text-field="'organizationName'"
+                                   k-data-value-field="'organizationId'" k-filter="'contains'" style="width: 100%;" />
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="button" ng-click="vm.search()" ng-disabled="inspectionSchedule.$invalid">
+                        <span>Search</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+                kendo-grid="grid"
+                k-options="vm.gridOptions"
+                k-columns='[
+                { "field":"inspectionScheduleId" , "title":"Id" , "hidden":"true" },
+                { "field":"organizationId" , "title":"organizationId" , "width": "250px", "hidden":"true" },
+                { "field":"applicationId" , "title":"applicationId" , "width": "250px", "hidden":"true" },
+                { "field":"organizationName" , "title":"Organization" , "width": "250px"},
+                { "field":"applicationTypeId" , "title":"applicationTypeId" , "width": "250px", "hidden":"true" },
+                { "field":"applicationTypeName" , "title":"Application Type" , "width":"140px"},
+                { "field":"startDate" , "title":"Start Date" , "width":"110px"},
+                { "field":"endDate" , "title":"End Date" , "width":"110px"},
+                { "field":"isCompleted" , "title":"Completed" , "width":"100px"},
+                { "template": "<button class=\"k-button\" ng-show=\"#=inspectionScheduleId#\" ng-click=\"vm.add(dataItem, false)\">Edit</button><button class=\"k-button\" ng-click=\"vm.delete(#=inspectionScheduleId#)\">Delete</button><button class=\"k-button\" ng-click=\"vm.add(dataItem, true)\">Schedule New</button><button class=\"k-button\" ng-click=\"vm.onCompApp(dataItem)\">Compliance Application</button>"},                             
+            ]'>
+        </div>
+    </div>
+</div>
+           

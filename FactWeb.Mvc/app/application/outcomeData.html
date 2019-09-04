@@ -1,0 +1,272 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+<link href="content/outcome.css" rel="stylesheet">
+
+<div class="col-md-12 compApp">
+    <application-header compliance="vm.common.compApplication" application="vm.application" is-compliance-application="vm.isComplianceApplication"></application-header>
+    <div class="no-data" ng-if="vm.cibmtrData.length === 0">
+        There are no outcomes to review.  <span ng-if="!vm.isReviewed && vm.isClinical && vm.canMarkReviewed()">Please acknowledge and proceed to the Inspection Overview to submit.</span>
+    </div>
+    <div class="requirements" ng-repeat="row in vm.cibmtrData" ng-init="row.dataOpen = true">
+        <uib-accordion close-others="oneAtATime">
+            <uib-accordion-group is-open="row.open">
+                <uib-accordion-heading>
+                    <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': row.open, 'glyphicon-chevron-right': !row.open}"></i>
+                    <div class="head-text text-uppercase">{{row.centerNumber}} - {{row.displayName}}</div>
+                </uib-accordion-heading>
+
+                <uib-accordion close-others="oneAtATime">
+                    <uib-accordion-group is-open="row.analysisOpen">
+                        <uib-accordion-heading>
+                            <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': row.analysisOpen, 'glyphicon-chevron-right': !row.analysisOpen}"></i>
+                            <div class="head-text text-uppercase">Outcome Analysis {{vm.outcomeAnalysisRequirementNumber}}</div>
+                        </uib-accordion-heading>
+                        <div class="row space-bot">
+                            <div class="col-md-12 bold" ng-bind-html="row.latestAnalysis ? row.latestAnalysis.comment : ''"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">Allogenic Transplantation</div>
+                        </div>
+                        <div class="row k-grid k-widget">
+                            <div class="k-grid-header">
+                                <div class="k-grid-header-wrap">
+                                    <div class="col-md-{{12 - (row.cibmtrOutcomeAnalyses.length * 2)}}"><span>CIBMTR Transplant Center-Specific Survival Report History</span></div>
+                                    <div class="col-md-2" ng-repeat="item in row.cibmtrOutcomeAnalyses"><span>{{item.reportYear}}</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row k-grid k-widget">
+                            <div class="col-md-{{12 - (row.cibmtrOutcomeAnalyses.length * 2)}} ttl"><span>Score</span></div>
+                            <div class="col-md-2" ng-repeat="item in row.cibmtrOutcomeAnalyses"><span class="score-color">{{item.survivalScore}}</span></div>
+                        </div>
+                        <div class="row details items fst" ng-if="row.latestAnalysis">
+                            <div class="col-md-2 ttl"><span>Current Report Details</span></div>
+                            <div class="col-md-2">n</div>
+                            <div class="col-md-2">Actual (%)</div>
+                            <div class="col-md-2">Predicted (%)</div>
+                            <div class="col-md-2">Lower (%)</div>
+                            <div class="col-md-2">Upper (%)</div>
+                        </div>
+                        <div class="row details items space-bot" ng-if="row.latestAnalysis">
+                            <div class="col-md-2 ttl fst">&nbsp;</div>
+                            <div class="col-md-2"><span class="score-color">{{row.latestAnalysis.sampleSize | number:0}}</span></div>
+                            <div class="col-md-2"><span class="score-color">{{row.latestAnalysis.actualPercent}}</span></div>
+                            <div class="col-md-2"><span class="score-color">{{row.latestAnalysis.predictedPercent}}</span></div>
+                            <div class="col-md-2"><span class="score-color">{{row.latestAnalysis.lowerPercent}}</span></div>
+                            <div class="col-md-2"><span class="score-color">{{row.latestAnalysis.upperPercent}}</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">Autologous Transplantation</div>
+                        </div>
+                        <div class="row k-grid k-widget">
+                            <div class="k-grid-header">
+                                <div class="k-grid-header-wrap">
+                                    <div class="col-md-3"><span>Comparative Data Source</span></div>
+                                    <div class="col-md-3"><span>Published One-Year Survival</span></div>
+                                    <div class="col-md-3"><span>Program One-Year Survival</span></div>
+                                    <div class="col-md-3"><span>Comments</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row k-grid k-widget">
+                            <div class="col-md-3"><span>{{row.latestAnalysis.comparativeDataSource}}</span></div>
+                            <div class="col-md-3"><span>{{row.latestAnalysis.publishedOneYearSurvival}}</span></div>
+                            <div class="col-md-3"><span>{{row.latestAnalysis.programOneYearSurvival}}</span></div>
+                            <div class="col-md-3"><span ng-bind-html="row.latestAnalysis.comments"></span></div>
+                        </div>
+                        <div class="row rows space-top first">
+                            <div class="col-md-4 title"><span>Reported causes of death</span></div>
+                            <div class="col-md-8"><span ng-bind-html="row.latestAnalysis.reportedCausesOfDeath"></span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-4 title"><span>Corrective actions</span></div>
+                            <div class="col-md-8"><span ng-bind-html="row.latestAnalysis.correctiveActions"></span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-4 title"><span>FACT Clinical Outcomes Improvement Committee determination of adequacy of plan</span></div>
+                            <div class="col-md-8"><span ng-bind-html="row.latestAnalysis.factImprovementPlan"></span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-4 title"><span>Additional information requested by FACT Clinical Outcomes Improvement Committee</span></div>
+                            <div class="col-md-8"><span ng-bind-html="row.latestAnalysis.additionalInformationRequested"></span></div>
+                        </div>
+                        <div class="row space-top">
+                            <div class="col-md-12"><span ng-if="!vm.isReadOnly" class="required-field">*</span> 1. Description of facility's progress on corrective action plan implementation</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" ng-if="!vm.isReadOnly">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="row.latestAnalysis.progressOnImplementation"></textarea>
+                            </div>
+                            <div class="col-md-12" ng-if="vm.isReadOnly">
+                                <span ng-bind-html="row.latestAnalysis.progressOnImplementation"></span>
+                            </div>
+                        </div>
+                        <div class="row space-top">
+                            <div class="col-md-12"><span ng-if="!vm.isReadOnly" class="required-field">*</span> 2. Additional information provided to inspector as requested by FACT Clinical Outcomes Improvement Committee</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" ng-if="!vm.isReadOnly">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="row.latestAnalysis.inspectorInformation"></textarea>
+                            </div>
+                            <div class="col-md-12" ng-if="vm.isReadOnly">
+                                <span ng-bind-html="row.latestAnalysis.inspectorInformation"></span>
+                            </div>
+                        </div>
+                        <div class="row details items fst space-top">
+                            <div class="col-md-4 ttl"><span><span ng-if="!vm.isReadOnly" class="required-field">*</span> What are the program's current survival rates? Enter both the rates and the date ranges.</span></div>
+                            <div class="col-md-4">100-Day Survival</div>
+                            <div class="col-md-4">1-Year Survival</div>
+                        </div>
+                        <div class="row details items space-bot">
+                            <div class="col-md-4 ttl fst">&nbsp;</div>
+                            <div class="col-md-4">
+                                <input type="text" class="survival" ng-model="row.latestAnalysis.inspector100DaySurvival" ng-if="!vm.isReadOnly">
+                                <span ng-bind-html="row.latestAnalysis.inspector100DaySurvival" ng-if="vm.isReadOnly"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="survival" ng-model="row.latestAnalysis.inspector1YearSurvival" ng-if="!vm.isReadOnly">
+                                <span ng-bind-html="row.latestAnalysis.inspector1YearSurvival" ng-if="vm.isReadOnly"></span>
+                            </div>
+                        </div>
+                        <div class="row space-top">
+                            <div class="col-md-12">
+                                <span ng-if="!vm.isReadOnly" class="required-field">*</span> 3. Commendable practices<br />
+                                <i>
+                                    Enter inspector comments regarding commendable practices to improve one-year survival and include document identifiers, if applicable
+                                </i>
+                            </div>
+                        </div>
+                        <div class="row space-bot">
+                            <div class="col-md-12" ng-if="!vm.isReadOnly">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="row.latestAnalysis.inspectorCommendablePractices"></textarea>
+                            </div>
+                            <div class="col-md-12" ng-if="vm.isReadOnly">
+                                <span ng-bind-html="row.latestAnalysis.inspectorCommendablePractices"></span>
+                            </div>
+                        </div>
+                    </uib-accordion-group>
+                </uib-accordion>
+                <uib-accordion close-others="oneAtATime">
+                    <uib-accordion-group is-open="row.dataOpen">
+                        <uib-accordion-heading>
+                            <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': row.dataOpen, 'glyphicon-chevron-right': !row.dataOpen}"></i>
+                            <div class="head-text text-uppercase">Data Management {{vm.dataManagementRequirementNumber}}</div>
+                        </uib-accordion-heading>
+
+                        <div class="row space-bot">
+                            <div class="col-md-12 bold" ng-bind-html="row.latestData ? row.latestData.comment : ''"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">CIBMTR Data Audit Results</div>
+                        </div>
+                        <div class="row rows first">
+                            <div class="col-md-{{12 - (row.cibmtrDataMgmts.length * 3)}} title"><span>Error rates for the last three (3) CIBMTR Data Audits</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cibmtrDataMgmts"><span class="score-color">{{data.auditDate | date: 'MM/dd/yyyy'}}</span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cibmtrDataMgmts.length * 3)}} title"><span>Critical Field Error Rate (CER) (%)</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cibmtrDataMgmts"><span class="score-color">{{data.criticalFieldErrorRate | number: 1}}%</span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cibmtrDataMgmts.length * 3)}} title"><span>Random Field Error Rate (%)</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cibmtrDataMgmts"><span class="score-color">{{data.randomFieldErrorRate | number: 1}}%</span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cibmtrDataMgmts.length * 3)}} title"><span>Overall Field Error Rate (%)</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cibmtrDataMgmts"><span class="score-color">{{data.overallFieldErrorRate | number: 1}}%</span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cibmtrDataMgmts.length * 3)}} title"><span>Systematic CAP identified?</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cibmtrDataMgmts"><span class="score-color">{{data.isCapIdentified ? 'Yes' : 'No'}}</span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cibmtrDataMgmts.length * 3)}} title"><span>CIBMTR auditor comments</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cibmtrDataMgmts"><span class="score-color" ng-bind-html="data.auditorComments"></span></div>
+                        </div>
+                        <div class="row space-top">
+                            <div class="col-md-12">CIBMTR Continuous Process Improvement (CPI) Status</div>
+                        </div>
+                        <div class="row rows first">
+                            <div class="col-md-{{12 - (row.cpiData.length * 3)}} title"><span>Date</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cpiData"><span class="score-color">{{data.cpiLetterDate | date: 'MM/dd/yyyy'}}</span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cpiData.length * 3)}} title"><span>Status</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cpiData"><span class="score-color">{{data.cpiTypeName}}</span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cpiData.length * 3)}} title"><span>Comments</span></div>
+                            <div class="col-md-3" ng-repeat="data in row.cpiData"><span class="score-color" ng-bind-html="data.cpiComments"></span></div>
+                        </div>
+                        <div class="row rows first space-top">
+                            <div class="col-md-{{12 - (row.cpiData.length * 3)}} title"><span>Corrective actions</span></div>
+                            <div class="col-md-{{row.cpiData.length*3}}"><span class="score-color" ng-bind-html="row.dataManagementData.correctiveActions"></span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cpiData.length * 3)}} title">
+                                <span>FACT-CIBMTR Data Audit Committee determination of adequacy of CAP and implementation progress</span>
+                            </div>
+                            <div class="col-md-{{row.cpiData.length*3}}"><span class="score-color" ng-bind-html="row.dataManagementData.determination"></span></div>
+                        </div>
+                        <div class="row rows">
+                            <div class="col-md-{{12 - (row.cpiData.length * 3)}} title">
+                                <span>Additional information, recommendations, and comments by FACT-CIBMTR Data Audit Committee</span>
+                            </div>
+                            <div class="col-md-{{row.cpiData.length*3}}"><span class="score-color" ng-bind-html="row.dataManagementData.recommendation"></span></div>
+                        </div>
+                        <div class="row space-top">
+                            <div class="col-md-12"><span ng-if="!vm.isReadOnly" class="required-field">*</span> 1. Description of facility's progress on CAP implementation</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" ng-if="!vm.isReadOnly">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="row.latestData.progressOnImplementation"></textarea>
+                            </div>
+                            <div class="col-md-12" ng-if="vm.isReadOnly">
+                                <span ng-bind-html="row.latestData.progressOnImplementation"></span>
+                            </div>
+                        </div>
+                        <div class="row space-top">
+                            <div class="col-md-12"><span ng-if="!vm.isReadOnly" class="required-field">*</span> 2. Additional information provided to inspector as requested by FACT-CIBMTR Data Audit Committee</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" ng-if="!vm.isReadOnly">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="row.latestData.inspectorInformation"></textarea>
+                            </div>
+                            <div class="col-md-12" ng-if="vm.isReadOnly">
+                                <span ng-bind-html="row.latestData.inspectorInformation"></span>
+                            </div>
+                        </div>
+                        <div class="row space-top">
+                            <div class="col-md-12">
+                                <span ng-if="!vm.isReadOnly" class="required-field">*</span> 3. Commendable practices<br />
+                                <i>
+                                    Enter inspector comments regarding commendable practices here for those programs showing improved scores or consistently scoring at a commendable level, if applicable
+                                </i>
+                            </div>
+                        </div>
+                        <div class="row space-bot">
+                            <div class="col-md-12" ng-if="!vm.isReadOnly">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="row.latestData.inspectorCommendablePractices"></textarea>
+                            </div>
+                            <div class="col-md-12" ng-if="vm.isReadOnly">
+                                <span ng-bind-html="row.latestData.inspectorCommendablePractices"></span>
+                            </div>
+                        </div>
+                    </uib-accordion-group>
+                </uib-accordion>
+            </uib-accordion-group>
+        </uib-accordion>
+    </div>
+    <div class="row">
+        <div class="col-md-12" ng-if="!vm.isReadOnly || vm.isTrainee">
+            <span ng-if="!vm.canMarkReviewed()">All visible fields must have a response before the Clinical Outcomes and Data Management section can be completed.<br/></span>
+            <button class="btn btn-base" type="submit" ng-click="vm.onSaveReview()" ng-disabled="!vm.canMarkReviewed()" ng-if="!vm.isReviewed && vm.isClinical">
+                <span>I have reviewed the Clinical Outcomes and Data Management Information</span>
+            </button>
+            <button class="btn btn-base" type="submit" ng-click="vm.onSubmit()" ng-if="!vm.isTrainee">
+                <span>Save</span>
+            </button>
+        </div>
+
+    </div>
+</div>

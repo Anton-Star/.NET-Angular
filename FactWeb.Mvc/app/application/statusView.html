@@ -1,0 +1,33 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-12 application">
+    <div class="row status-view" style="margin-left:5px;">
+        <div class="col-md-3 filters" >
+            <h3>Filters:</h3>
+            <div class="col-md-12 showAll">
+                <input type="checkbox" ng-click="vm.onShowAll()" ng-model="vm.showAll"/> <span>Show All</span>
+            </div>
+            <div class="col-md-12 {{filter.filterName.split(' ').join('')}}" ng-repeat="filter in vm.filters">
+                <input type="checkbox" ng-model="filter.isChecked" ng-click="vm.onFilter(filter)"/> <span>{{filter.filterName}}</span>
+            </div>
+        </div>
+        <div class="col-md-9 content">
+            <application-header class="requirements" application="vm.application" compliance="vm.compApplication" isComplianceApplication="vm.isComplianceApplication"></application-header>
+            
+            <div class="row content" ng-show="vm.isComplianceApplication">
+                <label class="select">
+                    <select name="ddlSite" ng-model="vm.selectedSite" ng-change="vm.onSiteChange()">
+                        <option ng-repeat="appSite in vm.compApplication.complianceApplicationSites" value="{{appSite.appResponses[0].applicationUniqueId}}">{{appSite.siteName}}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="row statusview" ng-repeat="item in vm.filteredItems">
+                <div class="col-md-12" ng-if="item.items.length > 0" ng-bind-html="item.name">{{item.uniqueIdentifier}} {{item.name}}</div>
+                <div ng-click="vm.onRequirementClick(statusItem)" class="col-md-2 status {{statusItem.statusName.split(' ').join('')}}" ng-repeat="statusItem in item.items">
+                    <a href style="color: {{statusItem.statusName != 'New' ? 'white' : 'black'}};">{{statusItem.uniqueIdentifier}}</a>                    
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>

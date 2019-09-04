@@ -1,0 +1,249 @@
+﻿<link href="content/account.css" rel="stylesheet">
+
+<div class="col-md-11 register">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Create your own account</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <section>
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Web Photo</label>
+                            <div ng-show="vm.user.webPhotoPath == null">
+                                <label class="input">
+                                    <input name="files"
+                                           type="file"
+                                           kendo-upload
+                                           k-options="vm.webOptions"/>
+                                </label>
+                            </div>
+                            <div ng-show="vm.user.webPhotoPath != null">
+                                <img src="{{vm.user.webPhotoPath}}" alt="Web Photo" height="100"/>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Job Functions</label>
+
+                                </div>
+                            </div>
+                            <div class="col-xs-6" ng-repeat="j in vm.jobFunctions">
+                                <label class="checkbox">
+                                    <input type="checkbox" value="{{j.id}}" ng-model="j.selected" ng-click="vm.onJobSelected(j)"><i></i>{{j.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Do you wish to be excluded from regular association e-mail communiques?</label>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default radios" ng-class="vm.user.emailOptOut ? 'active' : ''" ng-click="vm.onOptOutEmail(true)">
+                                    <input type="radio" value="Yes" name="optoutEmail"/>Yes
+                                </label>
+                                <label class="btn btn-default radios" ng-class="!vm.user.emailOptOut ? 'active' : ''" ng-click="vm.onOptOutEmail(false)">
+                                    <input type="radio" value="Yes" name="optoutEmail" checked="checked" />No
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Do you wish to be excluded from regular association paper/mailing communiques?</label>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-default radios" ng-class="vm.user.mailOptOut ? 'active' : ''" ng-click="vm.onOptOutMail(true)">
+                                            <input type="radio" value="Yes" name="optoutEmail" />Yes
+                                        </label>
+                                        <label class="btn btn-default radios" ng-class="!vm.user.mailOptOut ? 'active' : ''" ng-click="vm.onOptOutMail(false)">
+                                            <input type="radio" value="Yes" name="optoutEmail" checked="checked" />No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Which languages do you speak and/or read?</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6" ng-repeat="j in vm.languages">
+                                <label class="checkbox">
+                                    <input type="checkbox" value="{{j.id}}" ng-model="j.selected" ng-click="vm.onLanguageSelected(j)"><i></i>{{j.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Are you a member of any of the following?</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6" ng-repeat="j in vm.memberships">
+                                <label class="checkbox">
+                                    <input type="checkbox" value="{{j.id}}" ng-model="j.selected" ng-click="vm.onMembershipSelected(j)"><i></i>{{j.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <section ng-show="vm.isctItem != null">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>If you are a member of ISCT, please provide your membership number to be eligible for affiliate discounts:</label>
+                                    <label class="input">
+                                        <input type="text" ng-model="vm.isctItem.membershipNumber"/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section ng-show="vm.asbmtItem != null">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>If you are a member of ASBMT, please provide your membership number to be eligible for affiliate discounts:</label>
+                                    <label class="input">
+                                        <input type="text" ng-model="vm.asbmtItem.membershipNumber" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3>Annual Compliance</h3>
+                                <p>
+                                    Each year, all FACT Board members, committee and task force members, inspectors, and staff must review
+                                    and update applicable information to ensure FACT records are current.
+                                </p>
+                                <p>
+                                    To complete this process, review the policies and complete the forms listed in the Annual Compliance
+                                    instructions.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group" >
+                                    <label class="label"><span class="required-field"></span>Please upload your current <i>curriculum vitae</i> or resume</label>
+                                    <label class="input" ng-show="vm.user.resumePath == null">
+                                        <input name="files"
+                                               type="file"
+                                               kendo-upload
+                                               k-options="vm.resumeOptions"/>
+                                    </label>
+                                    <div class="form-group" ng-show="vm.user.resumePath != null">
+                                        <button class="btn btn-base btn-icon btn-icon-right btn-sign-in" type="submit" ng-click="vm.download('resume')">
+                                            <span>Download</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field"></span>Please upload your completed Statement of Compliance with FACT's policy on Duality of Interest</label>
+                                    <label class="input" ng-show="vm.user.statementOfCompliancePath == null">
+                                        <input name="files"
+                                               type="file"
+                                               kendo-upload
+                                               k-options="vm.complianceOptions"/>
+                                    </label>
+                                    <div class="form-group" ng-show="vm.user.statementOfCompliancePath != null">
+                                        <button class="btn btn-base btn-icon btn-icon-right btn-sign-in" type="submit" ng-click="vm.download('resume')">
+                                            <span>Download</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="checkbox">
+                                        <input type="checkbox" ng-click="vm.onAgree()" ng-disabled="vm.user.agreedToPolicyDate != null"><i></i>Please indicate that your agree to abide by all regulations and procedures outlined in FACT's policy on Confidentiality by clicking this checkbox
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Please upload your Annual Professional History form:</label>
+                                    <label class="input" ng-show="vm.user.annualProfessionHistoryFormPath == null">
+                                        <input name="files"
+                                               type="file"
+                                               kendo-upload
+                                               k-options="vm.historyOptions"/>
+                                    </label>
+                                    <div class="form-group" ng-show="vm.user.annualProfessionHistoryFormPath != null">
+                                        <button class="btn btn-base btn-icon btn-icon-right btn-sign-in" type="submit" ng-click="vm.download('resume')">
+                                            <span>Download</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>If you are a clinician, please upload your current medical license; if updated within the past year:</label>
+                                    <label class="input" ng-show="vm.user.medicalLicensePath == null">
+                                        <input name="files"
+                                               type="file"
+                                               kendo-upload
+                                               k-options="vm.licenseOptions"/>
+                                    </label>
+                                    <div class="form-group" ng-show="vm.user.medicalLicensePath != null">
+                                        <button class="btn btn-base btn-icon btn-icon-right btn-sign-in" type="submit" ng-click="vm.download('resume')">
+                                            <span>Download</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>License Expiry Date</label>
+                            <label class="select">
+                                <input name="medicalLicenseExpiry" required class="date-fix" kendo-date-picker k-ng-model="vm.user.medicalLicenseExpiry" k-format="dd/MM/yyyy" />
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-sign-in pull-right" type="submit" ng-click="vm.save()" ng-disabled="registration.$invalid || vm.isSaving">
+                            <span>Save Profile</span>
+                        </button>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

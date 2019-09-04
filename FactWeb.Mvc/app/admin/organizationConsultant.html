@@ -1,0 +1,83 @@
+﻿<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Organization Consultants</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="organizationConsultant">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Organization</label>
+                        <label class="select">
+                            <select name="organization" ng-model="vm.selectedOrganization" required>
+                                <option name="org" ng-repeat="org in vm.organizations" value="{{org.organizationId}}">{{org.organizationName}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Consultant</label>
+                        <label class="select">
+                            <select name="consultant" ng-model="vm.selectedConsultant" required>
+                                <option name="consultants" ng-repeat="fac in vm.consultants" value="{{fac.userId}}">{{fac.fullName}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <div class="row">
+                        <div class="col-xs-2" style="margin-top:12px;">
+                            <label class="label">Start Date</label>
+                        </div>
+                        <div class="col-xs-2">
+                            <label class="select">
+                                <input name="startDate" required class="date-fix" kendo-date-picker k-ng-model="vm.startDate" k-on-change="vm.startDateChange()" k-format="MM/dd/yyyy" />
+                            </label>
+                        </div>
+                        <div class="col-xs-2" style="margin-top:12px;">
+                            <label class="label">End Date</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <label class="select">
+                                <input name="endDate" required class="date-fix" kendo-date-picker k-ng-model="vm.endDate" k-format="MM/dd/yyyy" />
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" name="clear" type="submit" ng-click="vm.clearForm()" ng-hide="vm.saveMode">
+                        <span>Clear</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" name="add" type="submit" ng-click="vm.save()" ng-disabled="organizationConsultant.$invalid" ng-hide="vm.saveMode">
+                        <span>Add</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" name="cancel" type="reset" ng-click="vm.cancel()" ng-show="vm.saveMode">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" name="save" type="submit" ng-click="vm.save()" ng-disabled="organizationConsultant.$invalid" ng-show="vm.saveMode">
+                        <span>Save</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+             { "field":"organizationConsultantId" , "title":"Id" , "hidden":"true" },
+             { "field":"organizationId" , "title":"organizationId" , "hidden":"true" },            
+             { "field":"consultantId" , "title":"consultantId" , "hidden":"true" },            
+             { "field":"organizationName" , "title":"Organization" },            
+             { "field":"consultantName" , "title":"Consultant" },            
+             { "field":"startDate" , "title":"Start Date" },            
+             { "field":"endDate" , "title":"End Date" },            
+             { "template": "<button class=\"k-button\" name=\"edit\" ng-click=\"vm.edit(dataItem)\">Edit </button><button class=\"k-button\" name=\"delete\" ng-click=\"vm.delete(#=organizationConsultantId#)\">Delete </button>"}
+            ]'>
+        </div>
+    </div>
+</div>

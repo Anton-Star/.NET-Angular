@@ -1,0 +1,148 @@
+﻿<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Accreditation Outcome</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="accreditationOutcome">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Organization</label>
+                        <label class="select">
+                            <input kendo-combo-box ng-model="vm.selectedOrganization"
+                                    ng-disabled="vm.saveMode || vm.common.organization"
+                                    k-data-source="vm.organizations" k-data-text-field="'organizationName'"
+                                    k-data-value-field="'organizationName'" k-filter="'contains'"
+                                    k-on-change="vm.onSelectedOrganization()" style="width: 100%;" />
+                        </label>
+                    </div>
+                </section>
+                <section ng-show="vm.saveMode">
+                    <div class="form-group">
+                        <label class="label">Application</label>
+                        <label class="select">
+                            <select name="application" ng-model="vm.selectedApplication">
+                                <option ng-repeat="app in vm.applications" value="{{app.applicationId}}">{{app.applicationTypeName}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section ng-show="vm.saveMode">
+                    <div class="form-group">
+                        <label class="label">Outcome Status</label>
+                        <label class="select">
+                            <select name="outcomeStatus" ng-model="vm.selectedOutcomeStatus">
+                                <option ng-repeat="outcomeStatus in vm.outcomeStatuses" value="{{outcomeStatus.id}}">{{outcomeStatus.name}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section ng-show="vm.saveMode">
+                    <div class="form-group">
+                        <label class="label">Report Review Status</label>
+                        <label class="select">
+                            <select name="reportReviewStatus" ng-model="vm.selectedReportReviewStatus">
+                                <option ng-repeat="reportReviewStatus in vm.reportReviewStatuses" value="{{reportReviewStatus.id}}">{{reportReviewStatus.name}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section ng-show="vm.saveMode">
+                    <div class="form-group">
+                        <label class="label">Committee Date</label>
+                        <label class="select">
+                            <input name="committeeDate" class="date-fix" kendo-date-picker ng-model="vm.committeeDate" k-format="dd/MM/yyyy" />
+                        </label>
+                    </div>
+                </section>
+                <section ng-show="vm.saveMode && vm.showDueDate()">
+                    <div class="form-group">
+                        <label class="label">RFI Due Date</label>
+                        <label class="select">
+                            <input name="rfiDueDate" class="date-fix" kendo-date-picker ng-model="vm.dueDate" k-format="dd/MM/yyyy" />
+                        </label>
+                    </div>
+                </section>
+                <section ng-show="vm.saveMode">
+                    <div class="form-group">
+                        <label class="label">Enable Two Year Cycle</label>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default radios" ng-click="vm.useTwoYearCycle = true" ng-class="{active: vm.useTwoYearCycle == true}">
+                                <input type="radio" name="isActive" ng-model="vm.useTwoYearCycle" ng-value="true" />Yes
+                            </label>
+                            <label class="btn btn-default radios" ng-click="vm.useTwoYearCycle = false" ng-class="{active: vm.useTwoYearCycle == false}">
+                                <input type="radio" name="isActive" ng-model="vm.useTwoYearCycle" ng-value="false" />No
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.add()" ng-hide="vm.saveMode">
+                        <span>Add New Outcome</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.view()" ng-hide="vm.saveMode" ng-disabled="accreditationOutcome.$invalid">
+                        <span>View Outcomes</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="reset" ng-click="vm.cancel()" ng-show="vm.saveMode">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.save(false)" ng-disabled="!vm.isDataValid()" ng-show="vm.saveMode">
+                        <span>Save Without Email</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.save(true)" ng-disabled="!vm.isDataValid()" ng-show="vm.saveMode">
+                        <span>Save With Email</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+                {
+                    "field": "id" ,
+                    "title": "Id" ,
+                    "hidden": "true"
+                },
+                {
+                    "field": "organizationName" ,
+                    "title": "Organization" ,
+                    "width": "200px"
+                },
+                {
+                    "field": "applicationName" ,
+                    "title": "Application" ,
+                    "width": "150px"
+                },
+                {
+                    "field": "outcomeStatusName" ,
+                    "title": "Outcome Status" ,
+                    "width": "150px"
+                },
+                {
+                    "field": "reportReviewStatusName" ,
+                    "title": "Report Review Status" ,
+                    "width": "180px"
+                },
+                {
+                    "field": "committeeDate" ,
+                    "title": "Committee Date" ,
+                    "width": "150px"
+                },
+                {
+                    "field": "createdDate" ,
+                    "title": "Outcome Date" ,
+                    "width": "150px"
+                },
+                { 
+                    "template": "<button class=\"k-button\" ng-hide=\"#=sendEmail#\" ng-click=\"vm.delete(#=id#)\">Delete</button>"
+                }
+            ]'>
+        </div>
+    </div>
+</div>

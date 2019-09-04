@@ -1,0 +1,144 @@
+﻿<link href="content/account.css" rel="stylesheet">
+
+<div class="col-md-11 register">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Create your own account</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <section>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>First Name</label>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-user"></i>
+                                        <input type="text" ng-model="vm.firstName" name="firstName" required/>
+                                        <b class="tooltip tooltip-bottom-right">Just in case, we will check our database for first name, last name, and e-mail address to see if this profile already exists.</b>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Last Name</label>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-user"></i>
+                                        <input type="text" ng-model="vm.lastName" name="lastName" required/>
+                                        <b class="tooltip tooltip-bottom-right">Just in case, we will check our database for first name, last name, and e-mail address to see if this profile already exists.</b>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Email Address</label>
+                                    <label class="input">
+                                        <i class="icon-append fa fa-envelope-o"></i>
+                                        <input type="email" ng-model="vm.email" name="email" required/>
+                                        <b class="tooltip tooltip-bottom-right">Just in case, we will check our database for first name, last name, and e-mail address to see if this profile already exists.</b>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Password</label>
+                                    <label class="input" ng-show="!vm.showPassword">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        <input type="password" ng-model="vm.password" name="password" required/>
+                                    </label>
+                                    <label class="input" ng-show="vm.showPassword">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        <input type="text" ng-model="vm.password" name="password" required/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Confirm Password</label>
+                                    <label class="input" ng-show="!vm.showPassword">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        <input type="password" ng-model="vm.passwordConfirm" name="passwordConfirm" required/>
+                                    </label>
+                                    <label class="input" ng-show="vm.showPassword">
+                                        <i class="icon-append fa fa-lock"></i>
+                                        <input type="text" ng-model="vm.passwordConfirm" name="passwordConfirm" required/>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label class="label">&nbsp;</label>
+                                    <label ng-class="{'text-danger': vm.isInvalidPassword()}">
+                                        User passwords should require 8 characters including at least one uppercase letter, one lowercase letter, and a number or special character.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label class="checkbox">
+                                    <input type="checkbox" ng-model="vm.showPassword"><i></i>Show Password
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <!--<section>
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Organization Affiliation</label>
+                            <label class="input">
+                                <span>
+                                    If you are affiliated with an organization, please select the first radio button, below, then use the Find button to search for your organization's record. If you do not find your
+                                    organization, please select the second radio button below to add your organization. If you are not affiliated with an organization, please select the third radio button, below.
+                                </span>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default radios" ng-click="vm.onOrgTypeSelected(orgType)" ng-repeat="orgType in vm.orgTypes">
+                                    <input type="radio" value="{{orgType.name}}" name="orgType"/>{{orgType.title}}
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="margin-top20" ng-show="vm.selectedOrgType.name == 'existing'">
+                        <div class="form-group height">
+                            <button class="btn btn-base btn-icon btn-icon-right fa fa-search search" type="submit" ng-click="vm.findOrg()">
+                                <span>Find Company/Organization</span>
+                            </button>
+                        </div>
+                        <div class="form-group height">
+                            <label class="input">
+                                <input type="text" name="selectedOrganization" disabled="disabled" ng-model="vm.selectedOrganization.organizationName" ng-required="vm.selectedOrgType.name == 'existing'"/>
+                            </label>
+                        </div>
+                    </section>-->
+                    <!--<section class="margin-top20" ng-show="vm.selectedOrgType.name == 'new'">
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Company/Organization Name</label>
+                            <label class="input">
+                                <input type="text" name="newOrganization" ng-model="vm.newOrganization" ng-required="vm.selectedOrgType.name == 'new'" />
+                            </label>
+                        </div>
+                    </section>-->
+                    <section>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-sign-in pull-right" type="submit" ng-click="vm.save()" ng-disabled="registration.$invalid || vm.isSaving || vm.isInvalidPassword()">
+                            <span>Save Profile</span>
+                        </button>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+        <div class="form-footer light">
+            <p>
+                Already have an Account? <a href="#/">Click here to sign in.</a>
+            </p>
+        </div>
+    </div>
+</div>

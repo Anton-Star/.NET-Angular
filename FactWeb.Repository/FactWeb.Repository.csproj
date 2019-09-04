@@ -1,0 +1,1478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{071B4675-620A-4029-BD3E-4C5D0353ACC6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FactWeb.Repository</RootNamespace>
+    <AssemblyName>FactWeb.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.Triggers, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Triggers.5.4.0\lib\net45\EntityFramework.Triggers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.TypedOriginalValues, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.TypedOriginalValues.0.3.1\lib\net40\EntityFramework.TypedOriginalValues.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccreditationOutcomeRepository.cs" />
+    <Compile Include="AccreditationRoleRepository.cs" />
+    <Compile Include="AccreditationStatusRepository.cs" />
+    <Compile Include="AddressRepository.cs" />
+    <Compile Include="AddressTypeRepository.cs" />
+    <Compile Include="ApplicationQuestionNotApplicableRepository.cs" />
+    <Compile Include="ApplicationRepository.cs" />
+    <Compile Include="ApplicationResponseCommentDocumentRepository.cs" />
+    <Compile Include="ApplicationResponseCommentRepository.cs" />
+    <Compile Include="ApplicationResponseRepository.cs" />
+    <Compile Include="ApplicationResponseStatusRepository.cs" />
+    <Compile Include="ApplicationResponseTraineeRepository.cs" />
+    <Compile Include="ApplicationSectionQuestionAnswerDisplayRepository.cs" />
+    <Compile Include="ApplicationSectionQuestionAnswerRepository.cs" />
+    <Compile Include="ApplicationSectionQuestionRepository.cs" />
+    <Compile Include="ApplicationSectionQuestionScopeTypeRepository.cs" />
+    <Compile Include="ApplicationSectionRepository.cs" />
+    <Compile Include="ApplicationSectionScopeTypeRepository.cs" />
+    <Compile Include="ApplicationSettingRepository.cs" />
+    <Compile Include="ApplicationStatusHistoryRepository.cs" />
+    <Compile Include="ApplicationStatusRepository.cs" />
+    <Compile Include="ApplicationSubmitApprovalRepository.cs" />
+    <Compile Include="ApplicationTypeCategoryRepository.cs" />
+    <Compile Include="ApplicationTypeRepository.cs" />
+    <Compile Include="ApplicationVersionCacheRepository.cs" />
+    <Compile Include="ApplicationVersionRepository.cs" />
+    <Compile Include="AssociationTypeRepository.cs" />
+    <Compile Include="BugRepository.cs" />
+    <Compile Include="CacheStatusRepository.cs" />
+    <Compile Include="CBCategoryRepository.cs" />
+    <Compile Include="CollectionTypeRepository.cs" />
+    <Compile Include="CommentTypeRespository.cs" />
+    <Compile Include="ComplianceApplicationApprovalStatusRepository.cs" />
+    <Compile Include="AuditLogRepository.cs" />
+    <Compile Include="BAAOwnerRepository.cs" />
+    <Compile Include="BaseRepository.cs" />
+    <Compile Include="CBCollectionTypeRepository.cs" />
+    <Compile Include="CBUnitTypeRepository.cs" />
+    <Compile Include="ClinicalPopulationTypeRepository.cs" />
+    <Compile Include="ClinicalTypeRepository.cs" />
+    <Compile Include="CollectionProductTypeRepository.cs" />
+    <Compile Include="ComplianceApplicationInspectionDetailRepository.cs" />
+    <Compile Include="ComplianceApplicationRepository.cs" />
+    <Compile Include="ComplianceApplicationSubmitApprovalRepository.cs" />
+    <Compile Include="CountryRepository.cs" />
+    <Compile Include="CpiTypeRepository.cs" />
+    <Compile Include="CredentialRepository.cs" />
+    <Compile Include="DistanceRepository.cs" />
+    <Compile Include="DocumentRepository.cs" />
+    <Compile Include="DocumentTypeRepository.cs" />
+    <Compile Include="EmailTemplateRepository.cs" />
+    <Compile Include="FacilityAccreditationMappingRepository.cs" />
+    <Compile Include="FacilityAccreditationRepository.cs" />
+    <Compile Include="FacilityAddressRepository.cs" />
+    <Compile Include="FacilityCibmtrDataManagementRepository.cs" />
+    <Compile Include="FacilityCibmtrOutcomeAnalysisRepository.cs" />
+    <Compile Include="FacilityCibmtrRepository.cs" />
+    <Compile Include="FacilityRepository.cs" />
+    <Compile Include="FacilitySiteRepository.cs" />
+    <Compile Include="AccessRequestRepository.cs" />
+    <Compile Include="InspectionRepository.cs" />
+    <Compile Include="Migrations\201607151242271_07-15-2016-coordinatorComments.cs" />
+    <Compile Include="Migrations\201607151242271_07-15-2016-coordinatorComments.Designer.cs">
+      <DependentUpon>201607151242271_07-15-2016-coordinatorComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607181448066_OrganizationAccreditationCycle 7-18-16.cs" />
+    <Compile Include="Migrations\201607181448066_OrganizationAccreditationCycle 7-18-16.Designer.cs">
+      <DependentUpon>201607181448066_OrganizationAccreditationCycle 7-18-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607191443140_InspectionScheduleDetail-Update 7-19-16.cs" />
+    <Compile Include="Migrations\201607191443140_InspectionScheduleDetail-Update 7-19-16.Designer.cs">
+      <DependentUpon>201607191443140_InspectionScheduleDetail-Update 7-19-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607191802467_InspectionScheduleDetail-Update2 7-19-16.cs" />
+    <Compile Include="Migrations\201607191802467_InspectionScheduleDetail-Update2 7-19-16.Designer.cs">
+      <DependentUpon>201607191802467_InspectionScheduleDetail-Update2 7-19-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607211505521_SiteTotals 7-21-16.cs" />
+    <Compile Include="Migrations\201607211505521_SiteTotals 7-21-16.Designer.cs">
+      <DependentUpon>201607211505521_SiteTotals 7-21-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607221813138_TranplantCellType 7-22-16.cs" />
+    <Compile Include="Migrations\201607221813138_TranplantCellType 7-22-16.Designer.cs">
+      <DependentUpon>201607221813138_TranplantCellType 7-22-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607221945413_SiteTransplantTotals 7-22-16.cs" />
+    <Compile Include="Migrations\201607221945413_SiteTransplantTotals 7-22-16.Designer.cs">
+      <DependentUpon>201607221945413_SiteTransplantTotals 7-22-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607251759078_Totals 7-25-16.cs" />
+    <Compile Include="Migrations\201607251759078_Totals 7-25-16.Designer.cs">
+      <DependentUpon>201607251759078_Totals 7-25-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607251933515_Totals2 7-25-16.cs" />
+    <Compile Include="Migrations\201607251933515_Totals2 7-25-16.Designer.cs">
+      <DependentUpon>201607251933515_Totals2 7-25-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607270626436_SiteChanges_574.cs" />
+    <Compile Include="Migrations\201607270626436_SiteChanges_574.Designer.cs">
+      <DependentUpon>201607270626436_SiteChanges_574.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607280732421_07-28-2016-RFIDueDate.cs" />
+    <Compile Include="Migrations\201607280732421_07-28-2016-RFIDueDate.Designer.cs">
+      <DependentUpon>201607280732421_07-28-2016-RFIDueDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607281333113_07-28-2016-documenttype.cs" />
+    <Compile Include="Migrations\201607281333113_07-28-2016-documenttype.Designer.cs">
+      <DependentUpon>201607281333113_07-28-2016-documenttype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607281758081_EmailTemplate 7-28-16.cs" />
+    <Compile Include="Migrations\201607281758081_EmailTemplate 7-28-16.Designer.cs">
+      <DependentUpon>201607281758081_EmailTemplate 7-28-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608011758267_OrgChanges 8-1-16.cs" />
+    <Compile Include="Migrations\201608011758267_OrgChanges 8-1-16.Designer.cs">
+      <DependentUpon>201608011758267_OrgChanges 8-1-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608021756082_TotalChange 8-2-16.cs" />
+    <Compile Include="Migrations\201608021756082_TotalChange 8-2-16.Designer.cs">
+      <DependentUpon>201608021756082_TotalChange 8-2-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608081536334_InspectionCategoryOrder 8-8-16.cs" />
+    <Compile Include="Migrations\201608081536334_InspectionCategoryOrder 8-8-16.Designer.cs">
+      <DependentUpon>201608081536334_InspectionCategoryOrder 8-8-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608111940120_PrimaryUser 8-11-16.cs" />
+    <Compile Include="Migrations\201608111940120_PrimaryUser 8-11-16.Designer.cs">
+      <DependentUpon>201608111940120_PrimaryUser 8-11-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608111942235_PrimaryUser2 8-11-16.cs" />
+    <Compile Include="Migrations\201608111942235_PrimaryUser2 8-11-16.Designer.cs">
+      <DependentUpon>201608111942235_PrimaryUser2 8-11-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608111944347_PrimaryUser3 8-11-16.cs" />
+    <Compile Include="Migrations\201608111944347_PrimaryUser3 8-11-16.Designer.cs">
+      <DependentUpon>201608111944347_PrimaryUser3 8-11-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608161741528_UserOrganization 8-16-16.cs" />
+    <Compile Include="Migrations\201608161741528_UserOrganization 8-16-16.Designer.cs">
+      <DependentUpon>201608161741528_UserOrganization 8-16-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608221116346_Site_Address_Changes_556.cs" />
+    <Compile Include="Migrations\201608221116346_Site_Address_Changes_556.Designer.cs">
+      <DependentUpon>201608221116346_Site_Address_Changes_556.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608221244527_AddressChanges_556.cs" />
+    <Compile Include="Migrations\201608221244527_AddressChanges_556.Designer.cs">
+      <DependentUpon>201608221244527_AddressChanges_556.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608221852186_OrgAccredHistory 8-22-16.cs" />
+    <Compile Include="Migrations\201608221852186_OrgAccredHistory 8-22-16.Designer.cs">
+      <DependentUpon>201608221852186_OrgAccredHistory 8-22-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608241821349_InspectionTrainee 8-24-16.cs" />
+    <Compile Include="Migrations\201608241821349_InspectionTrainee 8-24-16.Designer.cs">
+      <DependentUpon>201608241821349_InspectionTrainee 8-24-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608260852530_ApplicationHistory_415.cs" />
+    <Compile Include="Migrations\201608260852530_ApplicationHistory_415.Designer.cs">
+      <DependentUpon>201608260852530_ApplicationHistory_415.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608301150175_AccOutcome_EmailFlag_617.cs" />
+    <Compile Include="Migrations\201608301150175_AccOutcome_EmailFlag_617.Designer.cs">
+      <DependentUpon>201608301150175_AccOutcome_EmailFlag_617.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608310716562_08-31-2016-cycleNumber.cs" />
+    <Compile Include="Migrations\201608310716562_08-31-2016-cycleNumber.Designer.cs">
+      <DependentUpon>201608310716562_08-31-2016-cycleNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608312347576_PrimaryFacility 8-31-16.cs" />
+    <Compile Include="Migrations\201608312347576_PrimaryFacility 8-31-16.Designer.cs">
+      <DependentUpon>201608312347576_PrimaryFacility 8-31-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609051111391_09-05-2016-IsArchive.cs" />
+    <Compile Include="Migrations\201609051111391_09-05-2016-IsArchive.Designer.cs">
+      <DependentUpon>201609051111391_09-05-2016-IsArchive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609061759527_SiteChanges 9-6-2016.cs" />
+    <Compile Include="Migrations\201609061759527_SiteChanges 9-6-2016.Designer.cs">
+      <DependentUpon>201609061759527_SiteChanges 9-6-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609122058356_CacheStatus 9-16-16.cs" />
+    <Compile Include="Migrations\201609122058356_CacheStatus 9-16-16.Designer.cs">
+      <DependentUpon>201609122058356_CacheStatus 9-16-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609131823316_UserChange 9-13-16.cs" />
+    <Compile Include="Migrations\201609131823316_UserChange 9-13-16.Designer.cs">
+      <DependentUpon>201609131823316_UserChange 9-13-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610051532029_JobFunctionReporting 10-5-16.cs" />
+    <Compile Include="Migrations\201610051532029_JobFunctionReporting 10-5-16.Designer.cs">
+      <DependentUpon>201610051532029_JobFunctionReporting 10-5-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610111003445_SiteChanges.cs" />
+    <Compile Include="Migrations\201610111003445_SiteChanges.Designer.cs">
+      <DependentUpon>201610111003445_SiteChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610171903330_CommentChange 10-17-16.cs" />
+    <Compile Include="Migrations\201610171903330_CommentChange 10-17-16.Designer.cs">
+      <DependentUpon>201610171903330_CommentChange 10-17-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610191539596_InspectionSchedule 10-19-16.cs" />
+    <Compile Include="Migrations\201610191539596_InspectionSchedule 10-19-16.Designer.cs">
+      <DependentUpon>201610191539596_InspectionSchedule 10-19-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610201858301_OrgChanges 10-20-16.cs" />
+    <Compile Include="Migrations\201610201858301_OrgChanges 10-20-16.Designer.cs">
+      <DependentUpon>201610201858301_OrgChanges 10-20-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610241506013_ApplicationChange 10-24-16.cs" />
+    <Compile Include="Migrations\201610241506013_ApplicationChange 10-24-16.Designer.cs">
+      <DependentUpon>201610241506013_ApplicationChange 10-24-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610242050573_AccessRequest 10-24-16.cs" />
+    <Compile Include="Migrations\201610242050573_AccessRequest 10-24-16.Designer.cs">
+      <DependentUpon>201610242050573_AccessRequest 10-24-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611011448200_LastReminderDate 11-1-16.cs" />
+    <Compile Include="Migrations\201611011448200_LastReminderDate 11-1-16.Designer.cs">
+      <DependentUpon>201611011448200_LastReminderDate 11-1-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611091059165_OrganizationBAADocument_11_9_2016.cs" />
+    <Compile Include="Migrations\201611091059165_OrganizationBAADocument_11_9_2016.Designer.cs">
+      <DependentUpon>201611091059165_OrganizationBAADocument_11_9_2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611171850506_ApplicationResponseChange 11-17-16.cs" />
+    <Compile Include="Migrations\201611171850506_ApplicationResponseChange 11-17-16.Designer.cs">
+      <DependentUpon>201611171850506_ApplicationResponseChange 11-17-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611241153206_11-24-2016.cs" />
+    <Compile Include="Migrations\201611241153206_11-24-2016.Designer.cs">
+      <DependentUpon>201611241153206_11-24-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611231251324_UserChanges1.cs" />
+    <Compile Include="Migrations\201611231251324_UserChanges1.Designer.cs">
+      <DependentUpon>201611231251324_UserChanges1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611222036046_OrgDocumentLibrary 11-22-16.cs" />
+    <Compile Include="Migrations\201611222036046_OrgDocumentLibrary 11-22-16.Designer.cs">
+      <DependentUpon>201611222036046_OrgDocumentLibrary 11-22-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611231600087_OrgDocumentLibrary 11-23-16.cs" />
+    <Compile Include="Migrations\201611231600087_OrgDocumentLibrary 11-23-16.Designer.cs">
+      <DependentUpon>201611231600087_OrgDocumentLibrary 11-23-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611281557078_UserDocLib 11-28-16.cs" />
+    <Compile Include="Migrations\201611281557078_UserDocLib 11-28-16.Designer.cs">
+      <DependentUpon>201611281557078_UserDocLib 11-28-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611292044107_DocumentLibrary 11-29-16.cs" />
+    <Compile Include="Migrations\201611292044107_DocumentLibrary 11-29-16.Designer.cs">
+      <DependentUpon>201611292044107_DocumentLibrary 11-29-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612071628305_VersionChange 12-7-16.cs" />
+    <Compile Include="Migrations\201612071628305_VersionChange 12-7-16.Designer.cs">
+      <DependentUpon>201612071628305_VersionChange 12-7-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612071307143_12-7-2016.cs" />
+    <Compile Include="Migrations\201612071307143_12-7-2016.Designer.cs">
+      <DependentUpon>201612071307143_12-7-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612091259516_9Dec2016.cs" />
+    <Compile Include="Migrations\201612091259516_9Dec2016.Designer.cs">
+      <DependentUpon>201612091259516_9Dec2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612141115148_12-14-2016-IsPrimaryAddress.cs" />
+    <Compile Include="Migrations\201612141115148_12-14-2016-IsPrimaryAddress.Designer.cs">
+      <DependentUpon>201612141115148_12-14-2016-IsPrimaryAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701031538478_ComplianceApplicationChange 1-3-17.cs" />
+    <Compile Include="Migrations\201701031538478_ComplianceApplicationChange 1-3-17.Designer.cs">
+      <DependentUpon>201701031538478_ComplianceApplicationChange 1-3-17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701041255292_01-04-2017-MultipleDocuments.cs" />
+    <Compile Include="Migrations\201701041255292_01-04-2017-MultipleDocuments.Designer.cs">
+      <DependentUpon>201701041255292_01-04-2017-MultipleDocuments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701051936571_Diff.cs" />
+    <Compile Include="Migrations\201701051936571_Diff.Designer.cs">
+      <DependentUpon>201701051936571_Diff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701111837389_NewDocLib 1-11-17.cs" />
+    <Compile Include="Migrations\201701111837389_NewDocLib 1-11-17.Designer.cs">
+      <DependentUpon>201701111837389_NewDocLib 1-11-17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701231814242_InspectionChange 1-23-17.cs" />
+    <Compile Include="Migrations\201701231814242_InspectionChange 1-23-17.Designer.cs">
+      <DependentUpon>201701231814242_InspectionChange 1-23-17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701301936290_Comment 1-30-17.cs" />
+    <Compile Include="Migrations\201701301936290_Comment 1-30-17.Designer.cs">
+      <DependentUpon>201701301936290_Comment 1-30-17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701311930183_DocumentUpdate 1-31-17.cs" />
+    <Compile Include="Migrations\201701311930183_DocumentUpdate 1-31-17.Designer.cs">
+      <DependentUpon>201701311930183_DocumentUpdate 1-31-17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703131415025_Cleanup.cs" />
+    <Compile Include="Migrations\201703131415025_Cleanup.Designer.cs">
+      <DependentUpon>201703131415025_Cleanup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704041547144_DocLib Changes 4-4-17.cs" />
+    <Compile Include="Migrations\201704041547144_DocLib Changes 4-4-17.Designer.cs">
+      <DependentUpon>201704041547144_DocLib Changes 4-4-17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704141909498_UserChange 4-14-17.cs" />
+    <Compile Include="Migrations\201704141909498_UserChange 4-14-17.Designer.cs">
+      <DependentUpon>201704141909498_UserChange 4-14-17.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704231525157_ComplianceApplicationReportReviewStaus.cs" />
+    <Compile Include="Migrations\201704231525157_ComplianceApplicationReportReviewStaus.Designer.cs">
+      <DependentUpon>201704231525157_ComplianceApplicationReportReviewStaus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704251401086_FacilityChange.cs" />
+    <Compile Include="Migrations\201704251401086_FacilityChange.Designer.cs">
+      <DependentUpon>201704251401086_FacilityChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704252038598_FacilityCibmtr.cs" />
+    <Compile Include="Migrations\201704252038598_FacilityCibmtr.Designer.cs">
+      <DependentUpon>201704252038598_FacilityCibmtr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705051916085_OutcomeChange.cs" />
+    <Compile Include="Migrations\201705051916085_OutcomeChange.Designer.cs">
+      <DependentUpon>201705051916085_OutcomeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705051959161_OutcomeChange2.cs" />
+    <Compile Include="Migrations\201705051959161_OutcomeChange2.Designer.cs">
+      <DependentUpon>201705051959161_OutcomeChange2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705091500349_InspectionChange.cs" />
+    <Compile Include="Migrations\201705091500349_InspectionChange.Designer.cs">
+      <DependentUpon>201705091500349_InspectionChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705111410126_OrgChange.cs" />
+    <Compile Include="Migrations\201705111410126_OrgChange.Designer.cs">
+      <DependentUpon>201705111410126_OrgChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705121714080_CommentChange.cs" />
+    <Compile Include="Migrations\201705121714080_CommentChange.Designer.cs">
+      <DependentUpon>201705121714080_CommentChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705181556164_CibmtrChange.cs" />
+    <Compile Include="Migrations\201705181556164_CibmtrChange.Designer.cs">
+      <DependentUpon>201705181556164_CibmtrChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705221456562_SiteChange.cs" />
+    <Compile Include="Migrations\201705221456562_SiteChange.Designer.cs">
+      <DependentUpon>201705221456562_SiteChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241447448_TrueVaultGroups.cs" />
+    <Compile Include="Migrations\201705241447448_TrueVaultGroups.Designer.cs">
+      <DependentUpon>201705241447448_TrueVaultGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706011505161_OrgAccreditedSince.cs" />
+    <Compile Include="Migrations\201706011505161_OrgAccreditedSince.Designer.cs">
+      <DependentUpon>201706011505161_OrgAccreditedSince.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706051334073_Match.cs" />
+    <Compile Include="Migrations\201706051334073_Match.Designer.cs">
+      <DependentUpon>201706051334073_Match.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NetcordMembershipTypeRepository.cs" />
+    <Compile Include="OrganizationAccreditationCycleRepository.cs" />
+    <Compile Include="OrganizationAccreditationHistoryRepository.cs" />
+    <Compile Include="OrganizationBAADocumentRepository.cs" />
+    <Compile Include="SiteClinicalTypeRepository.cs" />
+    <Compile Include="SiteCollectionTotalRepository.cs" />
+    <Compile Include="SiteCordBloodTransplantTotalRepository.cs" />
+    <Compile Include="SiteProcessingMethodologyTotalRepository.cs" />
+    <Compile Include="SiteProcessingTotalRepository.cs" />
+    <Compile Include="SiteProcessingTotalTransplantCellTypeRepository.cs" />
+    <Compile Include="SiteProcessingTypeRepository.cs" />
+    <Compile Include="SiteTransplantTotalRepository.cs" />
+    <Compile Include="SiteTransplantTypeRepository.cs" />
+    <Compile Include="TransplantCellTypeRepository.cs" />
+    <Compile Include="UserJobFunctionRepository.cs" />
+    <Compile Include="MasterServiceTypeRepository.cs" />
+    <Compile Include="FactWebContext.cs" />
+    <Compile Include="InspectionCategoryRepository.cs" />
+    <Compile Include="InspectionScheduleDetailRepository.cs" />
+    <Compile Include="InspectionScheduleSiteRepository.cs" />
+    <Compile Include="InspectionScheduleRepository.cs" />
+    <Compile Include="JobFunctionRepository.cs" />
+    <Compile Include="LanguageRepository.cs" />
+    <Compile Include="MembershipRepository.cs" />
+    <Compile Include="Migrations\201601271407549_Initial.cs" />
+    <Compile Include="Migrations\201601271407549_Initial.Designer.cs">
+      <DependentUpon>201601271407549_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601281447125_28_1_2016.cs" />
+    <Compile Include="Migrations\201601281447125_28_1_2016.Designer.cs">
+      <DependentUpon>201601281447125_28_1_2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601291614200_User-Change.cs" />
+    <Compile Include="Migrations\201601291614200_User-Change.Designer.cs">
+      <DependentUpon>201601291614200_User-Change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601291627353_Application-Setting.cs" />
+    <Compile Include="Migrations\201601291627353_Application-Setting.Designer.cs">
+      <DependentUpon>201601291627353_Application-Setting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602011534227_01-02-2016.cs" />
+    <Compile Include="Migrations\201602011534227_01-02-2016.Designer.cs">
+      <DependentUpon>201602011534227_01-02-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602041341409_04-02-2016.cs" />
+    <Compile Include="Migrations\201602041341409_04-02-2016.Designer.cs">
+      <DependentUpon>201602041341409_04-02-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602041659035_Application-Tables.cs" />
+    <Compile Include="Migrations\201602041659035_Application-Tables.Designer.cs">
+      <DependentUpon>201602041659035_Application-Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602081330473_02-08-2016.cs" />
+    <Compile Include="Migrations\201602081330473_02-08-2016.Designer.cs">
+      <DependentUpon>201602081330473_02-08-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602090610459_02-09-2016.cs" />
+    <Compile Include="Migrations\201602090610459_02-09-2016.Designer.cs">
+      <DependentUpon>201602090610459_02-09-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602160515304_2-16-2016-1.cs" />
+    <Compile Include="Migrations\201602160515304_2-16-2016-1.Designer.cs">
+      <DependentUpon>201602160515304_2-16-2016-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602161345023_2-16-2016-2.cs" />
+    <Compile Include="Migrations\201602161345023_2-16-2016-2.Designer.cs">
+      <DependentUpon>201602161345023_2-16-2016-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602181018580_2-18-2016.cs" />
+    <Compile Include="Migrations\201602181018580_2-18-2016.Designer.cs">
+      <DependentUpon>201602181018580_2-18-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602191557589_Application-Changes.cs" />
+    <Compile Include="Migrations\201602191557589_Application-Changes.Designer.cs">
+      <DependentUpon>201602191557589_Application-Changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602191726278_2-19-2016.cs" />
+    <Compile Include="Migrations\201602191726278_2-19-2016.Designer.cs">
+      <DependentUpon>201602191726278_2-19-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602240656057_02-24-2016.cs" />
+    <Compile Include="Migrations\201602240656057_02-24-2016.Designer.cs">
+      <DependentUpon>201602240656057_02-24-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602241332231_02-24-2016-1.cs" />
+    <Compile Include="Migrations\201602241332231_02-24-2016-1.Designer.cs">
+      <DependentUpon>201602241332231_02-24-2016-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602241552204_02-24-2016-2.cs" />
+    <Compile Include="Migrations\201602241552204_02-24-2016-2.Designer.cs">
+      <DependentUpon>201602241552204_02-24-2016-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602291116474_02-29-2016.cs" />
+    <Compile Include="Migrations\201602291116474_02-29-2016.Designer.cs">
+      <DependentUpon>201602291116474_02-29-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603011600355_03-01-2016.cs" />
+    <Compile Include="Migrations\201603011600355_03-01-2016.Designer.cs">
+      <DependentUpon>201603011600355_03-01-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603021821512_Document-Library.cs" />
+    <Compile Include="Migrations\201603021821512_Document-Library.Designer.cs">
+      <DependentUpon>201603021821512_Document-Library.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603031632563_ApplicationResponse-Document.cs" />
+    <Compile Include="Migrations\201603031632563_ApplicationResponse-Document.Designer.cs">
+      <DependentUpon>201603031632563_ApplicationResponse-Document.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603071048159_03-07-2016-1.cs" />
+    <Compile Include="Migrations\201603071048159_03-07-2016-1.Designer.cs">
+      <DependentUpon>201603071048159_03-07-2016-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603072031136_AppLog.cs" />
+    <Compile Include="Migrations\201603072031136_AppLog.Designer.cs">
+      <DependentUpon>201603072031136_AppLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603072137067_Fixes.cs" />
+    <Compile Include="Migrations\201603072137067_Fixes.Designer.cs">
+      <DependentUpon>201603072137067_Fixes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603081134285_03-08-2016.cs" />
+    <Compile Include="Migrations\201603081134285_03-08-2016.Designer.cs">
+      <DependentUpon>201603081134285_03-08-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603081638592_JobFunctions.cs" />
+    <Compile Include="Migrations\201603081638592_JobFunctions.Designer.cs">
+      <DependentUpon>201603081638592_JobFunctions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603081857434_Step3Reg.cs" />
+    <Compile Include="Migrations\201603081857434_Step3Reg.Designer.cs">
+      <DependentUpon>201603081857434_Step3Reg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603091628053_UserMembership-Change.cs" />
+    <Compile Include="Migrations\201603091628053_UserMembership-Change.Designer.cs">
+      <DependentUpon>201603091628053_UserMembership-Change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603091816570_User-Changes.cs" />
+    <Compile Include="Migrations\201603091816570_User-Changes.Designer.cs">
+      <DependentUpon>201603091816570_User-Changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603111238012_03-11-2016-1.cs" />
+    <Compile Include="Migrations\201603111238012_03-11-2016-1.Designer.cs">
+      <DependentUpon>201603111238012_03-11-2016-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603131803193_03-13-2016.cs" />
+    <Compile Include="Migrations\201603131803193_03-13-2016.Designer.cs">
+      <DependentUpon>201603131803193_03-13-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603141232537_03-14-2016_AuditLog.cs" />
+    <Compile Include="Migrations\201603141232537_03-14-2016_AuditLog.Designer.cs">
+      <DependentUpon>201603141232537_03-14-2016_AuditLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603161830212_ApplicationSectionChanges 03-16-2016.cs" />
+    <Compile Include="Migrations\201603161830212_ApplicationSectionChanges 03-16-2016.Designer.cs">
+      <DependentUpon>201603161830212_ApplicationSectionChanges 03-16-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603181008470_3-18-2016.cs" />
+    <Compile Include="Migrations\201603181008470_3-18-2016.Designer.cs">
+      <DependentUpon>201603181008470_3-18-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603211221578_03-14-2016_Site_Changes_367.cs" />
+    <Compile Include="Migrations\201603211221578_03-14-2016_Site_Changes_367.Designer.cs">
+      <DependentUpon>201603211221578_03-14-2016_Site_Changes_367.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603211245407_03-14-2016_Site_Changes_367_1.cs" />
+    <Compile Include="Migrations\201603211245407_03-14-2016_Site_Changes_367_1.Designer.cs">
+      <DependentUpon>201603211245407_03-14-2016_Site_Changes_367_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603231050596_03-23-2016.cs" />
+    <Compile Include="Migrations\201603231050596_03-23-2016.Designer.cs">
+      <DependentUpon>201603231050596_03-23-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603231442382_ApplicationChanges 3-23-2016.cs" />
+    <Compile Include="Migrations\201603231442382_ApplicationChanges 3-23-2016.Designer.cs">
+      <DependentUpon>201603231442382_ApplicationChanges 3-23-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603231616409_ApplicationAnswerChanges 3-23-2016.cs" />
+    <Compile Include="Migrations\201603231616409_ApplicationAnswerChanges 3-23-2016.Designer.cs">
+      <DependentUpon>201603231616409_ApplicationAnswerChanges 3-23-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603240713526_03-24-2016-1.cs" />
+    <Compile Include="Migrations\201603240713526_03-24-2016-1.Designer.cs">
+      <DependentUpon>201603240713526_03-24-2016-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603241833219_QuestionScopeTypes 3-24-16.cs" />
+    <Compile Include="Migrations\201603241833219_QuestionScopeTypes 3-24-16.Designer.cs">
+      <DependentUpon>201603241833219_QuestionScopeTypes 3-24-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603281634525_ApplicationResponseUser 3-28-16.cs" />
+    <Compile Include="Migrations\201603281634525_ApplicationResponseUser 3-28-16.Designer.cs">
+      <DependentUpon>201603281634525_ApplicationResponseUser 3-28-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603291820296_ApplicationSection-UniqueIdentifier 3-29-16.cs" />
+    <Compile Include="Migrations\201603291820296_ApplicationSection-UniqueIdentifier 3-29-16.Designer.cs">
+      <DependentUpon>201603291820296_ApplicationSection-UniqueIdentifier 3-29-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603300715353_03-30-2016.cs" />
+    <Compile Include="Migrations\201603300715353_03-30-2016.Designer.cs">
+      <DependentUpon>201603300715353_03-30-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603301841377_ApplicationSectionUniqueId 3-30-16.cs" />
+    <Compile Include="Migrations\201603301841377_ApplicationSectionUniqueId 3-30-16.Designer.cs">
+      <DependentUpon>201603301841377_ApplicationSectionUniqueId 3-30-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604051424476_04-05-2016.cs" />
+    <Compile Include="Migrations\201604051424476_04-05-2016.Designer.cs">
+      <DependentUpon>201604051424476_04-05-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604051443267_ApplicationVersion 4-5-2016.cs" />
+    <Compile Include="Migrations\201604051443267_ApplicationVersion 4-5-2016.Designer.cs">
+      <DependentUpon>201604051443267_ApplicationVersion 4-5-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604051445530_ApplicationVersion2 4-5-2016.cs" />
+    <Compile Include="Migrations\201604051445530_ApplicationVersion2 4-5-2016.Designer.cs">
+      <DependentUpon>201604051445530_ApplicationVersion2 4-5-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604051511406_04-05-2016_Organization_Changes_368.cs" />
+    <Compile Include="Migrations\201604051511406_04-05-2016_Organization_Changes_368.Designer.cs">
+      <DependentUpon>201604051511406_04-05-2016_Organization_Changes_368.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604061945341_AnswerDisplay 4-5-16.cs" />
+    <Compile Include="Migrations\201604061945341_AnswerDisplay 4-5-16.Designer.cs">
+      <DependentUpon>201604061945341_AnswerDisplay 4-5-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604070656074_04-07-2016.cs" />
+    <Compile Include="Migrations\201604070656074_04-07-2016.Designer.cs">
+      <DependentUpon>201604070656074_04-07-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604120538254_04-12-2016.cs" />
+    <Compile Include="Migrations\201604120538254_04-12-2016.Designer.cs">
+      <DependentUpon>201604120538254_04-12-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604180933428_18-04-2016_SiteChanges.cs" />
+    <Compile Include="Migrations\201604180933428_18-04-2016_SiteChanges.Designer.cs">
+      <DependentUpon>201604180933428_18-04-2016_SiteChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604191217543_19-04-2016-site_scope_463.cs" />
+    <Compile Include="Migrations\201604191217543_19-04-2016-site_scope_463.Designer.cs">
+      <DependentUpon>201604191217543_19-04-2016-site_scope_463.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201614219_ApplicationQuestionFlags 4-20-16.cs" />
+    <Compile Include="Migrations\201604201614219_ApplicationQuestionFlags 4-20-16.Designer.cs">
+      <DependentUpon>201604201614219_ApplicationQuestionFlags 4-20-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604211404293_04-21-2016.cs" />
+    <Compile Include="Migrations\201604211404293_04-21-2016.Designer.cs">
+      <DependentUpon>201604211404293_04-21-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604242145045_25-04-2016_Application_Status_470.cs" />
+    <Compile Include="Migrations\201604242145045_25-04-2016_Application_Status_470.Designer.cs">
+      <DependentUpon>201604242145045_25-04-2016_Application_Status_470.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604251011054_04-25-2016.cs" />
+    <Compile Include="Migrations\201604251011054_04-25-2016.Designer.cs">
+      <DependentUpon>201604251011054_04-25-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604271255245_04_27_2016_UserLock_411.cs" />
+    <Compile Include="Migrations\201604271255245_04_27_2016_UserLock_411.Designer.cs">
+      <DependentUpon>201604271255245_04_27_2016_UserLock_411.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604271447274_04-27-2016.cs" />
+    <Compile Include="Migrations\201604271447274_04-27-2016.Designer.cs">
+      <DependentUpon>201604271447274_04-27-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604281029248_04_28_2016_Lock_User_411.cs" />
+    <Compile Include="Migrations\201604281029248_04_28_2016_Lock_User_411.Designer.cs">
+      <DependentUpon>201604281029248_04_28_2016_Lock_User_411.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605021928414_ComplianceApplication 5-2-16.cs" />
+    <Compile Include="Migrations\201605021928414_ComplianceApplication 5-2-16.Designer.cs">
+      <DependentUpon>201605021928414_ComplianceApplication 5-2-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605031558587_ComplianceApplication 5-3-16.cs" />
+    <Compile Include="Migrations\201605031558587_ComplianceApplication 5-3-16.Designer.cs">
+      <DependentUpon>201605031558587_ComplianceApplication 5-3-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605050452306_05-05-2016.cs" />
+    <Compile Include="Migrations\201605050452306_05-05-2016.Designer.cs">
+      <DependentUpon>201605050452306_05-05-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605050920184_05-05-2016_511_ApplicationResponse.cs" />
+    <Compile Include="Migrations\201605050920184_05-05-2016_511_ApplicationResponse.Designer.cs">
+      <DependentUpon>201605050920184_05-05-2016_511_ApplicationResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605052049531_AssociationType 5-5-16.cs" />
+    <Compile Include="Migrations\201605052049531_AssociationType 5-5-16.Designer.cs">
+      <DependentUpon>201605052049531_AssociationType 5-5-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605061254221_05-06-2016_463_MultipleScopeTypes.cs" />
+    <Compile Include="Migrations\201605061254221_05-06-2016_463_MultipleScopeTypes.Designer.cs">
+      <DependentUpon>201605061254221_05-06-2016_463_MultipleScopeTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605091322509_05-09-2016_SiteScopeType_Changes1.cs" />
+    <Compile Include="Migrations\201605091322509_05-09-2016_SiteScopeType_Changes1.Designer.cs">
+      <DependentUpon>201605091322509_05-09-2016_SiteScopeType_Changes1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605091327553_05-09-2016_SiteScopeType_Changes2.cs" />
+    <Compile Include="Migrations\201605091327553_05-09-2016_SiteScopeType_Changes2.Designer.cs">
+      <DependentUpon>201605091327553_05-09-2016_SiteScopeType_Changes2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605100709471_05-10-2016.cs" />
+    <Compile Include="Migrations\201605100709471_05-10-2016.Designer.cs">
+      <DependentUpon>201605100709471_05-10-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605110910496_05-11-2016_UserChanges.cs" />
+    <Compile Include="Migrations\201605110910496_05-11-2016_UserChanges.Designer.cs">
+      <DependentUpon>201605110910496_05-11-2016_UserChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605111337587_05-11-2016_UserChanges_RemoveRequiredConstraint.cs" />
+    <Compile Include="Migrations\201605111337587_05-11-2016_UserChanges_RemoveRequiredConstraint.Designer.cs">
+      <DependentUpon>201605111337587_05-11-2016_UserChanges_RemoveRequiredConstraint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605111602469_05-11-2016_UserChanges_RemoveRequiredConstraint1.cs" />
+    <Compile Include="Migrations\201605111602469_05-11-2016_UserChanges_RemoveRequiredConstraint1.Designer.cs">
+      <DependentUpon>201605111602469_05-11-2016_UserChanges_RemoveRequiredConstraint1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605111618146_05-11-2016_UserChanges_RemoveRequiredConstraint2.cs" />
+    <Compile Include="Migrations\201605111618146_05-11-2016_UserChanges_RemoveRequiredConstraint2.Designer.cs">
+      <DependentUpon>201605111618146_05-11-2016_UserChanges_RemoveRequiredConstraint2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605121132584_05-12-2016.cs" />
+    <Compile Include="Migrations\201605121132584_05-12-2016.Designer.cs">
+      <DependentUpon>201605121132584_05-12-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605131919185_5-13-16.cs" />
+    <Compile Include="Migrations\201605131919185_5-13-16.Designer.cs">
+      <DependentUpon>201605131919185_5-13-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605171853151_Application 5-17-16.cs" />
+    <Compile Include="Migrations\201605171853151_Application 5-17-16.Designer.cs">
+      <DependentUpon>201605171853151_Application 5-17-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605190745258_05-19-2016-OrganizationConsultants.cs" />
+    <Compile Include="Migrations\201605190745258_05-19-2016-OrganizationConsultants.Designer.cs">
+      <DependentUpon>201605190745258_05-19-2016-OrganizationConsultants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605201418147_Workflow 5-20-16.cs" />
+    <Compile Include="Migrations\201605201418147_Workflow 5-20-16.Designer.cs">
+      <DependentUpon>201605201418147_Workflow 5-20-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605241520497_ApplicationUniqueId 5-24-16.cs" />
+    <Compile Include="Migrations\201605241520497_ApplicationUniqueId 5-24-16.Designer.cs">
+      <DependentUpon>201605241520497_ApplicationUniqueId 5-24-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605241525297_ApplicationUniqueId2 5-24-16.cs" />
+    <Compile Include="Migrations\201605241525297_ApplicationUniqueId2 5-24-16.Designer.cs">
+      <DependentUpon>201605241525297_ApplicationUniqueId2 5-24-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605251725262_Outcomes 5-25-16.cs" />
+    <Compile Include="Migrations\201605251725262_Outcomes 5-25-16.Designer.cs">
+      <DependentUpon>201605251725262_Outcomes 5-25-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605261423071_SectionChange 5-26-16.cs" />
+    <Compile Include="Migrations\201605261423071_SectionChange 5-26-16.Designer.cs">
+      <DependentUpon>201605261423071_SectionChange 5-26-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605261803216_QuestionChange 5-26-16.cs" />
+    <Compile Include="Migrations\201605261803216_QuestionChange 5-26-16.Designer.cs">
+      <DependentUpon>201605261803216_QuestionChange 5-26-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606011442399_06-01-2016_359.cs" />
+    <Compile Include="Migrations\201606011442399_06-01-2016_359.Designer.cs">
+      <DependentUpon>201606011442399_06-01-2016_359.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606011535190_06-01-2016_359_1.cs" />
+    <Compile Include="Migrations\201606011535190_06-01-2016_359_1.Designer.cs">
+      <DependentUpon>201606011535190_06-01-2016_359_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606031445567_AppSettingChange 6-3-16.cs" />
+    <Compile Include="Migrations\201606031445567_AppSettingChange 6-3-16.Designer.cs">
+      <DependentUpon>201606031445567_AppSettingChange 6-3-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606031448052_AppSettingChange2 6-3-16.cs" />
+    <Compile Include="Migrations\201606031448052_AppSettingChange2 6-3-16.Designer.cs">
+      <DependentUpon>201606031448052_AppSettingChange2 6-3-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606072119238_IssueFix 6-7-16.cs" />
+    <Compile Include="Migrations\201606072119238_IssueFix 6-7-16.Designer.cs">
+      <DependentUpon>201606072119238_IssueFix 6-7-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606101426353_ApplicationChange 6-10-16.cs" />
+    <Compile Include="Migrations\201606101426353_ApplicationChange 6-10-16.Designer.cs">
+      <DependentUpon>201606101426353_ApplicationChange 6-10-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606151310496_06-15-2016.cs" />
+    <Compile Include="Migrations\201606151310496_06-15-2016.Designer.cs">
+      <DependentUpon>201606151310496_06-15-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606161740090_AuditorObserver 6-16-16.cs" />
+    <Compile Include="Migrations\201606161740090_AuditorObserver 6-16-16.Designer.cs">
+      <DependentUpon>201606161740090_AuditorObserver 6-16-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606170100465_06-17-2016_428.cs" />
+    <Compile Include="Migrations\201606170100465_06-17-2016_428.Designer.cs">
+      <DependentUpon>201606170100465_06-17-2016_428.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606171144224_06-17-2016_540.cs" />
+    <Compile Include="Migrations\201606171144224_06-17-2016_540.Designer.cs">
+      <DependentUpon>201606171144224_06-17-2016_540.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606161345135_06-16-2016.cs" />
+    <Compile Include="Migrations\201606161345135_06-16-2016.Designer.cs">
+      <DependentUpon>201606161345135_06-16-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606201939566_ComplianceAppChanges 6-20-16.cs" />
+    <Compile Include="Migrations\201606201939566_ComplianceAppChanges 6-20-16.Designer.cs">
+      <DependentUpon>201606201939566_ComplianceAppChanges 6-20-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606210949209_06-21-2016-CommentType.cs" />
+    <Compile Include="Migrations\201606210949209_06-21-2016-CommentType.Designer.cs">
+      <DependentUpon>201606210949209_06-21-2016-CommentType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606221115122_06-22-2016.cs" />
+    <Compile Include="Migrations\201606221115122_06-22-2016.Designer.cs">
+      <DependentUpon>201606221115122_06-22-2016.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606270639110_06-27-2016-orgConsultants.cs" />
+    <Compile Include="Migrations\201606270639110_06-27-2016-orgConsultants.Designer.cs">
+      <DependentUpon>201606270639110_06-27-2016-orgConsultants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607071714148_ApplicationTypeChange 7-7-16.cs" />
+    <Compile Include="Migrations\201607071714148_ApplicationTypeChange 7-7-16.Designer.cs">
+      <DependentUpon>201607071714148_ApplicationTypeChange 7-7-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607071718206_ApplicationTypeChange2 7-7-16.cs" />
+    <Compile Include="Migrations\201607071718206_ApplicationTypeChange2 7-7-16.Designer.cs">
+      <DependentUpon>201607071718206_ApplicationTypeChange2 7-7-16.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="OrganizationAddressRepository.cs" />
+    <Compile Include="OrganizationConsultantRepository.cs" />
+    <Compile Include="OrganizationDocumentRepository.cs" />
+    <Compile Include="OrganizationFacilityRepository.cs" />
+    <Compile Include="OrganizationRepository.cs" />
+    <Compile Include="OrganizationTypeRepository.cs" />
+    <Compile Include="OutcomeStatusRepository.cs" />
+    <Compile Include="ProcessingTypeRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionTypeRepository.cs" />
+    <Compile Include="ReportReviewStatusRepository.cs" />
+    <Compile Include="RoleRepository.cs" />
+    <Compile Include="ScopeTypeRepository.cs" />
+    <Compile Include="ServiceTypeRepository.cs" />
+    <Compile Include="SiteAddressRepository.cs" />
+    <Compile Include="SiteApplicationVersionQuestionNotApplicableRepository.cs" />
+    <Compile Include="SiteApplicationVersionRepository.cs" />
+    <Compile Include="SiteRepository.cs" />
+    <Compile Include="SiteScopeTypeRepository.cs" />
+    <Compile Include="StateRepository.cs" />
+    <Compile Include="TemplateRepository.cs" />
+    <Compile Include="TransplantTypeRepository.cs" />
+    <Compile Include="UserAddressRepository.cs" />
+    <Compile Include="UserCredentialRepository.cs" />
+    <Compile Include="UserLanguageRepository.cs" />
+    <Compile Include="UserMembershipRepository.cs" />
+    <Compile Include="UserOrganizationRepository.cs" />
+    <Compile Include="UserRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FactWeb.Infrastructure\FactWeb.Infrastructure.csproj">
+      <Project>{BF65B758-E644-4AA7-BD9E-5BEEF49FCA63}</Project>
+      <Name>FactWeb.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FactWeb.Model\FactWeb.Model.csproj">
+      <Project>{95785fd9-ab8a-43c2-af8d-4b80790431b4}</Project>
+      <Name>FactWeb.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FactWeb.RepositoryContracts\FactWeb.RepositoryContracts.csproj">
+      <Project>{51f58985-217e-4841-a619-2e58564d0709}</Project>
+      <Name>FactWeb.RepositoryContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601271407549_Initial.resx">
+      <DependentUpon>201601271407549_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601281447125_28_1_2016.resx">
+      <DependentUpon>201601281447125_28_1_2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601291614200_User-Change.resx">
+      <DependentUpon>201601291614200_User-Change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601291627353_Application-Setting.resx">
+      <DependentUpon>201601291627353_Application-Setting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602011534227_01-02-2016.resx">
+      <DependentUpon>201602011534227_01-02-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602041341409_04-02-2016.resx">
+      <DependentUpon>201602041341409_04-02-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602041659035_Application-Tables.resx">
+      <DependentUpon>201602041659035_Application-Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602081330473_02-08-2016.resx">
+      <DependentUpon>201602081330473_02-08-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602090610459_02-09-2016.resx">
+      <DependentUpon>201602090610459_02-09-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602160515304_2-16-2016-1.resx">
+      <DependentUpon>201602160515304_2-16-2016-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602161345023_2-16-2016-2.resx">
+      <DependentUpon>201602161345023_2-16-2016-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602181018580_2-18-2016.resx">
+      <DependentUpon>201602181018580_2-18-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602191557589_Application-Changes.resx">
+      <DependentUpon>201602191557589_Application-Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602191726278_2-19-2016.resx">
+      <DependentUpon>201602191726278_2-19-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602240656057_02-24-2016.resx">
+      <DependentUpon>201602240656057_02-24-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602241332231_02-24-2016-1.resx">
+      <DependentUpon>201602241332231_02-24-2016-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602241552204_02-24-2016-2.resx">
+      <DependentUpon>201602241552204_02-24-2016-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602291116474_02-29-2016.resx">
+      <DependentUpon>201602291116474_02-29-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603011600355_03-01-2016.resx">
+      <DependentUpon>201603011600355_03-01-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603021821512_Document-Library.resx">
+      <DependentUpon>201603021821512_Document-Library.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603031632563_ApplicationResponse-Document.resx">
+      <DependentUpon>201603031632563_ApplicationResponse-Document.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603071048159_03-07-2016-1.resx">
+      <DependentUpon>201603071048159_03-07-2016-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603072031136_AppLog.resx">
+      <DependentUpon>201603072031136_AppLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603072137067_Fixes.resx">
+      <DependentUpon>201603072137067_Fixes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603081134285_03-08-2016.resx">
+      <DependentUpon>201603081134285_03-08-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603081638592_JobFunctions.resx">
+      <DependentUpon>201603081638592_JobFunctions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603081857434_Step3Reg.resx">
+      <DependentUpon>201603081857434_Step3Reg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603091628053_UserMembership-Change.resx">
+      <DependentUpon>201603091628053_UserMembership-Change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603091816570_User-Changes.resx">
+      <DependentUpon>201603091816570_User-Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603111238012_03-11-2016-1.resx">
+      <DependentUpon>201603111238012_03-11-2016-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603131803193_03-13-2016.resx">
+      <DependentUpon>201603131803193_03-13-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603141232537_03-14-2016_AuditLog.resx">
+      <DependentUpon>201603141232537_03-14-2016_AuditLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603161830212_ApplicationSectionChanges 03-16-2016.resx">
+      <DependentUpon>201603161830212_ApplicationSectionChanges 03-16-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603181008470_3-18-2016.resx">
+      <DependentUpon>201603181008470_3-18-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603211221578_03-14-2016_Site_Changes_367.resx">
+      <DependentUpon>201603211221578_03-14-2016_Site_Changes_367.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603211245407_03-14-2016_Site_Changes_367_1.resx">
+      <DependentUpon>201603211245407_03-14-2016_Site_Changes_367_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231050596_03-23-2016.resx">
+      <DependentUpon>201603231050596_03-23-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231442382_ApplicationChanges 3-23-2016.resx">
+      <DependentUpon>201603231442382_ApplicationChanges 3-23-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231616409_ApplicationAnswerChanges 3-23-2016.resx">
+      <DependentUpon>201603231616409_ApplicationAnswerChanges 3-23-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603240713526_03-24-2016-1.resx">
+      <DependentUpon>201603240713526_03-24-2016-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603241833219_QuestionScopeTypes 3-24-16.resx">
+      <DependentUpon>201603241833219_QuestionScopeTypes 3-24-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603281634525_ApplicationResponseUser 3-28-16.resx">
+      <DependentUpon>201603281634525_ApplicationResponseUser 3-28-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603300715353_03-30-2016.resx">
+      <DependentUpon>201603300715353_03-30-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603291820296_ApplicationSection-UniqueIdentifier 3-29-16.resx">
+      <DependentUpon>201603291820296_ApplicationSection-UniqueIdentifier 3-29-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603301841377_ApplicationSectionUniqueId 3-30-16.resx">
+      <DependentUpon>201603301841377_ApplicationSectionUniqueId 3-30-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604051424476_04-05-2016.resx">
+      <DependentUpon>201604051424476_04-05-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604051443267_ApplicationVersion 4-5-2016.resx">
+      <DependentUpon>201604051443267_ApplicationVersion 4-5-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604051445530_ApplicationVersion2 4-5-2016.resx">
+      <DependentUpon>201604051445530_ApplicationVersion2 4-5-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604051511406_04-05-2016_Organization_Changes_368.resx">
+      <DependentUpon>201604051511406_04-05-2016_Organization_Changes_368.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604061945341_AnswerDisplay 4-5-16.resx">
+      <DependentUpon>201604061945341_AnswerDisplay 4-5-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604070656074_04-07-2016.resx">
+      <DependentUpon>201604070656074_04-07-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604120538254_04-12-2016.resx">
+      <DependentUpon>201604120538254_04-12-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604180933428_18-04-2016_SiteChanges.resx">
+      <DependentUpon>201604180933428_18-04-2016_SiteChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604191217543_19-04-2016-site_scope_463.resx">
+      <DependentUpon>201604191217543_19-04-2016-site_scope_463.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201614219_ApplicationQuestionFlags 4-20-16.resx">
+      <DependentUpon>201604201614219_ApplicationQuestionFlags 4-20-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604211404293_04-21-2016.resx">
+      <DependentUpon>201604211404293_04-21-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604242145045_25-04-2016_Application_Status_470.resx">
+      <DependentUpon>201604242145045_25-04-2016_Application_Status_470.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604251011054_04-25-2016.resx">
+      <DependentUpon>201604251011054_04-25-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604271255245_04_27_2016_UserLock_411.resx">
+      <DependentUpon>201604271255245_04_27_2016_UserLock_411.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604271447274_04-27-2016.resx">
+      <DependentUpon>201604271447274_04-27-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604281029248_04_28_2016_Lock_User_411.resx">
+      <DependentUpon>201604281029248_04_28_2016_Lock_User_411.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605021928414_ComplianceApplication 5-2-16.resx">
+      <DependentUpon>201605021928414_ComplianceApplication 5-2-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605031558587_ComplianceApplication 5-3-16.resx">
+      <DependentUpon>201605031558587_ComplianceApplication 5-3-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605050452306_05-05-2016.resx">
+      <DependentUpon>201605050452306_05-05-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605050920184_05-05-2016_511_ApplicationResponse.resx">
+      <DependentUpon>201605050920184_05-05-2016_511_ApplicationResponse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605052049531_AssociationType 5-5-16.resx">
+      <DependentUpon>201605052049531_AssociationType 5-5-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605061254221_05-06-2016_463_MultipleScopeTypes.resx">
+      <DependentUpon>201605061254221_05-06-2016_463_MultipleScopeTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605091322509_05-09-2016_SiteScopeType_Changes1.resx">
+      <DependentUpon>201605091322509_05-09-2016_SiteScopeType_Changes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605091327553_05-09-2016_SiteScopeType_Changes2.resx">
+      <DependentUpon>201605091327553_05-09-2016_SiteScopeType_Changes2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605100709471_05-10-2016.resx">
+      <DependentUpon>201605100709471_05-10-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605110910496_05-11-2016_UserChanges.resx">
+      <DependentUpon>201605110910496_05-11-2016_UserChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111337587_05-11-2016_UserChanges_RemoveRequiredConstraint.resx">
+      <DependentUpon>201605111337587_05-11-2016_UserChanges_RemoveRequiredConstraint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111602469_05-11-2016_UserChanges_RemoveRequiredConstraint1.resx">
+      <DependentUpon>201605111602469_05-11-2016_UserChanges_RemoveRequiredConstraint1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111618146_05-11-2016_UserChanges_RemoveRequiredConstraint2.resx">
+      <DependentUpon>201605111618146_05-11-2016_UserChanges_RemoveRequiredConstraint2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605121132584_05-12-2016.resx">
+      <DependentUpon>201605121132584_05-12-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605131919185_5-13-16.resx">
+      <DependentUpon>201605131919185_5-13-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605171853151_Application 5-17-16.resx">
+      <DependentUpon>201605171853151_Application 5-17-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605190745258_05-19-2016-OrganizationConsultants.resx">
+      <DependentUpon>201605190745258_05-19-2016-OrganizationConsultants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605201418147_Workflow 5-20-16.resx">
+      <DependentUpon>201605201418147_Workflow 5-20-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605241520497_ApplicationUniqueId 5-24-16.resx">
+      <DependentUpon>201605241520497_ApplicationUniqueId 5-24-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605241525297_ApplicationUniqueId2 5-24-16.resx">
+      <DependentUpon>201605241525297_ApplicationUniqueId2 5-24-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605251725262_Outcomes 5-25-16.resx">
+      <DependentUpon>201605251725262_Outcomes 5-25-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605261423071_SectionChange 5-26-16.resx">
+      <DependentUpon>201605261423071_SectionChange 5-26-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605261803216_QuestionChange 5-26-16.resx">
+      <DependentUpon>201605261803216_QuestionChange 5-26-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606011442399_06-01-2016_359.resx">
+      <DependentUpon>201606011442399_06-01-2016_359.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606011535190_06-01-2016_359_1.resx">
+      <DependentUpon>201606011535190_06-01-2016_359_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606031445567_AppSettingChange 6-3-16.resx">
+      <DependentUpon>201606031445567_AppSettingChange 6-3-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606031448052_AppSettingChange2 6-3-16.resx">
+      <DependentUpon>201606031448052_AppSettingChange2 6-3-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606072119238_IssueFix 6-7-16.resx">
+      <DependentUpon>201606072119238_IssueFix 6-7-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606101426353_ApplicationChange 6-10-16.resx">
+      <DependentUpon>201606101426353_ApplicationChange 6-10-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606151310496_06-15-2016.resx">
+      <DependentUpon>201606151310496_06-15-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606161345135_06-16-2016.resx">
+      <DependentUpon>201606161345135_06-16-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606161740090_AuditorObserver 6-16-16.resx">
+      <DependentUpon>201606161740090_AuditorObserver 6-16-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606170100465_06-17-2016_428.resx">
+      <DependentUpon>201606170100465_06-17-2016_428.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606171144224_06-17-2016_540.resx">
+      <DependentUpon>201606171144224_06-17-2016_540.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606210949209_06-21-2016-CommentType.resx">
+      <DependentUpon>201606210949209_06-21-2016-CommentType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606201939566_ComplianceAppChanges 6-20-16.resx">
+      <DependentUpon>201606201939566_ComplianceAppChanges 6-20-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606221115122_06-22-2016.resx">
+      <DependentUpon>201606221115122_06-22-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606270639110_06-27-2016-orgConsultants.resx">
+      <DependentUpon>201606270639110_06-27-2016-orgConsultants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607071714148_ApplicationTypeChange 7-7-16.resx">
+      <DependentUpon>201607071714148_ApplicationTypeChange 7-7-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607071718206_ApplicationTypeChange2 7-7-16.resx">
+      <DependentUpon>201607071718206_ApplicationTypeChange2 7-7-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607151242271_07-15-2016-coordinatorComments.resx">
+      <DependentUpon>201607151242271_07-15-2016-coordinatorComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607181448066_OrganizationAccreditationCycle 7-18-16.resx">
+      <DependentUpon>201607181448066_OrganizationAccreditationCycle 7-18-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607191443140_InspectionScheduleDetail-Update 7-19-16.resx">
+      <DependentUpon>201607191443140_InspectionScheduleDetail-Update 7-19-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607191802467_InspectionScheduleDetail-Update2 7-19-16.resx">
+      <DependentUpon>201607191802467_InspectionScheduleDetail-Update2 7-19-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607211505521_SiteTotals 7-21-16.resx">
+      <DependentUpon>201607211505521_SiteTotals 7-21-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221813138_TranplantCellType 7-22-16.resx">
+      <DependentUpon>201607221813138_TranplantCellType 7-22-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607221945413_SiteTransplantTotals 7-22-16.resx">
+      <DependentUpon>201607221945413_SiteTransplantTotals 7-22-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607251759078_Totals 7-25-16.resx">
+      <DependentUpon>201607251759078_Totals 7-25-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607251933515_Totals2 7-25-16.resx">
+      <DependentUpon>201607251933515_Totals2 7-25-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607270626436_SiteChanges_574.resx">
+      <DependentUpon>201607270626436_SiteChanges_574.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607280732421_07-28-2016-RFIDueDate.resx">
+      <DependentUpon>201607280732421_07-28-2016-RFIDueDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607281333113_07-28-2016-documenttype.resx">
+      <DependentUpon>201607281333113_07-28-2016-documenttype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607281758081_EmailTemplate 7-28-16.resx">
+      <DependentUpon>201607281758081_EmailTemplate 7-28-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608011758267_OrgChanges 8-1-16.resx">
+      <DependentUpon>201608011758267_OrgChanges 8-1-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608021756082_TotalChange 8-2-16.resx">
+      <DependentUpon>201608021756082_TotalChange 8-2-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608081536334_InspectionCategoryOrder 8-8-16.resx">
+      <DependentUpon>201608081536334_InspectionCategoryOrder 8-8-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608111940120_PrimaryUser 8-11-16.resx">
+      <DependentUpon>201608111940120_PrimaryUser 8-11-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608111942235_PrimaryUser2 8-11-16.resx">
+      <DependentUpon>201608111942235_PrimaryUser2 8-11-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608111944347_PrimaryUser3 8-11-16.resx">
+      <DependentUpon>201608111944347_PrimaryUser3 8-11-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608161741528_UserOrganization 8-16-16.resx">
+      <DependentUpon>201608161741528_UserOrganization 8-16-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608221116346_Site_Address_Changes_556.resx">
+      <DependentUpon>201608221116346_Site_Address_Changes_556.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608221244527_AddressChanges_556.resx">
+      <DependentUpon>201608221244527_AddressChanges_556.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608221852186_OrgAccredHistory 8-22-16.resx">
+      <DependentUpon>201608221852186_OrgAccredHistory 8-22-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608241821349_InspectionTrainee 8-24-16.resx">
+      <DependentUpon>201608241821349_InspectionTrainee 8-24-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608260852530_ApplicationHistory_415.resx">
+      <DependentUpon>201608260852530_ApplicationHistory_415.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608301150175_AccOutcome_EmailFlag_617.resx">
+      <DependentUpon>201608301150175_AccOutcome_EmailFlag_617.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608310716562_08-31-2016-cycleNumber.resx">
+      <DependentUpon>201608310716562_08-31-2016-cycleNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608312347576_PrimaryFacility 8-31-16.resx">
+      <DependentUpon>201608312347576_PrimaryFacility 8-31-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609051111391_09-05-2016-IsArchive.resx">
+      <DependentUpon>201609051111391_09-05-2016-IsArchive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609061759527_SiteChanges 9-6-2016.resx">
+      <DependentUpon>201609061759527_SiteChanges 9-6-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609122058356_CacheStatus 9-16-16.resx">
+      <DependentUpon>201609122058356_CacheStatus 9-16-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609131823316_UserChange 9-13-16.resx">
+      <DependentUpon>201609131823316_UserChange 9-13-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610051532029_JobFunctionReporting 10-5-16.resx">
+      <DependentUpon>201610051532029_JobFunctionReporting 10-5-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610111003445_SiteChanges.resx">
+      <DependentUpon>201610111003445_SiteChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610171903330_CommentChange 10-17-16.resx">
+      <DependentUpon>201610171903330_CommentChange 10-17-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191539596_InspectionSchedule 10-19-16.resx">
+      <DependentUpon>201610191539596_InspectionSchedule 10-19-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610201858301_OrgChanges 10-20-16.resx">
+      <DependentUpon>201610201858301_OrgChanges 10-20-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610241506013_ApplicationChange 10-24-16.resx">
+      <DependentUpon>201610241506013_ApplicationChange 10-24-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610242050573_AccessRequest 10-24-16.resx">
+      <DependentUpon>201610242050573_AccessRequest 10-24-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611011448200_LastReminderDate 11-1-16.resx">
+      <DependentUpon>201611011448200_LastReminderDate 11-1-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611091059165_OrganizationBAADocument_11_9_2016.resx">
+      <DependentUpon>201611091059165_OrganizationBAADocument_11_9_2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611171850506_ApplicationResponseChange 11-17-16.resx">
+      <DependentUpon>201611171850506_ApplicationResponseChange 11-17-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231251324_UserChanges1.resx">
+      <DependentUpon>201611231251324_UserChanges1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611241153206_11-24-2016.resx">
+      <DependentUpon>201611241153206_11-24-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611222036046_OrgDocumentLibrary 11-22-16.resx">
+      <DependentUpon>201611222036046_OrgDocumentLibrary 11-22-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231600087_OrgDocumentLibrary 11-23-16.resx">
+      <DependentUpon>201611231600087_OrgDocumentLibrary 11-23-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611281557078_UserDocLib 11-28-16.resx">
+      <DependentUpon>201611281557078_UserDocLib 11-28-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611292044107_DocumentLibrary 11-29-16.resx">
+      <DependentUpon>201611292044107_DocumentLibrary 11-29-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612071628305_VersionChange 12-7-16.resx">
+      <DependentUpon>201612071628305_VersionChange 12-7-16.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612071307143_12-7-2016.resx">
+      <DependentUpon>201612071307143_12-7-2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612091259516_9Dec2016.resx">
+      <DependentUpon>201612091259516_9Dec2016.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612141115148_12-14-2016-IsPrimaryAddress.resx">
+      <DependentUpon>201612141115148_12-14-2016-IsPrimaryAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701031538478_ComplianceApplicationChange 1-3-17.resx">
+      <DependentUpon>201701031538478_ComplianceApplicationChange 1-3-17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701041255292_01-04-2017-MultipleDocuments.resx">
+      <DependentUpon>201701041255292_01-04-2017-MultipleDocuments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701051936571_Diff.resx">
+      <DependentUpon>201701051936571_Diff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701111837389_NewDocLib 1-11-17.resx">
+      <DependentUpon>201701111837389_NewDocLib 1-11-17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701231814242_InspectionChange 1-23-17.resx">
+      <DependentUpon>201701231814242_InspectionChange 1-23-17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701301936290_Comment 1-30-17.resx">
+      <DependentUpon>201701301936290_Comment 1-30-17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701311930183_DocumentUpdate 1-31-17.resx">
+      <DependentUpon>201701311930183_DocumentUpdate 1-31-17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703131415025_Cleanup.resx">
+      <DependentUpon>201703131415025_Cleanup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704041547144_DocLib Changes 4-4-17.resx">
+      <DependentUpon>201704041547144_DocLib Changes 4-4-17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704141909498_UserChange 4-14-17.resx">
+      <DependentUpon>201704141909498_UserChange 4-14-17.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704231525157_ComplianceApplicationReportReviewStaus.resx">
+      <DependentUpon>201704231525157_ComplianceApplicationReportReviewStaus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704251401086_FacilityChange.resx">
+      <DependentUpon>201704251401086_FacilityChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704252038598_FacilityCibmtr.resx">
+      <DependentUpon>201704252038598_FacilityCibmtr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705051916085_OutcomeChange.resx">
+      <DependentUpon>201705051916085_OutcomeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705051959161_OutcomeChange2.resx">
+      <DependentUpon>201705051959161_OutcomeChange2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705091500349_InspectionChange.resx">
+      <DependentUpon>201705091500349_InspectionChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705111410126_OrgChange.resx">
+      <DependentUpon>201705111410126_OrgChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705121714080_CommentChange.resx">
+      <DependentUpon>201705121714080_CommentChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705181556164_CibmtrChange.resx">
+      <DependentUpon>201705181556164_CibmtrChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705221456562_SiteChange.resx">
+      <DependentUpon>201705221456562_SiteChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241447448_TrueVaultGroups.resx">
+      <DependentUpon>201705241447448_TrueVaultGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706011505161_OrgAccreditedSince.resx">
+      <DependentUpon>201706011505161_OrgAccreditedSince.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706051334073_Match.resx">
+      <DependentUpon>201706051334073_Match.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,48 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+<link href="content/widgets.css" rel="stylesheet">
+
+<div class="col-md-11 requirementManagement">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Application Management</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <section>
+                        <button class="btn btn-base pull-right" name="add" type="submit" ng-click="vm.onAdd()">
+                            <span>Add New</span>
+                        </button>
+                    </section>
+                    <section ng-show="vm.applications.length > 0">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="label">Current Applications</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="searchResults"
+                             kendo-grid="vm.grid"
+                             k-options="vm.gridOptions">
+                        </div>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="coordinator">
+    <span ng-show="dataItem.coordinator != null">{{dataItem.coordinator}}</span>
+</script>
+
+<script type="text/x-kendo-template" id="organization">    
+    <a href="" ng-click="$event.preventDefault(); vm.editOrganization(dataItem)">{{dataItem.organizationName}}</a>
+</script>
+
+<script type="text/x-kendo-template" id="applicationType">    
+    <a href="\\#/Application?app={{dataItem.applicationUniqueId}}" ng-if="dataItem.applicationTypeName.indexOf('Compliance') == -1">{{dataItem.applicationTypeName}} </a>
+    <a href="\\#/Compliance?app={{dataItem.applicationUniqueId}}&c={{dataItem.complianceApplicationId}}" ng-if="dataItem.applicationTypeName.indexOf('Compliance') != -1">{{dataItem.applicationTypeName}}</a>
+</script>
+

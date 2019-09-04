@@ -1,0 +1,48 @@
+﻿.inspectionschedule select[name=organization] {
+  margin-left: 55px !important;
+}
+.inspectionschedule select[name=applicationType] {
+  margin-left: 32px !important;
+}
+/*select[name=selectedFacilities] {
+        width: 400px;
+        margin-left: -25px;
+    }*/
+select[name=weakFacilities] {
+  width: 400px;
+}
+.strong {
+  color: red;
+}
+/*#labelSelectedFacilities{
+        margin-left: -25px;
+    }*/
+.app-modal-window .modal-dialog {
+  width: 1000px;
+}
+.date-fix {
+  padding: .177em 0 !important;
+}
+.move-button-center {
+  text-align: center;
+}
+.move-button {
+  width: 50px;
+}
+.add-button {
+  margin-left: -30px;
+}
+.add-staff-label {
+  margin-left: 18px;
+}
+#inspectionDate {
+  height: auto;
+}
+.k-picker-wrap.k-state-default::before {
+  display: none;
+}
+#weakFacilities,
+#selectedFacilities {
+  height: 125px;
+  width: 375px;
+}

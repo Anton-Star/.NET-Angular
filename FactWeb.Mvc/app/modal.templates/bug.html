@@ -1,0 +1,23 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Report a Technical Issue</h3>
+</div>
+<div class="modal-body">
+    <form class="sky-form comment-box">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label">Please enter the details of your issue below. If possible, include a screenshot of the problem. You must click outside of the text area before saving.</label>
+                </div>
+            </section>
+            <section>
+                <textarea kendo-editor k-ng-model="vm.comment"></textarea>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSave()" ng-disabled="vm.comment == null || vm.comment == ''">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

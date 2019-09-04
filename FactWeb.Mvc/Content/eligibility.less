@@ -1,0 +1,201 @@
+﻿.overview {
+    font-size: 1.1em;
+
+    
+
+    
+}
+
+.wp-block.default {
+    .row {
+        padding: 10px;
+    }
+}
+
+.red-bold {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.qm {
+    height: 60px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #ff0000;
+    vertical-align: middle;
+    line-height: 60px;
+    margin-bottom: 10px;
+}
+
+.panel {
+    .circle {
+        &.Complete, .Complete, &.Completed, .Completed { background-color: #747728; }
+    }
+
+    .stat {
+        padding-bottom: 10px;
+
+        .col-md-3 {
+            padding-right: 0;
+        }
+        .col-md-9 {
+            padding-left: 0;
+        }
+    }
+}
+ 
+.circle {
+    margin-right: 5px;
+    width: 22px;
+    height: 22px;
+    -webkit-border-radius: 11px;
+    -moz-border-radius: 11px;
+    border-radius: 11px;
+
+    &.Complete, .Complete, .Cancelled, &.Cancelled, .ApplicationSubmitted, &.ApplicationSubmitted { background-color: #E3DFD6; }
+    &.New, .New, &.NotStarted, .NotStarted { background-color: #FAF06D; }
+    &.NoResponse, .NoResponse, &.NA, .NA { background-color: #E3DFD6; }
+    &.Incomplete, .Incomplete { background-color: #9256A6; }
+    &.InProgress, .InProgress { background-color: #FAF06D; color: #000; a { color: #000 !important;} }
+    &.FollowUp, .FollowUp { background-color: #3C90CE; }
+    &.Reviewed, .Reviewed { background-color: #2276AC; }
+    &.RFI, .RFI, &.RFIIn, .RFIIn, &.AwaitingDirector, .AwaitingDirector, &.PastDue { background-color: #D21502; }
+    &.RFICompleted, .RFICompleted { background-color: #C7D19C; }
+    &.RFIFollowup, .RFIFollowup { background-color: #F9C6CB;}
+    &.NotApplicable, .NotApplicable { background-color: #FFBD0F; }
+    &.NotCompliant, .NotCompliant { background-color: #872175; }
+    &.Compliant, .Compliant { background-color: #61C2BB; }
+    &.ForReview, .ForReview, &.RFISubmitted, .RFISubmitted, .PostInspection, &.PostInspection, .RFIReview, &.RFIReview { background-color: #FE7D68; }
+    &.Approved, .Approved { background-color: #F7B100; }
+    &.SchedulingInspection, .SchedulingInspection, .Scheduling, &.scheduling { background-color: #C1ADD8; }
+    &.Pre-Inspection, .Pre-Inspection, .InspectionScheduled, &.InspectionScheduled { background-color: #7853A6; }
+    .PendingDirector, &.PendingDirector { background-color: #D21502; }
+    .PendingDirector.Approval, &.PendingDirector.Approval { background-color: #E1BEDF; }
+    &.On-SiteInspection, .On-SiteInspection { background-color: #97CFF9; }
+    
+    /*&.InReview, &.PendingDirector.Approval {
+        background-color: #0066A4;
+    }
+
+    &.RFI, &.RFIIn {
+        background-color: #ff0000;
+    }
+
+    &.Applied, &.ForReview {
+        background-color: #008000;
+    }
+
+    &.Pending {
+        background-color: #FFFF00;
+    }
+    &.InProgress, &.ApplicantResponse, &.In.Progress {
+        background-color: #FFFF00 !important;
+    }
+
+    &.PendingCommittee.Review {
+        background-color: RGB(67,181,173);
+    }
+
+    &.RFICompleted {
+        background-color: #747728;
+    }
+
+    &.Reviewed {
+        background-color: #008080;
+    }
+    &.NotCompliant {
+      background-color: #000000;
+    }
+    &.Compliant, &.ApplicationSubmitted, &.InspectionScheduled {
+      background-color: #006600;
+    }
+    &.Complete, &.Approved {
+        background-color: #A3A738;
+    }*/
+}
+
+
+
+.boxes {
+    margin-top: 20px;
+
+    .box {
+        width: 100%;
+
+        .title {
+            width: 150px;
+            background-color: #4D4D4F;
+            color: #E9E9EA;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .details {
+            width: 150px;
+            background-color: #DCDDDE;
+            color: #262626;
+            padding: 10px 10px 20px 10px;
+
+            .date {
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+                width: 130px;
+            }
+        }
+    }
+}
+
+.coordinator {
+    .photo {
+        width: 124px;
+        height: 124px;
+        background-color: #A1A637;
+        -webkit-border-radius: 62px;
+        -moz-border-radius: 62px;
+        border-radius: 62px;
+        background-repeat:no-repeat;   
+    }
+
+    .head {
+        text-transform: uppercase;
+        padding-top: 20px;
+    }
+
+    .open-app {
+        height: 130px;
+        line-height: 130px;
+        vertical-align: bottom;
+    }
+}
+
+.coordinator-applications {
+    .searching {
+        .col-md-1 {
+            width: 12.5%;
+        }
+
+        .inac {
+            width: 17%;
+        }
+
+        .col-md-2 {
+            width: 20%;
+        }
+
+        .col-md-3 {
+            width: 37.33%;
+        }
+    }
+}
+
+.application {
+    .photo {
+
+    }
+}
+
+.survival {
+    width: 95%;
+}

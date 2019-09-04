@@ -1,0 +1,313 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title" ng-if="vm.organizationid != null">Edit Organization</h3>
+    <h3 class="modal-title" ng-hide="vm.organizationid != null">New Organization</h3>
+</div>
+<div class="modal-body">
+    <form name="editOrganization" class="sky-form">
+        <fieldset>
+            <section ng-if="vm.organizationid != null">
+                <div class="form-group">
+                    <label class="label">Organization Number</label>
+                    <label class="input">
+                        <input type="text" id="orgNumber" ng-model="vm.organization.organizationNumber" name="orgNumber" readonly />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Organization Name</label>
+                    <label class="input">
+                        <input type="text" id="orgName" ng-model="vm.organization.organizationName" name="orgName" required maxlength="400" autofocus />
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.organizationid != null">
+                <div class="form-group">
+                    <div class="row space-bot">
+                        <div class="col-md-8">
+                            <label class="label"><span class="required-field">*</span>Organization Director</label>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" id="addDirector" name="addDirector" type="submit" ng-click="vm.addUser('director')">
+                                <span>Add New User</span>
+                            </button>
+                        </div>
+                    </div>
+                    <label class="select">
+                        <select id="orgDirector" name="orgDirector" ng-model="vm.organization.organizationDirector.userId" required>
+                            <option ng-repeat="orgDirector in vm.organizationDirector track by $index" value="{{orgDirector.userId}}">{{orgDirector.fullName}}</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.organizationid != null">
+                <div class="form-group">
+                    <div class="row space-bot">
+                        <div class="col-md-8">
+                            <label class="label"><span class="required-field">*</span>Primary Contact</label>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" id="addContact" name="addContact" type="submit" ng-click="vm.addUser('contact')">
+                                <span>Add New User</span>
+                            </button>
+                        </div>
+                    </div>
+                    <label class="select">
+                        <select id="orgPrimaryContact" name="orgPrimaryContact" ng-model="vm.organization.primaryUser.userId" required>
+                            <option ng-repeat="orgPrimaryContact in vm.organizationUsers track by $index" value="{{orgPrimaryContact.userId}}">{{orgPrimaryContact.fullName}}</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Auto-CC Email Addresses (Separate by ;)</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.organization.ccEmailAddresses" id="ccEmailAddresses" name="ccEmailAddresses" />
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.organizationid != null">
+                <div class="form-group">
+                    <label class="label">Accredited Services</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.accreditedServices" id="orgAccreditedServices" name="orgAccreditedServices" readonly />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Accreditation Status</label>
+                    <label class="select">
+                        <select id="orgAccrStatus" name="orgAccrStatus" ng-model="vm.organization.accreditationStatusItem.id" ng-options="orgAccrStatus.id as orgAccrStatus.name for orgAccrStatus in vm.accreditationStatus" required />
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.accredLevel != ''">
+                <div class="form-group">
+                    <label class="label">Accreditation Level</label>
+                    <label class="label">{{vm.accredLevel}}</label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group" ng-if="vm.organizationid != null">
+                    <label class="label">Address Line 1</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.organization.streetAddress1" id="streetaddress1" name="streetaddress1" readonly />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group" ng-if="vm.organizationid != null">
+                    <label class="label">Address Line 2</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.organization.streetAddress2" id="streetaddress2" name="streetaddress2" readonly />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group" ng-if="vm.organizationid != null">
+                    <label class="label">City</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.organization.city" id="city" name="city" readonly />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group" ng-if="vm.organizationid != null">
+                    <label class="label">State/Province</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.organization.stateProvince" id="stateProvince" name="stateProvince" readonly />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group" ng-if="vm.organizationid != null">
+                    <label class="label">Zip Code</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.organization.zip" id="zip" name="zip" readonly />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group" ng-if="vm.organizationid != null">
+                    <label class="label">Country</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.organization.country" id="country" name="country" readonly />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group" ng-if="vm.primarySite.siteId != null">
+                    <label class="label" style="text-align: right !important;">
+                        <a href="" ng-click="$event.preventDefault(); vm.editPrimarySite()" id="managePrimary" name="managePrimary">Manage Primary Site</a>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">BAA Owner</label>
+                    <label class="select">
+                        <select id="orgBAAOwner" name="orgBAAOwner" ng-model="vm.organization.baaOwnerItem.id">
+                            <option ng-repeat="orgBAAOwner in vm.baaOwner" value="{{orgBAAOwner.id}}">{{orgBAAOwner.name}}</option>
+                        </select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">BAA Executed Date</label>
+                    <label class="select">
+                        <input id="orgBAAExecutedDate" name="orgBAAExecutedDate" class="date-fix" kendo-date-picker ng-model="vm.baaExecutionDate" k-ng-model="vm.organization.baaExecutionDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">BAA Document Version</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.organization.baaDocumentVersion" id="orgBAADocumentVersion" name="orgBAADocumentVersion" maxlength="100" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">BAA Verified Date</label>
+                    <label class="select">
+                        <input id="orgBAAVerifiedDate" name="orgBAAVerifiedDate" class="date-fix" kendo-date-picker ng-model="vm.baaVerifiedDate" k-ng-model="vm.organization.baaVerifiedDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.organizationid != null">
+                <label class="label">BAA Files</label>
+                <div class="form-group" data-ng-show="vm.organization.bAADocumentItems.length > 0">
+                    <div id="baaFilesGrid" class="searchResults"
+                         kendo-grid="grid"
+                         k-options="vm.gridOptionsBAA">
+                    </div>
+                </div>
+            </section>
+            <section ng-if="vm.organizationid != null">
+                <label class="input baa">
+                    <i class="icon-append fa fa-lock"></i>
+                    <input type="file" file-model="vm.file" />
+                    <button class="btn btn-primary" type="button" ng-click="vm.onSaveBaaDocument()" id="saveBaa" name="saveBaa">Save BAA</button>
+                </label>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Accreditation Date</label>
+                    <label class="select">
+                        <input id="orgAccrDate" name="orgAccrDate" class="date-fix" kendo-date-picker ng-model="vm.accreditationDate" k-ng-model="vm.organization.accreditationDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Accreditation Expiration Date</label>
+                    <label class="select">
+                        <input id="orgAccrExpirationDate" name="orgAccrExpirationDate" class="date-fix" readonly kendo-date-picker ng-model="vm.accreditationExpirationDate" k-ng-model="vm.organization.accreditationExpirationDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Accreditation Extension Date</label>
+                    <label class="select">
+                        <input id="orgAccrExtDate" name="orgAccrExtDate" class="date-fix" kendo-date-picker ng-model="vm.accreditationExtensionDate" k-ng-model="vm.organization.accreditationExtensionDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Accredited Since</label>
+                    <label class="select">
+                        <input id="orgAccrSince" name="orgAccrSince" class="date-fix" kendo-date-picker ng-model="vm.accreditedSince" k-ng-model="vm.organization.accreditedSince" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Description</label>
+                    <label class="input">
+                        <textarea id="orgDesc" name="orgDesc" kendo-editor k-encoded="false" k-ng-model="vm.organization.description"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Spatial Relationship</label>
+                    <label class="input">
+                        <textarea id="orgSpatial" name="orgSpatial" kendo-editor k-encoded="false" k-ng-model="vm.organization.spatialRelationship"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Comments</label>
+                    <label class="input">
+                        <textarea id="orgComments" name="orgComments" kendo-editor k-encoded="false" k-ng-model="vm.organization.comments"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Cycle Number</label>
+                    <label class="input">
+                        <input id="cycleNumber" type="text" ng-model="vm.organization.cycleNumber" name="cycleNumber" maxlength="5" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Initial Two Year Cycle</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.organization.useTwoYearCycle = true; vm.setAccredExp()" ng-class="{active: vm.organization.useTwoYearCycle == true}">
+                            <input type="radio" name="isActive" ng-model="vm.organization.useTwoYearCycle" ng-value="true" />Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.organization.useTwoYearCycle = false; vm.setAccredExp()" ng-class="{active: vm.organization.useTwoYearCycle == false}">
+                            <input type="radio" name="isActive" ng-model="vm.organization.useTwoYearCycle" ng-value="false" />No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Cycle Effective Date</label>
+                    <label class="select">
+                        <input id="cycleEffectiveDate" name="cycleEffectiveDate" class="date-fix" kendo-date-picker ng-model="vm.cycleEffectiveDate" k-ng-model="vm.organization.cycleEffectiveDate" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group" data-ng-show="vm.organization.facilityItems.length > 0">
+                    <div id="reportGrid" class="searchResults"
+                         kendo-grid="grid"
+                         k-options="vm.gridOptions">
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" id="save" name="save" ng-click="vm.save(false)" ng-disabled="editOrganization.$invalid || vm.isBusy">Save</button>
+    <button class="btn btn-primary" type="button" id="saveCont" name="saveCont" ng-click="vm.save(true)" ng-disabled="editOrganization.$invalid || vm.isBusy">Save and Close</button>
+    <button class="btn btn-warning" type="button" id="cancel" name="cancel" ng-click="vm.cancel()">Cancel</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

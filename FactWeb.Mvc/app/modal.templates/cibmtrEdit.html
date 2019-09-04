@@ -1,0 +1,119 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Facility Outcome/Data</h3>
+</div>
+<div class="modal-body cibmtr">
+    <form class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Active</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.selectedCibmtr.isActive = true" ng-class="{active: vm.selectedCibmtr.isActive == true}">
+                            <input type="radio" id="isActiveYes" name="isActive" ng-model="vm.user.isActive" ng-value="true" />Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.selectedCibmtr.isActive = false" ng-class="{active: vm.selectedCibmtr.isActive == false}">
+                            <input type="radio" id="isActiveNo" name="isActive" ng-model="vm.selectedCibmtr.isActive" ng-value="false" />No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>CIBMTR Center Number or FACT Identifier</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.selectedCibmtr.centerNumber" required/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">CIBMTR CCN Name</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.selectedCibmtr.ccnName"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">CIBMTR Transplant Center-Specific Survival Report Name</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.selectedCibmtr.transplantSurvivalReportName"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Display Name</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.selectedCibmtr.displayName"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Non-CIBMTR Flag</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.selectedCibmtr.isNonCibmtr = true" ng-class="{active: vm.selectedCibmtr.isNonCibmtr == true}">
+                            <input type="radio" ng-model="vm.selectedCibmtr.isNonCibmtr" ng-value="true"/>Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.selectedCibmtr.isNonCibmtr = false" ng-class="{active: vm.selectedCibmtr.isNonCibmtr == false}">
+                            <input type="radio" ng-model="vm.selectedCibmtr.isNonCibmtr" ng-value="false"/>No
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+        <fieldset ng-if="vm.selectedCibmtr.id != null">
+            <section>
+                <div class="row spacer">
+                    <div class="col-md-8">Outcome Analysis</div>
+                    <div class="col-md-4">
+                        <span class="cap">
+                            CAP Required
+                            <input type="checkbox" ng-model="vm.isNotRequired" ng-click="vm.onSetRequired()" />    
+                        </span>
+                        
+                        <button class="btn btn-primary add" type="button" ng-click="vm.onAddOutcome()">+</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="searchResults"
+                                 kendo-grid="grid"
+                                 k-options="vm.allogeneicGridOptions">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+        <fieldset ng-if="vm.selectedCibmtr.id != null">
+            <section>
+                <div class="row spacer">
+                    <div class="col-md-8">Data Management</div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary add" type="button" ng-click="vm.onAddDataMgmt()">+</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="searchResults"
+                                 kendo-grid="grid"
+                                 k-options="vm.dataMgmtGridOptions">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSaveCibmtr(false)" ng-disabled="vm.isBusy">Save</button>
+    <button class="btn btn-primary" type="button" ng-click="vm.onSaveCibmtr(true)" ng-disabled="vm.isBusy">Save And Close</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

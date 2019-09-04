@@ -1,0 +1,60 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+<link href="content/widgets.css" rel="stylesheet">
+
+<div class="col-md-11 requirementManagement">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Standards Management</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <section>
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Select Type:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.selectedApplicationType" ng-change="vm.onApplicationTypeChange()">
+                                    <option ng-repeat="t in vm.applicationTypes">{{t.applicationTypeName}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section ng-show="vm.showResults">
+                        <ul class="nav nav-pills">
+                            <li role="presentation" ng-class="{active: version.isShown}" ng-repeat="version in vm.versionNames"><a ng-click="vm.onChangeVersion(version)">{{version.versionNumber}}</a></li>
+                            <li role="presentation">
+                                <button class="btn btn-base" type="submit" ng-click="vm.onAddNewVersion()">
+                                    <span>New Version</span>
+                                </button>
+                                
+                                <button class="btn btn-base" type="submit" ng-click="vm.onRebuildCache()" ng-show="vm.currentVersion && vm.currentVersion.isActive">
+                                    <span>Rebuild Cache</span>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="form-group" ng-show="vm.currentVersion != null">
+                            <label class="label">{{vm.currentVersion.title}}</label>
+                        </div>
+                        <div class="row add-set" ng-show="vm.currentVersion != null">
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.onExport()">
+                                <span>Export Version</span>
+                            </button>
+
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.addSet()">
+                                <span>Add New {{vm.requirementSettingName}}</span>
+                            </button>
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.makeActive()" ng-show="!vm.currentVersion.isActive">
+                                <span>Make Version {{vm.currentVersion.versionNumber}} Active</span>
+                            </button>
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.onRemoveVersion()" ng-show="!vm.currentVersion.isActive">
+                                <span>Delete Version {{vm.currentVersion.versionNumber}}</span>
+                            </button>
+                        </div>
+                        <requirement-list ng-model="vm.requirements" scope-types="vm.scopeTypes" questions="vm.questions" current-version="vm.currentVersion" is-requirement-set="true" question-types="vm.questionTypes" applicationtype="{{vm.selectedApplicationType}}"></requirement-list>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

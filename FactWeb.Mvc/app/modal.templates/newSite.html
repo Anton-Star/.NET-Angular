@@ -1,0 +1,248 @@
+﻿<div class="modal-header">
+    <span ng-show="vm.isNewSite">New Site </span>
+    <span ng-show="!vm.isNewSite">Edit Site </span>
+</div>
+<div class="modal-body">
+    <form name="newSite" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Site Name</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.site.siteName" id="siteName" name="siteName" required maxlength="400" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Address Line 1</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.site.siteStreetAddress1" id="streetaddress1" name="streetaddress1" required maxlength="200" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Address Line 2</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.site.siteStreetAddress2" id="streetaddress2" name="streetaddress2" maxlength="200" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>City</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.site.siteCity" id="city" name="city" required maxlength="50" />
+                    </label>
+                </div>
+            </section>
+            <section ng-show="vm.isCountryUSA">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>State</label>
+                    <label class="select">
+                        <select id="siteState" name="siteState" ng-model="vm.site.siteState.id" ng-required="vm.isCountryUSA" ng-options="state.id as state.name for state in vm.statesList"></select>
+                    </label>
+                </div>
+            </section>
+            <section ng-show="!vm.isCountryUSA">
+                <div class="form-group">
+                    <label class="label">Province/Region</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.site.siteProvince" id="siteProvince" name="siteProvince" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Zip Code</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.site.siteZip" id="zip" name="zip" required maxlength="16" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Country</label>
+                    <label class="select">
+                        <select id="siteCountry" name="siteCountry" ng-model="vm.countryId" ng-change="vm.selectedCountryChange()" ng-options="country.id as country.name for country in vm.countriesList" required>
+                        </select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div>
+                    <label class="label"><span class="required-field">*</span>Site Phone</label>
+                    <label class="input">
+                        <input kendo-masked-text-box k-mask="'999-000-000-0000'" ng-model="vm.site.sitePhone" id="phone" name="phone" required />
+                    </label>
+                </div>
+            </section>
+            
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Site Start Date</label>
+                    <label class="select">
+                        <input id="siteStartDate" name="siteStartDate" class="date-fix" kendo-date-picker k-ng-model="vm.site.siteStartDate" ng-model="vm.siteStartDate" k-format="dd/MM/yyyy" />
+                    </label>
+                    </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label">Scope</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6" ng-repeat="j in vm.scopeTypes">
+                        <label class="checkbox">
+                            <input id="scope" name="scope" type="checkbox" value="{{j.id}}" ng-model="j.isSelected"><i></i>{{j.name}}
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Facility</label>
+                    <input kendo-combo-box ng-model="vm.site.siteFacilityId"
+                           id="facility"
+                           name="facility"
+                           k-options="vm.comboOptions"
+                           k-data-source="vm.facilities" k-data-text-field="'facilityName'"
+                           k-data-value-field="'facilityId'" k-filter="'contains'"
+                           k-on-change="vm.selectedFacilityChange()" style="width: 100%;" required />                    
+                </div>
+            </section>
+            <section ng-show="vm.isFacilityCT">
+                <section>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="label">Transplant Population Type (Clinical Only)</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6" ng-repeat="j in vm.transplantTypes">
+                            <label class="checkbox">
+                                <input id="transplant" name="transplant{{j.id}}" type="checkbox" value="{{j.id}}" ng-model="j.isSelected"><i></i>{{j.name}}
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="label">Processing Type (Processing Only)</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6" ng-repeat="j in vm.processingTypes">
+                            <label class="checkbox">
+                                <input id="processing" name="processing{{j.id}}" type="checkbox" value="{{j.id}}" ng-model="j.isSelected"><i></i>{{j.name}}
+                            </label>
+                        </div>
+                    </div>
+                </section>                
+                <section>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="label">Clinical Type (Clinical Only)</label>
+                            </div>
+                        </div>
+                        <div class="col-xs-6" ng-repeat="j in vm.clinicalTypes">
+                            <label class="checkbox">
+                                <input id="clinical" name="clinical{{j.id}}" type="checkbox" value="{{j.id}}" ng-model="j.isSelected"><i></i>{{j.name}}
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Collection Product Type (Collection Only)</label>
+                        <label class="select">
+                            <input kendo-combo-box ng-model="vm.site.siteCollectionProductType.id"
+                                   id="collectionProductType"
+                                   name="collectionProductType"
+                                   k-options="vm.comboOptions"
+                                   k-data-source="vm.collectionProductTypes" k-data-text-field="'name'"
+                                   k-data-value-field="'id'" k-filter="'contains'"
+                                   style="width: 100%;" />                    
+                        </label>
+                    </div>
+                </section>
+            </section>
+            <section ng-show="vm.isFacilityCB">
+                <section>
+                    <div class="form-group">
+                        <label class="label">CB Collection Type</label>
+                        <label class="select">
+                            <input kendo-combo-box ng-model="vm.site.siteCBCollectionType.id"
+                                   id="cbCollectionType"
+                                   name="cbCollectionType"
+                                   k-data-source="vm.cbCollectionTypes" k-data-text-field="'name'"
+                                   k-options="vm.comboOptions"
+                                   k-data-value-field="'id'" k-filter="'contains'"
+                                   style="width: 100%;" />
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">CB Unit Type</label>
+                        <label class="select">                            
+                            <input kendo-combo-box ng-model="vm.site.siteCBUnitType.id"
+                                   id="cbUnitType"
+                                   name="cbUnitType"
+                                   k-options="vm.comboOptions"
+                                   k-data-source="vm.cbUnitTypes" k-data-text-field="'name'"
+                                   k-data-value-field="'id'" k-filter="'contains'"
+                                   style="width: 100%;"  />
+                        </label>
+                    </div>
+                </section>                
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input id="isPrimary" name="isPrimary" type="checkbox" ng-model="vm.site.siteIsPrimarySite"><i></i>Is Primary Site
+                    </label>
+                </div>
+            </section>
+            <section ng-show="vm.site.siteIsPrimarySite">
+                <section>
+                    <div class="form-group">
+                        <button id="addAddress" name="addAddress" class="btn btn-warning" type="button" ng-click="vm.addAddress()">Add New Address</button>
+                    </div>
+                    <div class="form-group" data-ng-show="vm.results.length > 0">
+                        <div id="reportGrid" class="searchResults"
+                             kendo-grid="grid"
+                             k-options="vm.gridOptions"
+                             k-columns='[
+                                 {
+                                     field: "id" ,
+                                     title: "Id" ,
+                                     hidden: "true"
+                                 },
+                                 {
+                                     field: "addressType" ,
+                                     title: "Address Type" ,
+                                     width: "180px"
+                                 },
+                                 {
+                                    template: "<button class=\"k-button\" id=\"edit\" name=\"edit\" ng-click=\"vm.editAddress(dataItem)\">Edit </button>"
+                                 },
+                                 {
+                                    template: "<button class=\"k-button\" id=\"delete\" name=\"delete\" ng-click=\"vm.deleteAddress(dataItem)\">Delete </button>"
+                                 }
+                            ]'>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" id="save" name="save" ng-click="vm.save()" ng-disabled="newSite.$invalid">Save</button>
+    <button class="btn btn-warning" type="button" id="cancel" name="cancel" ng-click="vm.cancel()">Cancel</button>
+</div>

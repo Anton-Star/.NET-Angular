@@ -1,0 +1,25 @@
+﻿<uib-accordion-group>
+    <uib-accordion-heading>
+        <div class="col-lg-11">
+            <div class="head-text">{{row.uniqueIdentifier}}. <span ng-bind-html="row.name"></span> </div>
+        </div>
+        <div class="col-lg-1">
+            <div class="pull-right icons">
+                <button class="btn btn-primary" ng-click="onNotApplicableRow(row, $event)">{{row.isNotApplicable ? 'Not Applicable' : 'Included' }}</button>                
+            </div>
+        </div>
+
+    </uib-accordion-heading>
+    <div class="row reqs notapp" ng-repeat="q in row.questions" ng-class-odd="'odd'" ng-class-even="'even'" ng-class="{removed: q.isNotApplicable}">
+        <div class="col-lg-11">
+            <span ng-bind-html="q.text"></span>
+        </div>
+        <div class="col-lg-1">
+            <div class="pull-right icons">
+                <a class="glyphicon glyphicon-remove" ng-click="onNotApplicable(q)" ng-if="!q.isNotApplicable"></a>
+                <a class="glyphicon glyphicon-ok" ng-click="onNotApplicable(q)" ng-if="q.isNotApplicable"></a>
+            </div>
+        </div>
+    </div>
+    <not-applicable-requirement-list ng-model="row.children"></not-applicable-requirement-list>
+</uib-accordion-group>

@@ -1,0 +1,29 @@
+﻿<div class="modal-header">
+    <span>Bulk Status Update</span>
+</div>
+<div class="modal-body">
+    <form name="bulkStatusUpdate" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>From Status</label>
+                    <label class="select">
+                        <select name="fromStatus" ng-model="vm.fromStatus" ng-options="status.id as status.name for status in vm.fromStatusesList" required></select>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>To Status</label>
+                    <label class="select">
+                        <select name="toStatus" ng-model="vm.toStatus" ng-options="status.id as status.name for status in vm.toStatusesList" required></select>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.updateStatus()" ng-disabled="bulkStatusUpdate.$invalid || !vm.isUpdateValid()">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

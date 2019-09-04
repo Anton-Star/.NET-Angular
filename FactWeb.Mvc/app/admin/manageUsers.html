@@ -1,0 +1,43 @@
+﻿<!--<link href="content/auditlog.css" rel="stylesheet">-->
+
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Manage Users</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="manageUser">
+            <fieldset>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" name="addUser" type="submit" ng-click="vm.addUser()">
+                        <span>Add New User</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions">
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="org">
+    <span ng-repeat="org in dataItem.organizations">
+        <a href ng-click="vm.onGetOrg(org.organization)">{{org.organization.organizationName}}</a><br />
+    </span>
+</script>
+
+<script type="text/x-kendo-template" id="email">
+    <a href="mailto:{{dataItem.emailAddress}}">{{dataItem.emailAddress}}</a>
+</script>
+
+<script type="text/x-kendo-template" id="fullName">
+    <span ng-show="dataItem.isActive">
+        {{dataItem.fullName}}
+    </span>
+    <span ng-hide="dataItem.isActive">
+        <b style='color:lightgray; font-style:italic;'>{{dataItem.fullName}}</b>
+    </span>
+</script>

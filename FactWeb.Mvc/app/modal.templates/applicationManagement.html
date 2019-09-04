@@ -1,0 +1,67 @@
+﻿<link href="content/application.css" rel="stylesheet">
+<div class="modal-header">
+    <h3 class="modal-title"><span ng-bind-html="vm.section.parentName"></span></h3>
+</div>
+<div class="modal-body">
+    <form name="registration" class="sky-form">
+        <fieldset class="no-padding">
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Select Organization:</label>
+                    <label class="select">
+                        <select name="type" ng-model="vm.selectedOrganization" ng-change="vm.onSelectedOrganization()" ng-disabled="vm.values.application != null" required>
+                            <option ng-repeat="t in vm.organizations">{{t.organizationName}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section ng-show="vm.applicationTypes.length > 0 || vm.values.application != null">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Select Application Type:</label>
+                    <label class="select">
+                        <select name="type" ng-model="vm.selectedApplicationType" ng-change="vm.onSelectedType()" ng-disabled="vm.values.application != null" required>
+                            <option ng-repeat="t in vm.applicationTypes">{{t.name}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Coordinator</label>
+                    <label class="select">
+                        <select name="type" ng-model="vm.coordinator" required>
+                            <option value="{{t.userId}}" ng-repeat="t in vm.values.coordinators">{{t.fullName}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.isEdit">
+                <div class="form-group">
+                    <label class="label">Application Status</label>
+                    <label class="select">
+                        <select name="type" ng-model="vm.applicationStatus" >
+                            <option value="{{t.id}}" ng-repeat="t in vm.applicationStatuses">{{t.name}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.selectedApplicationType !== ''">
+                <div class="form-group">
+                    <label class="label">Due Date</label>
+                    <label class="input">
+                        <input name="dueDate" class="date-fix" k-parse-formats="['MM/dd/yyyy', 'MM/dd/yy']" kendo-date-picker k-format="MM/dd/yyyy" k-ng-model="vm.dueDate" />
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" name="save" type="button" ng-click="vm.onSave()" ng-disabled="vm.isBusy || registration.$invalid">Save</button>
+    <button class="btn btn-warning" name="cancel" type="button" ng-click="vm.cancel()" ng-disabled="vm.isBusy">Cancel</button>
+</div>

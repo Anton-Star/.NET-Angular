@@ -1,0 +1,25 @@
+﻿<div class="panel" ng-show="row.isVisible">
+    <div class="panel-heading req quest">
+        <div ng-class="{'col-lg-10' : isApplicant || accessType == 'User', 'col-lg-7': !isApplicant || accessType !== 'User'}">
+            <div class="row no-margin-row">
+                <div class="col-md-3" style="width: 120px;">
+                    <div class="pull-left circle RFI" ng-if="row.hasRfi == true"></div>
+                    <div class="pull-left circle {{row.circleStatusName.replace('/', '')}}" title="{{row.circle || row.circleStatusName}}" ng-if="(row.hasRfi == false || row.hasRfi == null) && row.circleStatusName != ''"></div>
+                    <div><span class="glyphicon glyphicon-flag glyphicon-flag-red" ng-if="row.hasFlags == true"></span>{{row.uniqueIdentifier}}.
+                    </div>
+                </div>
+                <div class="col-md-9"><span class="head-text" ng-bind-html="row.name"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2" ng-hide="{{common.isUser() || accessType === 'User' || common.isConsultantCoordinator()}}">
+            <div><a ng-click="onBulkUpdate(row, $event)">Update Status (Bulk)</a>
+            </div>
+        </div>
+        <div ng-class="{'col-lg-2' : common.isUser() || accessType === 'User' || common.isConsultantCoordinator(), 'col-lg-3': (!common.isUser() && !common.isConsultantCoordinator()) || accessType !== 'User'}">
+            <div class="pull-right icons">
+                <a ng-click="onEdit(row)">Questions ></a>
+            </div>
+        </div>
+    </div>
+</div>

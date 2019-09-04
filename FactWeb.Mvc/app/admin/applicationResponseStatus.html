@@ -1,0 +1,64 @@
+﻿<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Application Response Status</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="applicationResponseStatus">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Status for FACT</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.selectedFACTStatus" name="statusName" required />
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Status for Applicant</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.selectedApplicantStatus" name="statusNameforApplicant" required />
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.clearForm()" ng-hide="vm.saveMode">
+                        <span>Clear</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="reset" ng-click="vm.cancel()" ng-show="vm.saveMode">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.saveStatus()" ng-disabled="applicationResponseStatus.$invalid" ng-show="vm.saveMode">
+                        <span>Save</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+                {
+                    "field": "id" ,
+                    "title": "Id" ,
+                    "hidden": "true"
+                },
+                {
+                     "field": "name" ,
+                     "title": "Status for FACT" ,
+                     "width": "360px"
+                 },
+                 {
+                     "field": "nameForApplicant" ,
+                     "title": "Status for Applicant" ,
+                     "width": "360px"
+                 },
+                 {
+                     "template": "<button class=\" k-button\" ng-click=\"vm.editStatus(dataItem)\">Edit </button>"
+                }
+            ]'>
+        </div>
+    </div>
+</div>

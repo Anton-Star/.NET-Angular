@@ -1,0 +1,37 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+<link href="content/widgets.css" rel="stylesheet">
+
+<div class="col-md-11">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>User Impersonation</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <section>
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Select User:</label>
+                            <label class="select">
+                                <input kendo-combo-box ng-model="vm.user"
+                                       k-data-source="vm.users" k-data-text-field="'fullName'"
+                                       k-data-value-field="'userId'" k-filter="'contains'"
+                                        style="width: 100%;" />
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <fieldset class="no-padding">
+                            <section>
+                                <button class="btn btn-base pull-right" type="submit" ng-click="vm.onImpersonate()" ng-disabled="vm.user == null">
+                                    <span>Impersonate</span>
+                                </button>
+                            </section>
+                        </fieldset>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

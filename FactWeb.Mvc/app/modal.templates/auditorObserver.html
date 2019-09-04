@@ -1,0 +1,42 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Auditor/Observer User Management</h3>
+</div>
+<div class="modal-body">
+    <form class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>User</label>
+                    <label class="select">
+                        <select ng-model="vm.values.user.userId">
+                            <option ng-repeat="u in vm.values.users" value="{{u.userId}}">{{u.fullName}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="vm.values.user.isAuditor"> Auditor
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="vm.values.user.isObserver"> Observer
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save()" ng-disabled="vm.isBusy">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>
+

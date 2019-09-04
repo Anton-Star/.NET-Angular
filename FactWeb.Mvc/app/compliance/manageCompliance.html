@@ -1,0 +1,349 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+<link href="content/widgets.css" rel="stylesheet">
+
+<div class="col-md-12 compApp">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2 ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''">Manage Compliance</h2>
+            <h2 ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != ''">Approval of Accreditation Goal and Inspection Sites</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <div ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != '' && vm.application != null">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <section>
+                                    Review the information below for accuracy and select Approve or Reject. The Compliance Application will be activated once approval is received.
+                                </section>
+                                <div class="form-group" ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != ''">
+                                    <label class="label"><b>Organization:</b> {{vm.selectedOrg.organizationName}}</label>
+                                </div>
+                                <div class="form-group" ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != ''">
+                                    <label class="label"><b>Accreditation Goal:</b> <span ng-bind-html="vm.application.accreditationGoal"></span></label>
+                                </div>
+                                <section>
+                                    <div class="form-group">
+                                        <label class="label"><b>Current Accreditation Date:</b> {{vm.selectedOrg.accreditationDate || 'N/A' | date: 'MMMM dd, yyyy'}}</label>
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="form-group">
+                                        <label class="label"><b>Accreditation Expiration Date:</b> {{vm.selectedOrg.accreditationExpirationDate || 'N/A' | date: 'MMMM dd, yyyy'}}</label>
+                                    </div>
+                                </section>
+                                <section>
+                                    <div class="form-group">
+                                        <label class="label"><b>Accreditation Status:</b> {{vm.selectedOrg.accreditationStatusName}}</label>
+                                    </div>
+                                </section>
+                                <div class="form-group">
+                                    <label class="label"><b>Coordinator:</b> {{vm.application.coordinator.fullName}}</label>
+                                </div>
+                                <section>
+                                    <div class="form-group">
+                                        <label class="label"><b>Compliance Application Due Date:</b> {{vm.application.dueDt | date: 'MMMM dd, yyyy'}}</label>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="man-comp-verb">
+                                    Questions regarding the Accreditation Goal and inspection details should be directed to your new FACT Accreditation Coordinator:<br />
+                                    <div class="text-center">
+                                        {{vm.application.coordinator.fullName}}{{vm.getCreds(vm.application)}}<br />
+                                        <a href="mailto:{{vm.application.coordinator.emailAddress}}">{{vm.application.coordinator.emailAddress}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <section ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''">
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Select Organization:</label>
+                            <label class="select">
+                                <input kendo-combo-box ng-model="vm.selectedOrganization" name="org"
+                                       k-data-source="vm.organizations" k-data-text-field="'organizationName'"
+                                       k-data-value-field="'organizationName'" k-filter="'contains'"
+                                       k-on-change="vm.onSelectedOrganization()" style="width: 100%;" />
+                            </label>
+                            <label class="label">Organization Name: {{vm.selectedOrg.organizationName}}</label>
+                        </div>
+                    </section>
+                    <section ng-show="vm.complianceApplications.length > 1" ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''">
+                        <fieldset class="no-padding">
+                            <section>
+                                <label class="label">{{vm.selectedOrg.organizationName}} has multiple active compliance applications. Please select the one you want to manage.</label>
+                                <div id="reportGrid" class="searchResults"
+                                     kendo-grid
+                                     k-options="vm.appsGridOptions"
+                                     k-columns='[
+                                         { "field":"createdDate", "title":"Created Date"},
+                                         { "field":"dueDate", "title":"Compliance Application Due Date"},
+                                         { "field": "reportReviewStatusName", "title": "Report Review Status"},
+                                         { "field":"applicationStatus", "title":"ApplicationStatus"},
+                                        ]'>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </section>
+                    <section ng-show="vm.application != null" ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''">
+                        <fieldset class="no-padding">
+                            <section ng-if="!vm.isPreview">
+                                <div class="form-group">
+                                    <button class="btn btn-base pull-right" name="addNew" ng-click="vm.onAddNew()">
+                                        <span>Add New Application</span>
+                                    </button>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label">Manage: <a ng-click="vm.onManageOrganization()">Organization</a></label>
+                                </div>
+                            </section>
+                            <section ng-if="vm.selectedOrg.eligibilityApplicationUniqueId != null">
+                                <div class="form-group">
+                                    <label class="label">View: <a ng-click="vm.onViewApplication()">Eligibility Application</a></label>
+                                </div>
+                            </section>
+                            <section ng-if="vm.selectedOrg.complianceApplicationUniqueId != null">
+                                <div class="form-group">
+                                    <label class="label">View: <a href="#/Compliance?app={{vm.selectedOrg.applicationUniqueId}}&c={{vm.selectedOrg.complianceApplicationUniqueId}}">Compliance Application</a></label>
+                                </div>
+                            </section>
+                            <section ng-if="vm.selectedOrg.renewalApplicationUniqueId != null">
+                                <div class="form-group">
+                                    <label class="label">View: <a ng-click="vm.onViewRenewalApplication()">Renewal Application</a></label>
+                                </div>
+                            </section>
+                            <section>
+                                <hr />
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label"><b>Current Accreditation Date:</b> {{vm.selectedOrg.accreditationDate || 'N/A' | date: 'MMMM dd, yyyy'}}</label>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label"><b>Accreditation Expiration Date:</b> {{vm.selectedOrg.accreditationExpirationDate || 'N/A' | date: 'MMMM dd, yyyy'}}</label>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="select">
+                                        Compliance Application Due Date:&nbsp;<input name="dueDate" class="date-fix" k-parse-formats="['MM/dd/yyyy', 'MM/dd/yy']" kendo-date-picker k-format="MM/dd/yyyy" k-ng-model="vm.application.dueDate" />
+                                    </label>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label">Accreditation Submission Deadline: {{vm.selectedOrg.accreditationSubmissionDeadline | date: 'MM/dd/yyyy'}}</label>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label">Report Review Status</label>
+                                    <label class="select">
+                                        <select name="state" ng-model="vm.application.reportReviewStatus">
+                                            <option value=""></option>
+                                            <option value="{{rrs.id}}" ng-repeat="rrs in vm.reportReviewStatuses">{{rrs.name}}</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </section>
+                            <section>
+                                <hr />
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label">Accreditation Goals</label>
+                                    <label class="select">
+                                        <select name="goalsDrop" ng-model="vm.accTemplate" ng-change="vm.onAccTemplateChange()">
+                                            <option value="{{t.id}}" ng-repeat="t in vm.templates">{{t.name}}</option>
+                                        </select>
+                                        <i></i>
+                                    </label>
+                                    <label class="input">
+                                        <textarea name="goals" kendo-editor k-encoded="false" k-ng-model="vm.application.accreditationGoal" required></textarea>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label">Inspection Scope</label>
+                                    <label class="select">
+                                        <select name="scopeDrop" ng-model="vm.scopeTemplate" ng-change="vm.onScopeTemplateChange()">
+                                            <option value="{{t.id}}" ng-repeat="t in vm.templates">{{t.name}}</option>
+                                        </select>
+                                        <i></i>
+                                    </label>
+                                    <label class="input">
+                                        <textarea name="scope" kendo-editor k-encoded="false" k-ng-model="vm.application.inspectionScope" required></textarea>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="label"><span class="required-field">*</span>Coordinator</label>
+                                    <label class="select">
+                                        <select name="coordinator" ng-model="vm.application.coordinator.userId" ng-change="vm.onScopeTemplateChange()" required>
+                                            <option value="{{t.userId}}" ng-repeat="t in vm.staff">{{t.fullName}}</option>
+                                        </select>
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </section>
+                            <section ng-if="vm.application.approvalStatus && vm.application.approvalStatus.name.indexOf('Active') > -1 && vm.allowDirectorMessage && (vm.complianceApplicationId == null">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-danger" role="alert">
+                                            This application has been approved by the Director.  Any changes to the application may require Director approval.
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </fieldset>
+                    </section>
+                    <section ng-show="vm.application != null">
+                        <section>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label class="label" ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''">Site Types</label>
+                                        <label class="label" ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != ''"><b>Inspection Sites</b></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="searchResults k-grid k-widget" data-role="grid">
+                                <div class="k-grid-header" style="padding-right: 17px;">
+                                    <div class="k-grid-header-wrap">
+                                        <table role="grid">
+                                            <colgroup ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''">
+                                                <col style="width: 350px;" />
+                                                <col ng-repeat="version in vm.versions" />
+                                                <col />
+                                            </colgroup>
+                                            <colgroup ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != ''">
+                                                <col style="width: 400px;" />
+                                                <col />
+                                                <col ng-if="vm.isPreview" />
+                                                <col />
+                                            </colgroup>
+                                            <thead role="rowgroup">
+                                                <tr role="row">
+                                                    <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter">Site Name</th>
+                                                    <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter" ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''" ng-repeat="version in vm.versions">{{version.name.replace('Compliance', '').replace('Application', '')}}</th>
+                                                    <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter" ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''">&nbsp;</th>
+                                                    <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter" ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != ''">Site Types</th>
+                                                    <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter" ng-if="vm.isPreview">Standard Sets</th>
+                                                    <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter" ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != ''">Application Versions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-if="vm.complianceApplicationId == null || vm.complianceApplicationId == ''">
+                                                <tr role="row" ng-repeat="site in vm.applicationSites" ng-class-even="'k-alt'">
+                                                    <td role="gridcell">
+                                                        <span>
+                                                            <a ng-click="vm.editSite(site.fullSite)" class="{{site.isStrong ? 'bold' : ''}}">{{site.site}}</a>
+                                                        </span>
+                                                    </td>
+                                                    <td role="gridcell" ng-repeat="version in vm.versions">
+                                                        <a ng-click="vm.onNotApplicableClick(site, version.version.applicationType.applicationTypeName)" ng-if="vm.getType(site, version) == true && !site.isEditMode">Yes ({{vm.getVersion(site, version)}})</a>
+                                                        <span ng-if="vm.getType(site, version) == false && !site.isEditMode">No</span>
+                                                        <input type="checkbox" ng-checked="vm.getType(site, version)" ng-if="site.isEditMode" ng-click="vm.hasChanged(site, version)" />
+                                                    </td>
+                                                    <td role="gridcell">
+                                                        <a class="k-button k-button-icontext k-grid-edit" ng-if="!site.isEditMode" ng-click="vm.onEdit(site)"><span class="k-icon k-edit"></span>Edit</a>
+                                                        <a class="k-button k-button-icontext k-grid-edit" ng-if="site.isEditMode" ng-click="vm.onUpdate(site)"><span class="k-icon k-edit"></span>Update</a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody ng-if="vm.complianceApplicationId != null && vm.complianceApplicationId != ''">
+                                                <tr role="row" ng-repeat="site in vm.applicationSites | filter: site.types.length > 0" ng-class-even="'k-alt'">
+                                                    <td role="gridcell">
+                                                        <span>{{site.site}}</span>
+                                                    </td>
+                                                    <td role="gridcell">
+                                                        <span ng-bind-html="site.fullSite.siteTypes"></span>
+                                                    </td>
+                                                    <td role="gridcell" ng-if="vm.isPreview">
+                                                        <span ng-bind-html="site.standards"></span>
+                                                    </td>
+                                                    <td role="gridcell">
+                                                        <div ng-repeat="type in site.types">
+                                                            {{type.versionTitle}}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="manage">
+                            <button class="btn btn-base pull-right"
+                                    type="submit"
+                                    ng-if="!vm.application.approvalStatus || (vm.application.approvalStatus.name.indexOf('Active') === -1 && vm.application.approvalStatus.name !== 'Reject')"
+                                    ng-show="vm.complianceApplicationId != null && vm.complianceApplicationId != '' && !vm.isPreview && vm.isDirector"
+                                    ng-click="vm.updateStatus(false)">
+                                <span>Reject</span>
+                            </button>
+                            <button class="btn btn-base pull-right"
+                                    type="submit"
+                                    ng-if="!vm.application.approvalStatus || (vm.application.approvalStatus.name.indexOf('Active') === -1 && vm.application.approvalStatus.name !== 'Reject')"
+                                    ng-show="vm.complianceApplicationId != null && vm.complianceApplicationId != '' && !vm.isPreview && vm.isDirector"
+                                    ng-click="vm.updateStatus(true)">
+                                <span>Approve</span>
+                            </button>
+                            <button class="btn btn-base pull-right" type="submit" ng-click="vm.onCopyApplication()" ng-hide="vm.complianceApplicationId != null && vm.complianceApplicationId != ''">
+                                <span>Copy Application</span>
+                            </button>
+                            <button class="btn btn-base pull-right" type="submit" ng-click="vm.onDeleteApplication()" ng-hide="vm.complianceApplicationId != null && vm.complianceApplicationId != ''" ng-if="vm.application.applicationStatus == 'In Progress'">
+                                <span>Delete Application</span>
+                            </button>
+                            <button class="btn btn-base pull-right" type="submit" ng-click="vm.onApproval()" ng-hide="vm.complianceApplicationId != null && vm.complianceApplicationId != ''" ng-if="vm.application.id != null" ng-disabled="registration.$invalid || !vm.isValid">
+                                <span>Submit for Director Approval</span>
+                            </button>
+                            <a href="#/Compliance/ManageCompliance?app={{vm.app.uniqueId}}&sub={{vm.application.id}}&preview=Y" target="_blank" class="btn btn-base pull-right" ng-hide="(vm.complianceApplicationId != null && vm.complianceApplicationId != '') || vm.application == null || vm.application.id == null || vm.application.id == ''">
+                                <span>Preview</span>
+                            </a>
+                            <button class="btn btn-base pull-right" type="submit" ng-click="vm.onApproveEligibility()" ng-hide="vm.complianceApplicationId != null && vm.complianceApplicationId != ''" ng-if="vm.application.id != null" ng-disabled="registration.$invalid || !vm.isValid">
+                                <span>Approve {{vm.appType}}</span>
+                            </button>
+                            <button class="btn btn-base pull-right" type="submit" ng-click="vm.onSave()" ng-hide="vm.complianceApplicationId != null && vm.complianceApplicationId != ''" ng-disabled="registration.$invalid || !vm.isValid">
+                                <span>Save</span>
+                            </button>
+                        </section>
+                        <section class="approved" ng-if="vm.isApproved">
+                            <div class="row">
+                                <div class="col-xs-12">Please proceed to your <a href="#/Compliance?app={{vm.appId}}&c={{vm.compAppId}}&ver={{vm.title}}">Compliance Application</a></div>
+                            </div>
+                        </section>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="ctTemplate">
+    <input type="checkbox" ng-checked="dataItem.hasCT" ng-click="vm.hasChanged(dataItem)" />
+</script>
+<script type="text/x-kendo-template" id="cbTemplate">
+    <input type="checkbox" ng-checked="dataItem.hasCB" ng-click="vm.hasChanged(dataItem)" />
+</script>
+<script type="text/x-kendo-template" id="commonTemplate">
+    <input type="checkbox" ng-checked="dataItem.hasCommon" ng-click="vm.hasChanged(dataItem)" />
+</script>
+
+<script type="text/x-kendo-template" id="ct">
+    <a ng-click="vm.onNotApplicableClick(dataItem, 'CT')" ng-if="dataItem.hasCT">{{dataItem.ct}}</a>
+    <span ng-if="!dataItem.hasCT">{{dataItem.ct}}</span>
+</script>
+
+<script type="text/x-kendo-template" id="cb">
+    <a ng-click="vm.onNotApplicableClick(dataItem, 'CB')" ng-if="dataItem.hasCB">{{dataItem.cb}}</a>
+    <span ng-if="!dataItem.hasCB">{{dataItem.cb}}</span>
+</script>
+
+<script type="text/x-kendo-template" id="common">
+    <a ng-click="vm.onNotApplicableClick(dataItem, 'Common')" ng-if="dataItem.hasCommon">{{dataItem.common}}</a>
+    <span ng-if="!dataItem.hasCommon">{{dataItem.common}}</span>
+</script>

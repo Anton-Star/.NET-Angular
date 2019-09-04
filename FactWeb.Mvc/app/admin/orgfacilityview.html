@@ -1,0 +1,67 @@
+﻿<link href="content/factwebstaff.css" rel="stylesheet">
+
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Organization Facility Relationship</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="organizationFacility">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Organization</label>
+                        <label class="select">
+                            <input kendo-combo-box ng-model="vm.selectedOrganization"
+                                    ng-disabled="vm.selectedFacility != ''"
+                                    k-data-source="vm.organizations" k-data-text-field="'organizationName'"
+                                    k-data-value-field="'organizationName'" k-filter="'contains'" style="width: 100%;" />
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">OR</div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Facility</label>
+                        <label class="select">
+                            <input kendo-combo-box ng-model="vm.selectedFacility"
+                                   ng-disabled="vm.selectedOrganization != ''"
+                                   k-data-source="vm.facilities" k-data-text-field="'facilityName'"
+                                   k-data-value-field="'facilityName'" k-filter="'contains'" style="width: 100%;" />
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.clearForm()">
+                        <span>Clear</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.search()" ng-disabled="(vm.selectedOrganization == '' || vm.selectedOrganization == 0) && (vm.selectedFacility == '' || vm.selectedFacility == 0)">
+                        <span>Search</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group row" ng-show="vm.results.length > 0">
+        <div class="col-lg-3">
+            <button class='export-pdf k-button' ng-click="vm.savePdf()">Save as PDF</button>
+        </div>
+        <div class="col-lg-9">
+            <div class="pull-right legend">
+                Legend:<br/>
+                <span class="green">Green:</span> Weak Link<br/>
+                <span class="red">Red:</span> Strong Link
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container-fluid diagram">
+    <div class="form-group row" ng-show="vm.results.length > 0">
+        <div id="diagram" kendo-diagram k-options="vm.options"></div>
+    </div>
+</div>
+

@@ -1,0 +1,58 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+
+<div class="col-md-11 requirementManagement">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Requirement Import</h2>
+        </div>
+        <div class="form-body">
+            <form name="documentLibrary" class="sky-form">
+                <fieldset>
+                    <section>
+                        <div class="form-group">
+                            <label class="label"><span class="required-field">*</span>Select Type:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.selectedApplicationType">
+                                    <option ng-repeat="t in vm.applicationTypes">{{t.applicationTypeName}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Select File</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-lock"></i>
+                                <input type="file" file-model="vm.file" accept=".csv"/>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Version Name</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-lock"></i>
+                                <input type="text" ng-model="vm.versionName"/>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Version Number</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-lock"></i>
+                                <input type="text" ng-model="vm.versionNumber" />
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" type="submit" ng-click="vm.onUpload()" ng-disabled="vm.isBusy || vm.file == null || vm.file == '' || vm.versionName == '' || vm.versionNumber == '' || vm.selectedApplicationType == ''">
+                            <span>Upload</span>
+                        </button>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

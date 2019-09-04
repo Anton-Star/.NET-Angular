@@ -1,0 +1,327 @@
+﻿<link href="content/coordinator.css" rel="stylesheet">
+<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<uib-tabset active="active">
+    <uib-tab heading="Overview">
+        <div class="qm" ng-if="vm.application.hasQmRestriction && vm.common.isFact">
+            {{vm.config.qmMessage}}
+        </div>
+        <div class="widget-content overview coview">
+            <div class="form-group">
+                <div class="wp-block default">
+                    <h3>Accreditation Overview</h3>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a class="btn btn-base" href ng-click="vm.onSendToInspector()">
+                                <span>Email Inspectors</span>
+                            </a>
+                            
+                            <a class="btn btn-base" href ng-click="vm.onManageApp()">
+                                <span>Manage Application</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="pull-right">Report Review Status:</span>
+                        </div>
+                        <div class="col-md-9">{{vm.coordinatorView.overview.typeName}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="pull-right">Type:</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" ng-model="vm.coordinatorView.complianceApplication.typeDetail"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="pull-right">Accredited Since:</span>
+                        </div>
+                        <div class="col-md-9">
+                            <input name="dueDate" class="date-fix" kendo-date-picker k-format="MM/dd/yyyy" k-ng-model="vm.coordinatorView.overview.accreditedSince"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="pull-right">Inspection Date:</span>
+                        </div>
+                        <div class="col-md-9">{{vm.coordinatorView.overview.inspectionDate | date: 'MM-dd-yyyy'}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="pull-right">Standards:</span>
+                        </div>
+                        <div class="col-md-9">
+                            <span ng-bind-html="vm.coordinatorView.overview.standards"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="pull-right">Accreditation Goal:</span>
+                        </div>
+                        <div class="col-md-9">
+                            <label class="input">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="vm.coordinatorView.overview.accreditationGoal"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span class="pull-right">Inspection Scope:</span>
+                        </div>
+                        <div class="col-md-9">
+                            <label class="input">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="vm.coordinatorView.overview.inspectionScope"></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">&nbsp;</div>
+                        <div class="col-md-9">
+                            <a class="btn btn-base" href ng-click="vm.onSave()">
+                                <span>Save</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget-content overview">
+            <div class="form-group">
+                <div class="wp-block default">
+                    <h3>Key Personnel</h3>
+                    <div>
+                        <div class="row">
+                            <div class="col-md-3">&nbsp;</div>
+                            <div class="col-md-3">&nbsp;</div>
+                            <div class="col-md-3">Show on Accreditation Report</div>
+                            <div class="col-md-2">Job Function Override</div>
+                        </div>
+                        <div class="row" ng-repeat="personnel in vm.coordinatorView.personnel">
+                            <div class="col-md-3">
+                                <span class="pull-right">{{personnel.jobFunction}}</span>
+                            </div>
+                            <div class="col-md-3">{{personnel.name}}</div>
+                            <div class="col-md-3">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-default radios" ng-click="personnel.showOnAccReport = true" ng-class="{active: personnel.showOnAccReport == true}">
+                                        <input type="radio" name="isActive" ng-model="personnel.showOnAccReport" ng-value="true" />Show
+                                    </label>
+                                    <label class="btn btn-default radios" ng-click="personnel.showOnAccReport = false" ng-class="{active: personnel.showOnAccReport == false}">
+                                        <input type="radio" name="isActive" ng-model="personnel.showOnAccReport" ng-value="false" />Hide
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" ng-model="personnel.overrideJobFunction" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">&nbsp;</div>
+                            <div class="col-md-3">&nbsp;</div>
+                            <div class="col-md-3">
+                                <a class="btn btn-base" href ng-click="vm.onSavePersonnel()">
+                                    <span>Save</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget-content overview" ng-if="(vm.ctTotals && vm.ctTotals.length > 0) || (vm.cbTotals && vm.cbTotals.length > 0)">
+            <div class="form-group">
+                <div class="wp-block default gridWrap" ng-if="vm.ctTotals && vm.ctTotals.length > 0">
+                    <h3>Organizational Statistics</h3>
+                    <div class="row grid head">
+                        <div class="col-md-4">Site Name</div>
+                        <div class="col-md-4">Date Range</div>
+                        <div class="col-md-4">Number of Units</div>
+                    </div>
+                    <div class="row grid" ng-repeat="p in vm.ctTotals">
+                        <div class="col-md-4">
+                            <span ng-if="$index !== 0 && vm.ctTotals[$index-1].siteName === p.siteName">{{p.siteName}}</span>
+                            <a href ng-if="$index === 0 || vm.ctTotals[$index-1].siteName !== p.siteName" ng-click="vm.onTotals(p.siteName)">{{p.siteName}}</a>
+                        </div>
+                        <div class="col-md-4">{{p.dateRange}}</div>
+                        <div class="col-md-4"><span ng-bind-html="p.total"></span></div>
+                    </div>
+                </div>
+                <div class="wp-block default gridWrap" ng-if="vm.cbTotals && vm.cbTotals.length > 0">
+                    <h3>Organizational Statistics</h3>
+                    <div class="row grid head">
+                        <div class="col-md-3">Site Name</div>
+                        <div class="col-md-3">Unit Type</div>
+                        <div class="col-md-2" ng-repeat="cat in vm.categories">{{cat}}</div>
+                    </div>
+                    <div class="row grid data" ng-repeat="p in vm.cbTotals">
+                        <div class="col-md-3">
+                            <span ng-if="$index !== 0 || vm.cbTotals[$index-1].siteName === p.siteName">{{p.siteName}}</span>
+                            <a href ng-if="$index === 0 || vm.cbTotals[$index-1].siteName !== p.siteName" ng-click="vm.onTotals(p.siteName)">{{p.siteName}}</a>
+                        </div>
+                        <div class="col-md-3">{{p.unitType}}</div>
+                        <div class="col-md-2" ng-repeat="r in p.categories">
+                            As of {{r.asOfDate | date:'MM/dd/yyyy'}}<br />
+                            {{r.numberOfUnits | number:0}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="widget-content overview">
+            <div class="form-group">
+                <div class="wp-block default gridWrap">
+                    <h3>Inspection Team</h3>
+                    <div class="row grid head">
+                        <div class="col-md-2">Role</div>
+                        <div class="col-md-5">Name</div>
+                        <div class="col-md-5">Site</div>
+                    </div>
+                    <div class="row grid data" ng-repeat="p in vm.coordinatorView.inspectionTeamMembers">
+                        <div class="col-md-2">{{p.role}}</div>
+                        <div class="col-md-5">{{p.name}}</div>
+                        <!--<div ng-class="{'col-md-5': p.site != undefined, 'col-md-10': p.site == undefined}">
+                            <span ng-repeat="n in p.names">{{n}};</span>
+                        </div>-->
+                        <div class="col-md-5" ng-show="p.site != undefined">{{p.site}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </uib-tab>
+    <uib-tab heading="Inspection Notes">
+
+        <form name="application" class="sky-form application">
+            <fieldset>
+                <div class="inspection-details">
+                    <div class="form-group">
+                        <label class="label">Site Description</label>
+                        <label class="textarea">
+                            <textarea required kendo-editor k-encoded="false" k-ng-model="vm.inspectionDetails.siteDescription"></textarea>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Overall Site Impressions</label>
+                        <label class="textarea">
+                            <textarea required kendo-editor k-encoded="false" k-ng-model="vm.inspectionDetails.overallImpressions"></textarea>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="label">Commendable Practices</label>
+                        <label class="textarea">
+                            <textarea required kendo-editor k-encoded="false" k-ng-model="vm.inspectionDetails.commendablePractices"></textarea>
+                        </label>
+                    </div>
+                    <section>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.onSaveDetails()">
+                            <span>Save</span>
+                        </button>
+                    </section>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="requirements" ng-repeat="appSite in vm.coordinatorView.complianceApplication.complianceApplicationSites">
+                    <uib-accordion close-others="oneAtATime">
+                        <uib-accordion-group is-open="status.open">
+                            <uib-accordion-heading>
+                                <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                                <div class="pull-left circle {{appSite.circle.replace(' ', '').replace('/', '')}}}" title="{{appSite.circle}}" ng-if="appSite.circle != ''"></div>
+                                <div class="head-text text-uppercase">{{appSite.site.siteName}}</div>
+                            </uib-accordion-heading>
+                            <div class="requirements" ng-repeat="application in appSite.applications">
+                                <uib-accordion close-others="oneAtATime">
+                                    <uib-accordion-group is-open="application.open">
+                                        <uib-accordion-heading>
+                                            <div class="panel">
+                                                <div class="panel-heading req">
+                                                    <div class="col-lg-12" ng-click="vm.onSiteAppView(application)">
+                                                        <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': application.open, 'glyphicon-chevron-right': !application.open}"></i>
+                                                        <div class="pull-left circle {{application.circle.replace(' ', '').replace('/', '')}}}" title="{{application.circle}}" ng-if="application.circle != ''"></div>
+                                                        <div class="head-text text-uppercase">{{application.applicationTypeName}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </uib-accordion-heading>
+                                        <div ng-repeat="section in application.sections | filter: {isVisible: true} as visibleSections" ng-include="'nestedsection.html'"></div>
+                                        <div ng-if="visibleSections.length == 0">
+                                            There are no sections to view under this application.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" type="button" ng-if="visibleSections.length > 0" ng-click="vm.saveApplicationSections(application)">Save</button>
+                                            <button class="btn btn-warning" type="button" ng-click="application.open = false">Cancel</button>
+                                        </div>
+                                    </uib-accordion-group>
+                                </uib-accordion>
+                            </div>
+                        </uib-accordion-group>
+                    </uib-accordion>
+                </div>
+            </fieldset>
+        </form>
+
+    </uib-tab>
+    <uib-tab heading="Post Inspection Documents">
+        <div class="searchResults k-grid k-widget" data-role="grid">
+            <div class="k-grid-header" style="padding-right: 17px;">
+                <div class="k-grid-header-wrap">
+                    <table role="grid">
+                        <colgroup>
+                            <col />
+                            <col />
+                            <col />
+                            <col />
+                        </colgroup>
+                        <thead role="rowgroup">
+                            <tr role="row">
+                                <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter">Include on Reports</th>
+                                <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter">Document Name</th>
+                                <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter">Upload Date</th>
+                                <th role="columnheader" rowspan="1" class="k-header" data-role="columnsorter">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr role="row" ng-repeat="d in vm.postInspectionDocuments" ng-class-even="'k-alt'">
+                                <td role="gridcell">
+                                    <input type="checkbox" ng-model="d.includeInReporting" ng-click="vm.onCheck(d)" />
+                                </td>
+                                <td role="gridcell">
+                                    {{d.name}}
+                                </td>
+                                <td role="gridcell">
+                                    {{d.createdDate}}
+                                </td>
+                                <td role="gridcell">
+                                    <button class="k-button" ng-click="vm.onDownload(dataItem)">Download</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="padding-top" ng-if="vm.postInspectionDocuments && vm.postInspectionDocuments.length > 0">
+            <button class="btn btn-base" type="submit" ng-click="vm.onSaveDocuments()">
+                <span>Save</span>
+            </button>
+        </div>
+    </uib-tab>
+    <b style="float:right;width:50%">{{vm.coordinatorView.complianceApplication.organizationName}}</b>
+</uib-tabset>
+
+<!-- Template for nested sections -->
+<script type="text/ng-template" id="nestedsection.html">
+    <section ng-if="!section.children">
+        <div class="form-group"><h4>{{section.uniqueIdentifier}}: <span ng-bind-html="section.name" style="text-transform:none;"></span></h4></div>
+    </section>
+    <ul ng-if="section.children">
+        <li ng-repeat="section in section.children" ng-click="$event.stopPropagation()" ng-include="'nestedsection.html'"></li>
+    </ul>
+    <ul ng-if="section.questions && !section.children">
+        <li ng-repeat="question in section.questions" ng-click="$event.stopPropagation()" ng-if="vm.showQuestionInCoordinatorView(question)">
+            <answer-review-common iscoordinatorview="true" application="application" question="question" statustypes="vm.statusTypes" commenttypes="vm.commentTypes" accesstoken="vm.accessToken"></answer-review-common>
+        </li>
+    </ul>
+</script>

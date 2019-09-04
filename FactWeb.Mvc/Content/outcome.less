@@ -1,0 +1,137 @@
+﻿.k-grid {
+    margin-left: 0;
+    margin-right: 0;
+
+    [class*='col-'] {
+        padding: 7px 0 7px 0 !important;
+        border-color: rgb(197, 197, 197);
+        border-style: solid;
+        border-width: 0 0 1px 1px;
+        margin-left: -1px;
+        text-align: center;
+
+        span {
+            padding: 0 5px;
+        }
+
+        &.ttl {
+            text-align: left;
+        }        
+    }
+}
+
+.k-widget {
+    border-bottom: 0 !important;
+}
+
+.k-grid-header {
+    padding-right: 0 !important;
+    border-bottom: 0 !important;
+    display: flex;
+
+    .k-grid-header-wrap {
+        display: flex;
+    }
+}
+
+/*.score-color {
+    color: #FD822B;
+    font-weight: bold;
+}*/
+
+.space-top {
+    margin-top: 15px;
+}
+
+.details {
+    margin-left: 0;
+    margin-right: 0;
+    display: flex;
+    [class*='col-'] {
+        border-color: rgb(197, 197, 197);
+        border-style: solid;
+        border-width: 0 1px 1px 1px;
+
+        &.ttl {
+            text-align: left;
+            padding-left: 5px;
+            vertical-align: middle;
+        } 
+    }
+
+    &.fst, .fst {
+        background-color: #e3e3e3;
+        .ttl {
+            border-bottom: none;
+        }
+    }
+
+    &.items {
+        padding: 0;
+        border-left: 0;
+        margin-left: -1px;
+
+        [class*='col-'] {
+            padding: 7px 0 7px 0;
+            border-right: 0;
+            text-align: center;
+
+            &:last-child {
+                border-right: 1px solid rgb(197, 197, 197);
+            }
+        }
+
+        &.last { 
+            [class*='col-'] {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    
+}
+
+.rows {
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
+    border-bottom: #e3e3e3 1px solid;
+    min-height: 40px;
+
+    &.first {
+        border-top: #e3e3e3 1px solid;
+    }
+
+    .title {
+        background: #e3e3e3;
+        background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+        background-position: 50% 50%;
+        margin-bottom: 0;
+        padding-left: 10px;
+    }
+
+    [class*='col-'] {
+        border-color: rgb(197, 197, 197);
+        border-style: solid;
+        border-width: 0 1px 1px 1px;
+        display: flex;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-bottom: 0;
+
+        &.ttl {
+            text-align: left;
+            padding-left: 5px;
+            vertical-align: middle;
+        } 
+
+        &:first-child {
+            border-right: 0;
+        }
+    }
+    
+    ol {
+        list-style: decimal;
+        margin-left: 20px;
+    }
+}

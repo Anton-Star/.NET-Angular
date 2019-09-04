@@ -1,0 +1,402 @@
+﻿    <!-- Question Row + Flag -->
+<div class="row panel-body">
+    <div class="col-md-12">
+        <span class="glyphicon glyphicon-flag" ng-class="question.flag?'glyphicon-flag-red':'glyphicon-flag-grey'" ng-click="vm.flagClick(question)"></span>&nbsp;{{(question.order || 0) > 0 ? question.order : (question.complianceNumber || 0) > 0 ? question.complianceNumber : ($index+1)}}&nbsp;.<span ng-bind-html="question.text" style="text-transform:none;"></span>
+    </div>
+</div>
+
+<div class="rfi-warn" ng-if="(isFact || isInspector) && showRfiDocMessage()">
+    A document(s) is attached to an RFI comment and may supersede the applicant’s original response version. 
+</div>
+
+<!-- Answer & Status View-->
+<div class="row panel-body">
+    <div class="col-md-5">
+        &nbsp;<b>Answer</b><br />
+        <span ng-if="question.type != 'Checkboxes' && question.type != 'Radio Buttons' && question.type != 'People Picker' && question.type != 'Multiple'" ng-bind-html="question.questionResponses[0].otherText" style="text-transform:none;"></span>
+        <span ng-if="question.type == 'People Picker'" ng-bind-html="question.questionResponses[0].user.fullName" style="text-transform:none;"></span>
+        <div ng-if="question.type == 'Checkboxes' || question.type == 'Radio Buttons' ">
+            <br /><b>Selected Answer(s)</b>
+            <div ng-repeat="answer in getSelectedAnswer(question.answers)">
+                {{answer}}
+            </div><br /><br />
+            <b>NOT Selected Answer(s)</b>
+            <div ng-repeat="answer in getUnSelectedAnswer(question.answers)">
+                {{answer}}
+            </div>
+        </div>
+        <div ng-if="question.type == 'Multiple' && question.questionTypeFlags.documentUpload">
+            <label class="label" ng-repeat="response in question.questionResponses">
+                <a href ng-click="onDocumentDownload(response.document)">{{response.document.name}}</a>
+            </label>
+        </div>
+        <div ng-if="question.type == 'Multiple' && question.questionTypeFlags.peoplePicker">
+            <label class="label" ng-repeat="response in question.questionResponses">
+                <span ng-bind-html="response.user.fullName" style="text-transform:none;"></span>
+            </label>
+        </div>
+        <div ng-if="question.type == 'Document Upload'">
+            <label class="label" ng-repeat="response in question.questionResponses">
+                <a href ng-click="onDocumentDownload(response.document)">{{response.document.name}}</a>
+            </label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <b>Comment</b><br />
+        <span ng-bind-html="question.comments" style="text-transform:none;"></span><br />
+        <p style="vertical-align:bottom;" ng-if="question.comments">{{question.commentLastUpdatedBy}}: {{question.commentDate | date: 'MM/dd/yyyy HH:mm:ss'}}</p>
+    </div>
+    <div class="col-md-3">
+        <b>Review Status</b><br />
+        <label ng-repeat="status in statusTypes" ng-click="onStatusSelected(question, status)" style="display:block;" ng-if="(common.inspectorHasAccess || isFact)">
+            <input id="{{status.id}}" type="radio" name="{{question.id}}" value="{{status.name}}" ng-checked="question.answerResponseStatusId == status.id" ng-disabled="(isRfi && isInspector && status.name === 'RFI') || (!isFact && status.name === 'RFI/Followup') || common.isConsultantCoordinator()" />{{status.name}}
+        </label>
+        <span ng-if="isUser || common.isConsultantCoordinator() || (!common.inspectorHasAccess && !isFact)">{{question.answerResponseStatusName}}</span>
+    </div>
+</div>
+
+<!-- Deficiency Notes -->
+<div ng-if="question.responseCommentsCitation.length > 0">
+    <div class="row panel-body title"><b>Deficiency</b></div>
+    <div class="row panel-body" ng-repeat="comment in question.responseCommentsCitation">
+        <div class="col-md-1" ng-if="isFact && !isCoordinatorView && question.editIndex == 0">&nbsp;</div>
+        <div class="col-md-1" ng-if="isCoordinatorView && question.editIndex == 0">
+            <label class="checkbox" ng-if="isFact">
+                <input type="checkbox" ng-model="comment.includeInReporting" ng-click="onIncludeInReporting(comment)">
+                <i></i>
+            </label>
+        </div>
+        <div class="col-md-11">
+            <answer-comments iscoordinatorview="isCoordinatorView" show-document-library="showDocumentLibrary" on-document-download="onDocumentDownload" submitted="application.submittedDate" status="application.applicationStatusName" question="question" comment="comment" commenttypes="commentTypes" save-comment="saveComment" edit-comment="editComment"></answer-comments>
+        </div>
+    </div>
+</div>
+
+<!-- Suggestion Notes -->
+<div ng-if="question.responseCommentsSuggestion.length > 0">
+    <div class="row panel-body title"><b>Suggestion</b></div>
+    <div class="row panel-body" ng-repeat="comment in question.responseCommentsSuggestion">
+        <div class="col-md-1" ng-if="isFact && !isCoordinatorView && question.editIndex == 0"></div>
+        <div class="col-md-1" ng-if="isCoordinatorView && question.editIndex == 0">
+            <label class="checkbox" ng-if="isFact">
+                <input type="checkbox" ng-model="comment.includeInReporting" ng-click="onIncludeInReporting(comment)">
+                <i></i>
+            </label>
+        </div>
+        <div class="col-md-11">
+            <answer-comments iscoordinatorview="isCoordinatorView" show-document-library="showDocumentLibrary" on-document-download="onDocumentDownload" submitted="application.submittedDate" status="application.applicationStatusName" question="question" comment="comment" commenttypes="commentTypes" save-comment="saveComment" edit-comment="editComment" delete-comment="deleteComment"></answer-comments>
+        </div>
+    </div>
+</div>
+
+<!-- Coordinator Note (Reviewer View, FACT Response on Coordinator View [TFS:966]) -->
+<div ng-if="question.responseCommentsFactResponse.length > 0 && common.isFact()">
+    <div class="row panel-body title"><b>FACT Response</b></div>
+    <div class="row panel-body" ng-repeat="comment in question.responseCommentsFactResponse">
+        <div class="col-md-1" ng-if="isFact && !isCoordinatorView && question.editIndex == 0"></div>
+        <div class="col-md-1" ng-if="isCoordinatorView && question.editIndex == 0">
+            <label class="checkbox" ng-if="isFact">
+                <input type="checkbox" ng-model="comment.includeInReporting" ng-click="onIncludeInReporting(comment)">
+                <i></i>
+            </label>
+        </div>
+        <div class="col-md-11">
+            <answer-comments iscoordinatorview="isCoordinatorView" show-document-library="showDocumentLibrary" on-document-download="onDocumentDownload" submitted="application.submittedDate" status="application.applicationStatusName" question="question" comment="comment" commenttypes="commentTypes" save-comment="saveComment" edit-comment="editComment" delete="deleteComment"></answer-comments>
+        </div>
+    </div>
+</div>
+
+<!-- FACT Only Comments -->
+<div ng-if="question.responseCommentsFactOnly.length > 0 && !common.isUser()">
+    <div class="row panel-body title"><b>FACT only Comments</b></div>
+    <div class="row panel-body" ng-repeat="comment in question.responseCommentsFactOnly">
+        <div class="col-md-1" ng-if="isFact && !isCoordinatorView && question.editIndex == 0"></div>
+        <div class="col-md-1" ng-if="isCoordinatorView && question.editIndex == 0">
+            <label class="checkbox" ng-if="isFact">
+                <input type="checkbox" ng-model="comment.includeInReporting" ng-click="onIncludeInReporting(comment)">
+                <i></i>
+            </label>
+        </div>
+        <div class="col-md-11">
+            <answer-comments iscoordinatorview="isCoordinatorView" show-document-library="showDocumentLibrary" on-document-download="onDocumentDownload" submitted="application.submittedDate" status="application.applicationStatusName" question="question" comment="comment" commenttypes="commentTypes" save-comment="saveComment" edit-comment="editComment" delete="deleteComment"></answer-comments>
+        </div>
+    </div>
+</div>
+
+<!-- RFI Comments -->
+<div ng-if="question.responseCommentsRFI.length > 0">
+    <div class="row panel-body title"><b>RFI Comments</b></div>
+    <div class="row panel-body comment" ng-repeat="comment in question.responseCommentsRFI" ng-hide="hideRFICommentFromUser(comment)">
+        <div class="col-md-1" ng-if="isFact && !isCoordinatorView && question.editIndex == 0">
+            <label class="checkbox" ng-if="isFact">
+                <input type="checkbox" ng-model="comment.visibleToApplicant" ng-click="onMarkComment(comment)">
+                <i></i>
+            </label>
+        </div>
+        <div class="col-md-1" ng-if="isCoordinatorView && question.editIndex == 0">
+            <label class="checkbox">
+                <input type="checkbox" ng-model="comment.includeInReporting" ng-click="onIncludeInReporting(comment)">
+                <i></i>
+            </label>
+        </div>
+        <div class="col-md-11">
+            <answer-comments iscoordinatorview="isCoordinatorView" show-document-library="showDocumentLibrary" on-document-download="onDocumentDownload" submitted="application.submittedDate" status="application.applicationStatusName" question="question" comment="comment" commenttypes="commentTypes" save-comment="saveComment" edit-comment="editComment" delete="deleteComment"></answer-comments>
+        </div>
+    </div>
+</div>
+
+<div ng-if="question.responseCommentsCoordinator.length > 0">
+    <div class="row panel-body title"><b>Coordinator Comments</b></div>
+    <div class="row panel-body" ng-repeat="comment in question.responseCommentsCoordinator">
+        <div class="col-md-1" ng-if="isFact && !isCoordinatorView && question.editIndex == 0"></div>
+        <div class="col-md-1" ng-if="isCoordinatorView && question.editIndex == 0">
+            <label class="checkbox" ng-if="isFact">
+                <input type="checkbox" ng-model="comment.includeInReporting" ng-click="onIncludeInReporting(comment)">
+                <i></i>
+            </label>
+        </div>
+        <div class="col-md-11">
+            <answer-comments iscoordinatorview="isCoordinatorView" show-document-library="showDocumentLibrary" submitted="application.submittedDate" status="application.applicationStatusName" question="question" comment="comment" commenttypes="commentTypes" save-comment="saveComment" edit-comment="editComment" delete="deleteComment"></answer-comments>
+        </div>
+    </div>
+</div>
+
+<!-- Add/View Comments Button-->
+<div class="panel-body" ng-if="question.answerResponseStatusName !== 'RFI/Followup' || (!isUser && !common.isConsultantCoordinator())" ng-init="question.isCollapsed = !(common.isUser() && question.visibleAnswerResponseStatusName == 'RFI')">
+    <button type="button" class="btn btn-base btn-icon btn-icon-right" ng-click="onAddCloseClicked(question)">
+        <span ng-hide="!question.isCollapsed">Add/View Comment</span>
+        <span ng-show="!question.isCollapsed">Close Form</span>
+    </button>
+</div>
+
+<!-- Panel for Comments -->
+<div uib-collapse="question.isCollapsed" class="collapse panel panel-default" style="margin:5px 5px 5px 5px;">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3">
+                <b>Comment Type</b><br />
+                <select name="commentTypeDropdownQ{{$index}}" style="width:150px;" ng-model="question.commentType" ng-options="commentType.id as commentType.name for commentType in commentTypes track by commentType.id" ng-disabled="readOnly || isUser"></select>
+                <br /><br />
+                <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="saveComment(question, null)" ng-disabled="question.responseComment == null || question.responseComment == ''">
+                    <span>Save Comment</span>
+                </button>
+            </div>
+            <div class="col-md-9 pull-left">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label id="lblCommentRequired{{$index}}" ng-if="!question.responseComment"><span class="required-field">Comment Required</span></label>
+                        <div text-angular id="comment{{editIndex}}" ng-model="question.responseComment"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="label" ng-repeat="document in question.documents | filter: document.id != undefined">
+                        File Name: <a href ng-click="vm.onDocumentDownload(document)" target="_blank">{{document.name}}</a>
+                    </label>
+                    <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" type="submit" ng-click="showDocumentLibrary(question, question.questionResponses[0])">
+                        <span>Document Library</span>
+                    </button>
+                    <!--<div class="col-sm-2">
+                        <label class="label">
+                            File name:
+                        </label>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="input">
+                            <input type="text" ng-model="question.fileName" name="fileName{{$index}}"/>
+                        </label>
+                    </div>
+                    <div class="col-md-5 pull-left">
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="file" file-model="question.file" name="file{{$index}}"/>
+                        </label>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Template for comments handling-->
+<!--
+<script type="text/ng-template" id="commentsRow.html">
+    <div class="col-md-8">
+        <span ng-bind-html="comment.comment" style="text-transform:none;"></span><br />
+        <label class="label" ng-if="comment.document.name">Attachments: <a ng-click="onDocumentDownload(comment.document)" target="_blank">{{comment.document.name}}</a></label>
+    </div>
+    <div class="col-md-3">
+        {{comment.commentFrom.fullName}}:{{comment.updatedDate}}
+    </div>
+
+    <div class="col-md-1 pull-right" ng-if="comment.fromUser == currentUserId">
+        <button type="button" name="btnEdit{{editIndex}}" class="btn btn-base btn-icon btn-icon-right" ng-click="editComment(question,comment,counter);">Edit</button>
+    </div>
+    <!-- Panel for Inline Edit Comments --
+    <div uib-collapse="question.editIndex != counter" class="collapse panel panel-default" style="margin:5px 5px 5px 5px;">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <b>Comment Type</b><br />
+                    <select name="commentTypeDropdown" style="width:150px;" ng-model="question.commentTypeId" ng-options="commentType.id as commentType.name for commentType in commentTypes" ng-disabled="readOnly || isUser"></select>
+                </div>
+                <div class="col-md-9 pull-left">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label id="lblCommentRequired{{$index}}" ng-if="!question.responseComment"><span class="required-field">Comment Required</span></label>
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="saveComment(question)" ng-disabled="question.responseComment == null || question.responseComment == ''">
+                                <span>Save Comment</span>
+                            </button>
+                            <label class="">
+                                <label class="">
+                                    <textarea kendo-editor k-encoded="false" id="comment{{$index}}" ng-model="question.responseComment" k-ng-model="question.responseComment" k-options="vm.options"></textarea>
+                                </label>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <label class="label">
+                                File name:
+                            </label>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="input">
+                                <input type="text" ng-model="question.fileName" name="fileName{{$index}}" />
+                            </label>
+                        </div>
+                        <div class="col-md-5 pull-left">
+                            <label class="input">
+                                <i class="icon-append fa fa-lock"></i>
+                                <input type="file" file-model="question.file" name="file{{$index}}" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</script>
+-->
+<!-- <div ng-if="question.responseCommentsCitation.length > 0">
+    <div class="row">
+        <div class="col-md-12">
+            <b>Deficiency</b>
+        </div>
+    </div>
+    <div class="row" ng-repeat="comment in question.responseCommentsCitation">
+        <div ng-include="'commentsRow.html'"></div>
+        <div class="col-md-8">
+            <span ng-bind-html="comment.comment" style="text-transform:none;"></span><br />
+            <label class="label" ng-if="comment.document.name">Attachments: <a href="/Download?fileName={{comment.document.path}}&organizationName={{vm.application.organizationName | urlescape}}" target="_blank">{{comment.document.name}}</a></label>
+        </div>
+        <div class="col-md-3">
+            {{comment.commentFrom.fullName}}:{{comment.updatedDate}}
+        </div>
+        <div class="col-md-1 pull-right" ng-if="comment.fromUser == vm.common.currentUser.userId">
+            <button type="button" name="btnEdit{{$index}}" class="btn btn-base btn-icon btn-icon-right" ng-click="editComment(question,comment,$parent.$parent.$index)">Edit</button>
+        </div>
+    </div>
+</div>
+
+<div ng-if="question.responseCommentsSuggestion.length > 0">
+    <div class="row">
+        <div class="col-md-12">
+            <b>Suggestion</b>
+        </div>
+    </div>
+    <div class="row" ng-repeat="comment in question.responseCommentsSuggestion">
+        <div ng-include="'commentsRow.html'"></div>
+        <div class="col-md-8">
+            <span ng-bind-html="comment.comment" style="text-transform:none;"></span><br />
+            <label class="label" ng-if="comment.document.name">Attachments: <a ng-click="onDocumentDownload(comment.document)" target="_blank">{{comment.document.name}}</a> </label>
+        </div>
+        <div class="col-md-3">
+            {{comment.commentFrom.fullName}}:{{comment.updatedDate}}
+        </div>
+        <div class="col-md-1 pull-right" ng-if="comment.fromUser == vm.common.currentUser.userId">
+            <button type="button" name="btnEdit{{$index}}" class="btn btn-base btn-icon btn-icon-right" ng-click="vm.editComment(question,comment,$parent.$parent.$index)">Edit</button>
+        </div>
+    </div>
+</div>
+
+<div ng-if="question.responseCommentsCoordinator.length > 0">
+    <div class="row">
+        <div class="col-md-12">
+            <b>Coordinator Note</b>
+        </div>
+    </div>
+    <div class="row" ng-repeat="comment in question.responseCommentsCoordinator">
+        <div ng-include="'commentsRow.html'"></div>
+        <div class="col-md-8">
+            <span ng-bind-html="comment.comment" style="text-transform:none;"></span><br />
+            <label class="label" ng-if="comment.document.name">Attachments: <a href ng-click="vm.onDocumentDownload(comment.document)" target="_blank">{{comment.document.name}}</a></label>
+        </div>
+        <div class="col-md-3">
+            {{comment.commentFrom.fullName}}:{{comment.updatedDate}}
+        </div>
+        <div class="col-md-1 pull-right" ng-if="comment.fromUser == vm.common.currentUser.userId">
+            <button type="button" name="btnEdit{{$index}}" class="btn btn-base btn-icon btn-icon-right" ng-click="vm.editComment(question,comment,$parent.$parent.$index)">Edit</button>
+        </div>
+    </div>
+</div>
+
+<div ng-if="question.responseCommentsRFI.length > 0" class="rfis">
+    <div class="row title">
+        <div ng-class="{'col-md-10': vm.isFact, 'col-md-12': !vm.isFact}">
+            <b>RFI comments</b>
+        </div>
+        <div class="col-md-2" ng-if="vm.isFact">
+            <b>Visible to Applicant</b>
+        </div>
+    </div>
+    <div class="row" ng-repeat="comment in question.responseCommentsRFI" ng-hide="vm.hideRFICommentFromUser(comment)">
+        <div ng-include="'commentsRow.html'"></div>
+        <div class="col-md-6">
+            <span ng-bind-html="comment.comment" style="text-transform:none;"></span><br />
+            <label class="label" ng-if="comment.document.name">Attachments: <a href ng-click="vm.onDocumentDownload(comment.document)" target="_blank">{{comment.document.name}}</a></label>
+        </div>
+        <div class="col-md-3">
+            {{comment.commentFrom.fullName}}:{{comment.updatedDate}}
+        </div>
+        <div ng-class="{'col-md-1': vm.isFact, 'col-md-3': !vm.isFact}">
+            <button type="button"
+                    name="btnEdit{{$index}}"
+                    class="btn btn-base btn-icon btn-icon-right"
+                    ng-if="comment.fromUser == vm.common.currentUser.userId || (vm.common.currentUser.role.roleId == comment.commentFrom.role.roleId)"
+                    ng-click="vm.editComment(question,comment,$parent.$parent.$index);">
+                Edit
+            </button>
+        </div>
+        <div class="col-md-2" ng-if="vm.isFact">
+            <label class="checkbox">
+                <input type="checkbox" ng-model="comment.visibleToApplicant" ng-click="vm.onMarkComment(comment)">
+                <i></i>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div ng-if="question.responseCommentsFactOnly.length > 0 && vm.isFact" class="rfis">
+    <div class="row title">
+        <div class="col-md-12">
+            <b>FACT only Comments</b>
+        </div>
+    </div>
+    <div class="row" ng-repeat="comment in question.responseCommentsFactOnly" ng-hide="hideRFICommentFromUser(comment)">
+        <div ng-include="'commentsRow.html'"></div>
+        <div class="col-md-8">
+            <span ng-bind-html="comment.comment" style="text-transform:none;"></span><br />
+            <label class="label" ng-if="comment.document.name">Attachments: <a href ng-click="onDocumentDownload(comment.document)" target="_blank">{{comment.document.name}}</a></label>
+        </div>
+        <div class="col-md-3">
+            {{comment.commentFrom.fullName}}:{{comment.updatedDate}}
+        </div>
+        <div class="col-md-1 pull-right" ng-if="comment.fromUser == vm.currentUserId">
+            {{common.fromUser}} -#- {{vm.currentUserId}}
+            <button type="button" name="btnEdit{{$index}}" class="btn btn-base btn-icon btn-icon-right" ng-click="editComment(question,comment);">Edit</button>
+        </div>
+    </div>
+</div>
+-->

@@ -1,0 +1,334 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+
+<div class="modal-header">
+    <span>Site: {{vm.site.siteName}}</span>
+</div>
+<div class="modal-body">
+    <form name="editUser" class="sky-form siteTotals">
+        <fieldset ng-if="vm.isCordBlood">
+            <section ng-if="vm.editingCbRow != null">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Unit Type</label>
+                    <label class="select">
+                        <select name="cbUnitType" ng-model="vm.editingCbRow.cbUnitType.name" required>
+                            <option value="{{item.name}}" ng-repeat="item in vm.cbUnitTypes">{{item.name}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.editingCbRow != null">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Category</label>
+                    <label class="select">
+                        <select name="cbCategory" ng-model="vm.editingCbRow.cbCategory.name" required>
+                            <option value="{{item.name}}" ng-repeat="item in vm.cbCategories">{{item.name}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.editingCbRow != null">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Number of Units</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.editingCbRow.numberOfUnits" name="units" required maxlength="100"/>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.editingCbRow != null">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Number as of Date</label>
+                    <label class="input">
+                        <input kendo-date-picker
+                               ng-model="vm.editingCbRow.asOfDate"
+                               k-ng-model="dateObject"/>
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.editingCbRow != null">
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onCbSave()" ng-disabled="vm.isBusy">Save</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onCbCancel()" ng-disabled="vm.isBusy">Cancel</button>
+            </section>
+            <section>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onAdd()" ng-if="vm.editingCbRow == null" ng-disabled="vm.isBusy">Add</button>
+            </section>
+            <section>
+                <label class="label title">Totals</label>
+                <div id="reportGrid" class="searchResults"
+                     kendo-grid="vm.cbGrid"
+                     k-options="vm.cordbloodGrid"></div>
+            </section>
+        </fieldset>
+        <fieldset ng-if="!vm.isCordBlood">
+            <section ng-if="vm.editingCtTransplantRow != null">
+                <div class="form-group">
+                    <div class="row">
+                        <label class="label title">Transplant Totals</label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Cell Type</label>
+                        <label class="select">
+                            <select name="cbUnitType" ng-model="vm.editingCtTransplantRow.transplantCellType.name" required>
+                                <option value="{{item.name}}" ng-repeat="item in vm.transplantCellTypes">{{item.name}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Transplant Population</label>
+                        <label class="select">
+                            <select name="cbUnitType" ng-model="vm.editingCtTransplantRow.clinicalPopulationType.name" required>
+                                <option value="{{item.name}}" ng-repeat="item in vm.clinicalPopulationTypes">{{item.name}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Transplant Type</label>
+                        <label class="select">
+                            <select name="cbUnitType" ng-model="vm.editingCtTransplantRow.transplantType.name" required>
+                                <option value="{{item.name}}" ng-repeat="item in vm.transplantTypes">{{item.name}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Haploid</label>
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="vm.editingCtTransplantRow.isHaploid"/>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Number of Units</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.editingCtTransplantRow.numberOfUnits" name="units" required maxlength="100"/><i></i>
+                        </label>
+                    </div>
+                    <div class="row range">
+                        <label class="label"><span class="required-field">*</span>Date Range</label>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.editingCtTransplantRow.startDate"
+                                       k-on-change="vm.onFromDateChanged('transplant')"
+                                       k-max="vm.transplantMaxDate"
+                                       k-rebind="vm.transplantMaxDate"
+                                       k-ng-model="dateObject1" />
+                            </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.editingCtTransplantRow.endDate"
+                                       k-min="vm.transplantMinDate"
+                                       k-rebind="vm.transplantMinDate"
+                                       k-on-change="vm.onToDateChanged('transplant')"
+                                       k-ng-model="dateObject2"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onTransplantSave()" ng-if="vm.editingCtTransplantRow != null" ng-disabled="vm.isBusy">Save</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onTransplantCancel()" ng-if="vm.editingCtTransplantRow != null" ng-disabled="vm.isBusy">Cancel</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onAddTransplant()" ng-if="vm.editingCtTransplantRow == null" ng-disabled="vm.isBusy">Add</button>
+            </section>
+            <section>
+                <label class="label title">Transplant Totals</label>
+                <div class="searchResults"
+                     kendo-grid="vm.transplantGrid"
+                     k-options="vm.transplantOptions"></div>
+            </section>
+            <section><hr/></section>
+            <section ng-if="vm.editingCollectionRow != null">
+                <div class="form-group">
+                    <div class="row">
+                        <label class="label title">Collection Totals</label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Collection Type</label>
+                        <label class="select">
+                            <select name="cbUnitType" ng-model="vm.editingCollectionRow.collectionType.name" required>
+                                <option value="{{item.name}}" ng-repeat="item in vm.collectionTypes">{{item.name}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Transplant Population</label>
+                        <label class="select">
+                            <select name="cbUnitType" ng-model="vm.editingCollectionRow.clinicalPopulationType.name" required>
+                                <option value="{{item.name}}" ng-repeat="item in vm.clinicalPopulationTypes">{{item.name}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Number of Units</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.editingCollectionRow.numberOfUnits" name="units" required maxlength="100" /><i></i>
+                        </label>
+                    </div>
+                    <div class="row range">
+                        <label class="label"><span class="required-field">*</span>Date Range</label>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.editingCollectionRow.startDate"
+                                       k-on-change="vm.onFromDateChanged('collection')"
+                                       k-max="vm.collectionMaxDate"
+                                       k-rebind="vm.collectionMaxDate"
+                                       k-ng-model="dateObject1" />
+                            </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.editingCollectionRow.endDate"
+                                       k-min="vm.collectionMinDate"
+                                       k-rebind="vm.collectionMinDate"
+                                       k-on-change="vm.onToDateChanged('collection')"
+                                       k-ng-model="dateObject2" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onCollectionSave()" ng-if="vm.editingCollectionRow != null" ng-disabled="vm.isBusy">Save</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onCollectionCancel()" ng-if="vm.editingCollectionRow != null" ng-disabled="vm.isBusy">Cancel</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onAddCollection()" ng-if="vm.editingCollectionRow == null" ng-disabled="vm.isBusy">Add</button>
+            </section>
+            <section>
+                <label class="label title">Collection Totals</label>
+                <div class="searchResults"
+                     kendo-grid="vm.collectionGrid"
+                     k-options="vm.collectionOptions"></div>
+            </section>
+            <section><hr /></section>
+            <section ng-if="vm.editingProcessingRow != null">
+                <div class="form-group">
+                    <div class="row">
+                        <label class="label title">Processing Totals</label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Cell Type(s)</label>
+                        <label class="select">
+                            <select multiple="multiple" class="multi" ng-model="vm.editingProcessingRow.selectedTypes" required>
+                                <option value="{{item.name}}" ng-repeat="item in vm.transplantCellTypes">{{item.name}}</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Number of Units</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.editingProcessingRow.numberOfUnits" name="units" required maxlength="100" /><i></i>
+                        </label>
+                    </div>
+                    <div class="row range">
+                        <label class="label"><span class="required-field">*</span>Date Range</label>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.editingProcessingRow.startDate"
+                                       k-on-change="vm.onFromDateChanged('processing')"
+                                       k-max="vm.processingMaxDate"
+                                       k-rebind="vm.processingMaxDate"
+                                       k-ng-model="dateObject1" />
+                            </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.editingProcessingRow.endDate"
+                                       k-min="vm.processingMinDate"
+                                       k-rebind="vm.processingMinDate"
+                                       k-on-change="vm.onToDateChanged('processing')"
+                                       k-ng-model="dateObject2" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onProcessingSave()" ng-if="vm.editingProcessingRow != null" ng-disabled="vm.isBusy">Save</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onProcessingCancel()" ng-if="vm.editingProcessingRow != null" ng-disabled="vm.isBusy">Cancel</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onAddProcessing()" ng-if="vm.editingProcessingRow == null" ng-disabled="vm.isBusy">Add</button>
+            </section>
+            <section>
+                <label class="label title">Processing Totals</label>
+                <div class="searchResults"
+                     kendo-grid="vm.processingGrid"
+                     k-options="vm.processingOptions"></div>
+            </section>
+            <section><hr /></section>
+            <section ng-if="vm.editingMethodologyRow != null">
+                <div class="form-group">
+                    <div class="row">
+                        <label class="label title">Processing Methodology Totals</label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Processing Type</label>
+                        <label class="select">
+                            <select ng-model="vm.editingMethodologyRow.processingType.name" required>
+                                <option value="{{item.name}}" ng-repeat="item in vm.processingTypes">{{item.name}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Number of Platforms</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.editingMethodologyRow.platformCount" required maxlength="100"/><i></i>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label class="label"><span class="required-field">*</span>Number of Protocols</label>
+                        <label class="input">
+                            <input type="text" ng-model="vm.editingMethodologyRow.protocolCount" required maxlength="100" /><i></i>
+                        </label>
+                    </div>
+                    <div class="row range">
+                        <label class="label"><span class="required-field">*</span>Date Range</label>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.editingMethodologyRow.startDate"
+                                       k-on-change="vm.onFromDateChanged('methodology')"
+                                       k-max="vm.methodologyMaxDate"
+                                       k-rebind="vm.methodologyMaxDate"
+                                       k-ng-model="dateObject1" />
+                            </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.editingMethodologyRow.endDate"
+                                       k-min="vm.methodologyMinDate"
+                                       k-rebind="vm.methodologyMinDate"
+                                       k-on-change="vm.onToDateChanged('methodology')"
+                                       k-ng-model="dateObject2" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onMethodologySave()" ng-if="vm.editingMethodologyRow != null" ng-disabled="vm.isBusy">Save</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onMethodologyCancel()" ng-if="vm.editingMethodologyRow != null" ng-disabled="vm.isBusy">Cancel</button>
+                <button class="btn btn-warning" type="button" data-ng-click="vm.onAddMethodology()" ng-if="vm.editingMethodologyRow == null" ng-disabled="vm.isBusy">Add</button>
+            </section>
+            <section>
+                <label class="label title">Processing Methodology Totals</label>
+                <div class="searchResults"
+                     kendo-grid="vm.methodologyGrid"
+                     k-options="vm.methodologyOptions"></div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onClose()" ng-disabled="vm.isBusy">Close</button>
+</div>

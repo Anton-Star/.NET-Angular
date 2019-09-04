@@ -1,0 +1,19 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">{{vm.values.title}}</h3>
+</div>
+<div class="modal-body display">
+    <form class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span ng-bind-html="vm.values.text"></span></label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSave()">{{vm.values.buttonText || 'Close'}}</button>
+</div>
+

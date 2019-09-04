@@ -1,0 +1,20 @@
+﻿<!--<link href="content/auditlog.css" rel="stylesheet">-->
+
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Audit Logs</h2>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+             { "field":"auditLogId" , "title":"Id" , "hidden":"true" },
+             { "field":"userName" , "title":"User Name" , "width":"130px" },
+             { "field":"ipAddress" , "title":"IP Address" , "width":"80px" },
+             { "field":"dateTime" , "title":"Action Date" , "width":"140px"},
+             { "field":"description" , "title":"Description" , "width":"180px"}
+            ]'>
+        </div>
+    </div>
+</div>

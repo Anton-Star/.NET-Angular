@@ -1,0 +1,240 @@
+﻿<div class="modal-header">
+    <span ng-show="vm.isNewUser">New User </span>
+    <span ng-show="!vm.isNewUser">Edit User </span>
+</div>
+<div class="modal-body edit-user">
+    <form name="editUser" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label bold">User Details</label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Role</label>
+                    <label class="select">
+                        <select id="role" name="role" ng-model="vm.user.role.roleId" ng-options="role.roleId as role.roleName for role in vm.roles" ng-change="vm.selectedRoleChange()" required ng-disabled="!vm.showRole"></select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>First Name</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.user.firstName" id="firstName" name="firstName" required maxlength="100" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Last Name</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.user.lastName" id="lastName" name="lastName" required maxlength="100" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label">Credentials</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" ng-repeat="j in vm.credentials">
+                        <label class="checkbox">
+                            <input id="creds" name="creds{{j.id}}" type="checkbox" value="{{j.id}}" ng-model="j.isSelected"><i></i>{{j.name}}
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-show="!vm.isNonSystemUser">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Email Address</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.user.emailAddress" ng-disabled="vm.emailDisabled" id="emailAddress" name="emailAddress" maxlength="100" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Phone Number</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.user.preferredPhoneNumber" id="phoneNumber" name="phoneNumber" maxlength="20" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Extension (if any)</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.user.extension" id="extension" name="extension" maxlength="4" />
+                    </label>
+                </div>
+            </section>
+            <section ng-show="!vm.isNonSystemUser">
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Active</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.user.isActive = true" ng-class="{active: vm.user.isActive == true}">
+                            <input type="radio" id="isActiveYes" name="isActive" ng-model="vm.user.isActive" ng-value="true" />Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.user.isActive = false" ng-class="{active: vm.user.isActive == false}">
+                            <input type="radio" id="isActiveNo" name="isActive" ng-model="vm.user.isActive" ng-value="false" />No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-show="!vm.isNonSystemUser">
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input id="canManage" name="canManage" type="checkbox" ng-model="vm.user.canManageUsers"><i></i>Grant user permission to add/edit personnel
+                    </label>
+                </div>
+            </section>
+            <section ng-show="!vm.isNonSystemUser && !vm.isNewUser">
+                <div class="form-group">
+                    <label class="label">Locked</label>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default radios" ng-click="vm.user.isLocked = true" ng-class="{active: vm.user.isLocked == true}">
+                            <input type="radio" id="isLockedYes" name="isLocked" ng-model="vm.user.isLocked" ng-value="true" />Yes
+                        </label>
+                        <label class="btn btn-default radios" ng-click="vm.user.isLocked = false" ng-class="{active: vm.user.isLocked == false}">
+                            <input type="radio" id="isLockedNo" name="isLocked" ng-model="vm.user.isLocked" ng-value="false" />No
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Medical License Expiry Date</label>
+                    <label class="select">
+                        <input id="medicalLicenseExpiry" name="medicalLicenseExpiry" class="date-fix" kendo-date-picker k-ng-model="vm.user.medicalLicenseExpiry" k-format="dd/MM/yyyy" />
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.common.currentUser.emailAddress !== vm.user.emailAddress">
+                <div class="form-group">
+                    <label class="label bold">Organizational Assignments</label>
+                    <label class="label">
+                        Select an organization and a job function for this user. Then select "Add Job Function". Each user must have at least one job function. Repeat the process if the user has
+                        multiple titles within the organization.
+                    </label>
+                </div>
+            </section>
+            <section ng-if="vm.common.currentUser.emailAddress !== vm.user.emailAddress">
+                <div class="form-group">
+                    <div class="row"><div class="col-md-4"><label class="label">Organization</label></div><div class="col-md-4"><label class="label">Job Function</label></div></div>
+                    <div class="row org">
+                        <div class="col-md-4">
+                            <select id="organization" name="organization"
+                                    ng-model="vm.newOrg"
+                                    ng-options="org.organizationName for org in vm.organizations"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="jobFunction" name="jobFunction"
+                                    ng-model="vm.newJobFunction"
+                                    ng-options="j.name for j in vm.jobFunctions"></select>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary" type="button" id="addOrg" name="addOrg" ng-click="vm.addOrg()">Add</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="reportGrid" class="searchResults"
+                             kendo-grid="vm.grid"
+                             k-options="vm.gridOptions"></div>
+                    </div>
+
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label bold">Languages</label>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label">Which languages do you speak and/or read?</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" ng-repeat="j in vm.languages">
+                        <label class="checkbox">
+                            <input id="lang" name="lang{{j.id}}" type="checkbox" value="{{j.id}}" ng-model="j.isSelected"><i></i>{{j.name}}
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label bold">Individual Memberships</label>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label">Are you a member of any of the following?</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" ng-repeat="j in vm.memberships">
+                        <label class="checkbox">
+                            <input id="membership" name="membership{{j.id}}" type="checkbox" value="{{j.id}}" ng-model="j.isSelected" ng-click="vm.onMembershipSelected(j)"><i></i>{{j.name}}
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-show="vm.isIsctItem">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label">If you are a member of ISCT, please provide your membership number to be eligible for affiliate discounts:</label>
+                            <label class="input">
+                                <input id="isCt" name="isCt" type="text" ng-model="vm.isctItem" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section ng-show="vm.isAsbmtItem">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label">If you are a member of ASBMT, please provide your membership number to be eligible for affiliate discounts:</label>
+                            <label class="input">
+                                <input id="isAbmt" name="isAbmt" type="text" ng-model="vm.asbmtItem" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--<section>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="label"><span class="required-field">*</span>Job Functions</label>
+                    </div>
+                </div>
+                <div class="col-xs-6" ng-repeat="j in vm.jobFunctions">
+                    <label class="checkbox">
+                        <input type="checkbox" value="{{j.id}}" ng-model="j.selected" ><i></i>{{j.name}} ng-click="vm.onJobSelected(j)"
+                    </label>
+                </div>
+            </div>
+        </section>-->
+            </fiel
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" id="save" name="save" ng-click="vm.save()" ng-disabled="vm.isInvalid()">Save</button>
+    <button class="btn btn-warning" type="button" id="cancel" name="cancel" ng-click="vm.cancel()">Cancel</button>
+</div>
+
+<script type="text/x-kendo-template" id="commonTemplate">
+    <select id="editOrg" name="editOrg" ng-model="vm.editingRow.organizationName" ng-options="org.organizationName for org in vm.organizations" ng-change="vm.onOrgSelected()"></select>
+    <i></i>
+</script>

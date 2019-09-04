@@ -1,0 +1,33 @@
+﻿
+<div class="navbar navbar-wp navbar-arrow mega-nav">
+    <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle navbar-toggle-aside-menu">
+                        <i class="fa fa-outdent icon-custom"></i>
+                    </button>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <i class="fa fa-bars icon-custom"></i>
+                    </button>
+
+                    <a class="navbar-brand" href="#/">
+                        <img src="/content/images/fact-head.png" alt="FACT Head Image">
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="pull-right navbar-logo right-nav">
+                    <ul class="nav navbar-nav" ng-show="vm.fullName != ''">
+                        <li>
+                            <span class="name">Welcome, {{vm.fullName}}</span><br />
+                            {{vm.orgName}}<br />
+                            <a id="manageAccount" name="manageAccount" href ng-click="vm.onManageAccount()">Manage account</a> | <a id="logout" name="logout" href="#" ng-click="vm.logout()">Log out</a>
+                            <span ng-if="vm.isImpersonation">| <a id="exitImp" name="exitImp" href ng-click="vm.onStopImpersonation()">Exit Impersonation</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>    
+</div>

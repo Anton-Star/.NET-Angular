@@ -1,0 +1,18 @@
+﻿.orgfacilityview .widget {
+  height: 100%;
+}
+.orgfacilityview .widget .overview {
+  padding-top: 15px;
+}
+.orgfacilityview .widget .k-layer {
+  width: 100% !important;
+}
+.orgfacilityview .widget .legend {
+  padding-right: 20px;
+}
+.orgfacilityview .widget .green {
+  color: #00ff00;
+}
+.orgfacilityview .widget .red {
+  color: #ff0000;
+}

@@ -1,0 +1,22 @@
+﻿<div class="modal-header">
+    <span ng-show="vm.isNew">New Module </span>
+    <span ng-show="!vm.isNew">Edit Module </span>
+</div>
+<div class="modal-body">
+    <form name="new" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label"><span class="required-field">*</span>Name</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.module.applicationTypeName" name="moduleName" required maxlength="400" />
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save()" ng-disabled="new.$invalid">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

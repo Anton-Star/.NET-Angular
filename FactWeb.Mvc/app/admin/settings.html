@@ -1,0 +1,34 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+<div class="wp-block default user-form user-form-alpha no-margin col-md-8">
+    <div class="form-header">
+        <h2>Application Settings</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="settings">
+            <fieldset>
+                <section>
+                    <div class="form-group" ng-repeat="setting in vm.settings">
+                        <label class="label">{{setting.name}}</label>
+                        <label class="input">
+                            <input type="text" maxlength="500"  ng-model="setting.value" required />
+                        </label>
+                    </div>
+                </section>
+                
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.save()" ng-disabled="settings.invalid">
+                        <span>Save</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-footer">
+        <p>
+            Don't have an account? <a href="#/Register">Click here to register.</a>
+        </p>
+        <p>
+            Lost your password? <a href="#/Account/PasswordReset">Click here to recover.</a>
+        </p>
+    </div>
+</div>

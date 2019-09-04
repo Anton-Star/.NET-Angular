@@ -1,0 +1,32 @@
+﻿<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Module Management</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="moduleManagement">
+            <fieldset>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.onAdd()">
+                        <span>Add New Module</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+             {
+             field: "applicationTypeName" ,
+             title: "Module Name" ,
+             width: "380px"
+             },
+             {
+             template: "<button class=\" k-button\" ng-click=\"vm.onEdit(dataItem)\">Edit </button>"
+            }
+            ]'>
+        </div>
+    </div>
+</div>

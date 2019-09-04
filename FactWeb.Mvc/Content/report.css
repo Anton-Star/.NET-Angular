@@ -1,0 +1,38 @@
+﻿#reportViewer1 {
+  width: 1000px;
+  height: 800px;
+}
+/*.trv-report-viewer {
+    min-height: 1000px;
+    width: 1200px;
+}
+
+trv-pages-area {
+    min-height: 1000px !important;
+}
+
+.trv-report-page {
+    min-height: 1000px;
+    width: 1300px !important;
+
+    .sheet {
+        padding: 0px; 
+        margin: 0px; 
+        transform: scale(1, 1) !important;
+    }
+}*/
+.k-webkit .k-combobox .k-dropdown-wrap:before,
+.k-webkit .k-picker-wrap:before,
+.k-webkit .k-numeric-wrap:before {
+  display: none;
+}
+.bigger {
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  font-size: 30px;
+  font-weight: bold;
+}
+.feed button {
+  margin-left: 10px;
+}

@@ -1,0 +1,168 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Outcome Analysis</h3>
+</div>
+<div class="modal-body cibmtr">
+    <form class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <h4>CIBMTR #: {{vm.values.cibmtr.displayName}}</h4>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <h4>Allogeneic Transplantation (CIBMTR Transplant Center-Specific Survival Report)</h4>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Report Date</label>
+                    <label class="select">
+                        <select ng-model="vm.reportYear">
+                            <option value=""></option>
+                            <option ng-repeat="u in vm.years" value="{{u}}">{{u}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Clinical Outcomes Survival Score</label>
+                    <label class="select">
+                        <select ng-model="vm.survivalScore">
+                            <option value=""></option>
+                            <option value="-1">-1</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Sample Size</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.selectedCibmtr.sampleSize" min="0"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Actual Percent</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.selectedCibmtr.actualPercent" min="0" max="100" focus="vm.showActual" ng-show="vm.showActual" ng-blur="vm.onBlur('actual')"/>
+                        <input type="text" ng-model="vm.actual" ng-show="!vm.showActual" ng-focus="vm.showActual = true"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Predicted Percent</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.selectedCibmtr.predictedPercent" min="0" max="100" focus="vm.showPredicted" ng-show="vm.showPredicted" ng-blur="vm.onBlur('predicted')"/>
+                        <input type="text" ng-model="vm.predicted" ng-show="!vm.showPredicted" ng-focus="vm.showPredicted = true"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Lower Percent</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.selectedCibmtr.lowerPercent" min="0" max="100" focus="vm.showLower" ng-show="vm.showLower" ng-blur="vm.onBlur('lower')"/>
+                        <input type="text" ng-model="vm.lower" ng-show="!vm.showLower" ng-focus="vm.showLower = true"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Upper Percent</label>
+                    <label class="input">
+                        <input type="number" ng-model="vm.selectedCibmtr.upperPercent" min="0" max="100" focus="vm.showUpper" ng-show="vm.showUpper" ng-blur="vm.onBlur('upper')"/>
+                        <input type="text" ng-model="vm.upper" ng-show="!vm.showUpper" ng-focus="vm.showUpper = true"/>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <h4>Autologous Transplantation</h4>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Comparative Data Source</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.selectedCibmtr.comparativeDataSource" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Published One-Year Survival</label>
+                    <label class="input">
+                        <input type="text" ng-model="vm.selectedCibmtr.publishedOneYearSurvival" />
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Program One-Year Survival</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.programOneYearSurvival"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Comments</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.comments"></textarea>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label">Reported Causes of Death</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.reportedCausesOfDeath"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Corrective Actions</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.correctiveActions"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">FACT Clinical Outcomes Improvement Committee determination of adequacy of plan</label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.factImprovementPlan"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Additional information requested by FACT Clinical Outcomes Improvement Committee </label>
+                    <label class="input">
+                        <textarea kendo-editor k-ng-model="vm.selectedCibmtr.additionalInformationRequested"></textarea>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSaveCibmtr()" ng-disabled="vm.isBusy">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

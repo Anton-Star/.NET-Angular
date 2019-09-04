@@ -1,0 +1,59 @@
+﻿<div class="wp-block default">
+    <div class="row">
+        <div class="col-md-8">
+            <b>{{application.organizationName}}<br /></b>
+            {{application.applicationTypeName}}
+        </div>
+        <div class="col-md-4">
+            <div class="pull-right">{{application.applicantApplicationStatusName}}</div>
+            <div class="pull-right circle {{application.applicantApplicationStatusName.replace(' ', '')}}"></div>
+        </div>
+    </div>
+    <div class="row boxes">
+        <div class="col-md-2">
+            <div class="box">
+                <div class="title">Submitted</div>
+                <div class="details">
+                    <div class="date">{{application.submittedDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="box">
+                <div class="title">Due</div>
+                <div class="details">
+                    <div class="date" ng-class="{'red-bold': application.applicantApplicationStatusName === 'Past Due'}">{{application.rfiDueDate != '' ? application.rfiDueDate : (application.dueDateString != '' ? application.dueDateString:'N/A')  | date: 'MM/dd/yyyy' }}</div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="box">
+                <div class="title">Inspection</div>
+                <div class="details">
+                    <div class="date">{{application.inspectionDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" ng-if="complianceApplication == null || complianceApplication.coordinator == null">
+            <div class="coordinator">
+                <div class="head" ng-if="application.coordinator != null && application.applicantApplicationStatusName !== 'Past Due'">Coordinator</div>
+                <div class="head red-bold" ng-if="application.applicantApplicationStatusName === 'Past Due'">Please contact your coordinator:</div>
+                <div ng-if="application.coordinator != null">
+                    {{application.coordinator.lastName}}, {{application.coordinator.firstName}}<br />
+                    <a ng-if="!isComplianceApplication" href="mailto: {{application.coordinator.emailAddress}}?subject=RE: {{application.applicationTypeName}} for {{application.organizationName}}&body={{location.protocol()}}://{{location.host()}}:{{location.port()}}/#/Application?app={{application.uniqueId}}">{{application.coordinator.emailAddress}}</a>
+                    <a ng-if="isComplianceApplication" href="mailto: {{application.coordinator.emailAddress}}?subject=RE: Compliance Application for {{application.organizationName}}">{{application.coordinator.emailAddress}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" ng-if="complianceApplication.coordinator != null">
+            <div class="coordinator">
+                <div class="head" ng-if="complianceApplication.coordinator != null">Coordinator</div>
+                <div ng-if="complianceApplication.coordinator != null">
+                    {{complianceApplication.coordinator.lastName}}, {{complianceApplication.coordinator.firstName}}<br />
+                    <a href="mailto: {{complianceApplication.coordinator.emailAddress}}">{{complianceApplication.coordinator.emailAddress}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

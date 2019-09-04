@@ -1,0 +1,100 @@
+﻿.requirements {
+    .label {
+        font-size: 15px;
+    }
+
+    .panel-group {
+        margin-bottom: 0;
+
+        .panel-heading {
+            padding: 0 5px 0 10px;
+            min-height: 60px;
+
+            &::before {
+                content: '';
+                display: inline-block;
+                height: 100%;
+                vertical-align: middle;
+            }
+
+            .col-lg-9 {
+                padding: 0;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            .col-lg-3 {
+                padding-left: 0;
+
+                .icons.pull-right {
+                    margin-right: 10px;
+
+                    a {
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+
+        .panel {
+            overflow: visible;
+        }
+    }
+
+    .panel-body {
+        padding: 5px;
+
+        .row {
+            margin: 0;
+
+            .col-lg-1 {
+                padding-left: 0;
+            }
+        }
+    }
+
+    
+
+    .reqs {
+        border: 1px solid #dadada;
+
+        &.odd {
+            background-color: #fff;
+        }
+
+        &.even {
+            background-color: whitesmoke;
+        }
+    }
+
+       
+}
+
+.notapp {
+    .icons {
+        margin-right: -15px;
+    }
+}
+
+.not-applicable {
+    .removed {
+        span {
+            text-decoration: line-through;
+            color: #808080;
+        }
+        
+    }
+
+    .icons {
+        margin-right: -15px;
+        
+        a {
+            color: #fff;
+            z-index: 9999;
+        }
+    }
+
+    .panel-group .panel-heading:after {
+        content: '';
+    }
+}

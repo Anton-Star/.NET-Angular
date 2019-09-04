@@ -1,0 +1,41 @@
+﻿<link href="content/account.css" rel="stylesheet">
+<div class="col-md-8">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Reset your password</h2>
+        </div>
+        <div class="form-body">
+            <form class="sky-form">
+                <fieldset>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">
+                                Think you might have a record in our database? Let's find out. Type your e-mail address and then press Submit. If we can identify your record, we will send additional instructions to the email address on file in our database. If not, please
+                                contact FACT at 402-559-1950 or <a href="mailto:portal@factwebsite.org">portal@factwebsite.org</a> for assistance.
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Email Address</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-envelope-o"></i>
+                                <input type="email" name="email" ng-model="vm.email"/>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-sign-in pull-right" type="submit" ng-click="vm.submit()" ng-disabled="vm.checkFields() || reminder.email.$error.email">
+                            <span>Submit</span>
+                        </button>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+        <div class="form-footer light">
+            <p>
+                Remember your password? <a href="#/">Click here to sign in.</a>
+            </p>
+        </div>
+    </div>
+</div>

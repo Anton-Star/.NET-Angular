@@ -1,0 +1,61 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Build Email</h3>
+</div>
+<div class="modal-body">
+    <form class="sky-form" id="emailBuilder">
+        <fieldset>
+            <section ng-if="!vm.hidden.to">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label class="label">To</label>
+                    </div>
+                    <div class="col-sm-11">
+                        <label class="input">
+                            <textarea type="text" ng-model="vm.values.to" ng-disabled="vm.disabled.to" required />
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="!vm.hidden.cc">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label class="label">Cc</label>
+                    </div>
+                    <div class="col-sm-11">
+                        <label class="input">
+                            <input type="text" ng-model="vm.values.cc" ng-disabled="vm.disabled.cc" />
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section ng-if="!vm.hidden.subject">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <label class="label">Subject</label>
+                    </div>
+                    <div class="col-sm-11">
+                        <label class="input">
+                            <input type="text" ng-model="vm.values.subject" ng-disabled="vm.disabled.subject" required />
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <div text-angular ng-model="vm.values.html" required></div>
+                </div>
+            </section>
+            <section ng-if="!vm.hidden.accReport">
+                <div class="form-group">
+                    <input type="checkbox" ng-model="vm.includeAccreditationReport" /> Include Accreditation Report
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSave()" ng-disabled="emailBuilder.$invalid">Continue</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

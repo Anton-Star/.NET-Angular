@@ -1,0 +1,252 @@
+﻿<link href="content/application.css" rel="stylesheet">
+<div class="modal-header">
+    <h3 class="modal-title" ng-if="vm.site"><span ng-bind-html="vm.site.siteName"></span></h3>
+    <h3 class="modal-title"><span ng-bind-html="vm.section.parentName"></span></h3>
+</div>
+<div class="modal-body">
+    <form name="application" class="sky-form app-modal">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <h4>
+                                {{vm.section.applicationSectionUniqueIdentifier || vm.section.uniqueIdentifier}}: <span ng-bind-html="vm.section.applicationSectionName || vm.section.name" style="text-transform:none !important;"></span>
+                            </h4>
+                        </div>
+                        <div class="col-sm-2">
+                            <a ng-if="vm.section.applicationSectionHelpText != undefined && vm.section.applicationSectionHelpText != null" ng-click="vm.onDisplayText('Guidance', vm.section.applicationSectionHelpText)">Guidance <span class="glyphicon glyphicon-exclamation-sign"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section ng-repeat="question in vm.section.questions">
+                <div ng-show="!question.isHidden" ng-init="showComment = question.comments.length > 0">
+                    <div class="form-group" ng-class="{radios: question.type == 'Radio Buttons'}" ng-if="question.type != 'Multiple'">
+                        <span class="glyphicon glyphicon-flag" ng-class="question.flag?'glyphicon-flag-red':'glyphicon-flag-grey'" ng-disabled="vm.isReadOnly || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))" ng-click="vm.flagClick(question)"></span>&nbsp;{{(question.order || 0) > 0 ? question.order : (question.complianceNumber || 0) > 0 ? question.complianceNumber : ($index+1)}}.&nbsp;<span ng-bind-html="question.text"></span>
+                        <a ng-if="question.description && question.description !== ''" ng-click="vm.onDisplayText('Tips', question.description)"><span class="glyphicon glyphicon-question-sign" ng-class="glyphicon-flag-red"></span></a>
+                        <label class="input" ng-if="question.type == 'Text Area' && !vm.isPostInspection && !vm.isReadOnly && (!vm.isStatusRfi || (vm.isStatusRfi && vm.common.isQuestionRFI(question, true, vm.appStatus)))">
+                            <textarea kendo-editor k-encoded="false" k-ng-model="question.questionResponses[0].otherText" ng-if="vm.accessType != 'Inspector'"></textarea>
+                        </label>
+                        <div ng-if="(vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))) && question.type == 'Text Area'" class="div-textarea">
+                            &nbsp;<span ng-bind-html="question.questionResponses[0].otherText"></span>
+                        </div>
+                        <label class="input" ng-if="question.type == 'Text Box'">
+                            <input type="text" ng-model="question.questionResponses[0].otherText" required ng-disabled="vm.isReadOnly || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))" />
+                        </label>
+                        <div class="row" ng-if="question.type == 'Checkboxes'">
+                            <div class="col-xs-6">
+                                <div class="col-xs-12" ng-repeat="answer in question.leftAnswers">
+                                    <label class="checkbox">
+                                        <input type="checkbox" ng-model="answer.selected" ng-click="vm.onCheckboxSelected(question)" ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))">{{answer.text}}
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="col-xs-12" ng-repeat="answer in question.rightAnswers">
+                                    <label class="checkbox">
+                                        <input type="checkbox" ng-model="answer.selected" ng-click="vm.onCheckboxSelected(question)" ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))">{{answer.text}}
+                                        <i></i>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="question.type == 'Document Upload'">
+                            <label class="label" ng-repeat="response in question.questionResponses">
+                                File Name: <a href ng-click="vm.onDocumentDownload(response.document)" target="_blank">{{response.document.name}}</a>
+                            </label>
+                            <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" type="submit" ng-if="vm.accessType != 'Inspector'" ng-click="vm.showDocumentLibrary(question, question.questionResponses[0])" ng-disabled="vm.isBusy || vm.isPostInspection || vm.isReadOnly || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))">
+                                <span>Document Library</span>
+                            </button>
+                        </div>
+                        <label class="input" ng-if="question.type == 'Date'">
+                            <input kendo-date-picker k-options="vm.dateOptions" id="date{{question.id}}"
+                                   ng-model="question.questionResponses[0].otherText"
+                                   k-ng-model="dateObject" ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))" />
+                        </label>
+                        <div class="row" ng-if="question.type == 'Date Range'">
+                            <div class="col-lg-3">
+                                <label class="input">
+                                    <input kendo-date-picker ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))"
+                                           ng-model="question.questionResponses[0].fromDate"
+                                           k-on-change="vm.onFromDateChanged(question, question.questionResponses[0])"
+                                           k-max="vm.maxDate"
+                                           k-rebind="vm.maxDate"
+                                           k-ng-model="dateObject1" />
+                                </label>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="input">
+                                    <input kendo-date-picker ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))"
+                                           ng-model="question.questionResponses[0].toDate"
+                                           k-min="vm.minDate"
+                                           k-rebind="vm.minDate"
+                                           k-on-change="vm.onToDateChanged(question, question.questionResponses[0])"
+                                           k-ng-model="dateObject2" />
+                                </label>
+                            </div>
+                        </div>
+                        <label class="select" ng-if="question.type == 'People Picker'">
+                            <select ng-model="question.questionResponses[0].userId" required ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))">
+                                <option ng-repeat="u in vm.users" value="{{u.userId}}">{{u.fullName}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                        <div class="radios" ng-if="question.type == 'Radio Buttons'" ng-class="answer.selected ? 'active' : ''" ng-click="vm.onRadioSelected(question, answer)" ng-repeat="answer in question.answers">
+                            <input type="radio" ng-checked="answer.selected == true" ng-value="answer.id" name="{{question.id}}" ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))" />{{answer.text}}
+                        </div>
+                    </div>
+                    <div class="form-group multiple" ng-if="question.type == 'Multiple'" ng-disabled="vm.isReadOnly">
+                        <div class="text">
+                            <span class="glyphicon glyphicon-flag" ng-class="question.flag?'glyphicon-flag-red':'glyphicon-flag-grey'" ng-disabled="vm.isReadOnly" ng-click="vm.flagClick(question)"></span>&nbsp;{{$index + 1}}.&nbsp;<span ng-bind-html="question.text"></span>
+                            <a uib-popover-html="question.description" popover-title="Guidance" popover-placement="right-top" ng-if="question.description && question.description !== ''"><span class="glyphicon glyphicon-question-sign" ng-class="glyphicon-flag-red"></span></a>
+                        </div>
+                        <div class="row multiple-row" ng-repeat="response in question.questionResponses">
+                            <div class="row" ng-if="question.questionTypeFlags.documentUpload == false">
+                                <div class="pull-right remove">
+                                    <span class="glyphicon glyphicon-remove" ng-if="vm.accessType != 'Inspector'" ng-click="vm.onRemoveResponse(question, $index)"></span>
+                                </div>
+                            </div>
+
+                            <label class="input" ng-if="question.questionTypeFlags.textArea == true && vm.isPostInspection && !vm.isReadOnly && (!vm.isStatusRfi || (vm.isStatusRfi && vm.common.isQuestionRFI(question, true, vm.appStatus)))">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="response.otherText"></textarea>
+                            </label>
+                            <div ng-if="(vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))) && question.questionTypeFlags.textArea == true" class="div-textarea">&nbsp;<span ng-bind-html="response.otherText"></span></div>
+                            <label class="input" ng-if="question.questionTypeFlags.textBox == true">
+                                <input type="text" ng-model="response.otherText" required ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))" />
+                            </label>
+                            <label class="select" ng-if="question.questionTypeFlags.peoplePicker == true">
+                                <select ng-model="response.userId" required ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))">
+                                    <option ng-repeat="u in vm.users" value="{{u.userId}}">{{u.fullName}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                            <div ng-if="question.questionTypeFlags.documentUpload == true">
+                                <a href ng-click="vm.onDocumentDownload(response.document)" target="_blank">{{response.document.name}}</a>
+                                <label class="label" ng-repeat="doc in response.documents">
+                                    <a href ng-click="vm.onDocumentDownload(doc)" target="_blank">{{doc.name}}</a>
+                                </label>
+                                <div class="pull-right remove">
+                                    <span class="glyphicon glyphicon-remove" ng-if="vm.accessType != 'Inspector'" ng-click="vm.onRemoveResponse(question, $index)"></span>
+                                </div>
+                                <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right remove-btn" ng-if="vm.accessType != 'Inspector' && ((response.documents == null || response.documents == undefined || response.documents.length == 0) && (response.document == null || response.document == undefined))" type="submit" ng-click="vm.showDocumentLibrary(question, response)" ng-disabled="vm.isBusy || vm.isPostInspection || vm.isReadOnly || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))">
+                                    <span>Choose File</span>
+                                </button>
+                            </div>
+                            <div class="btn btn-default radios"
+                                 ng-if="question.questionTypeFlags.radioButtons == true"
+                                 ng-class="answer.selected ? 'active' : ''"
+                                 ng-click="vm.onRadioSelected(question, answer)"
+                                 ng-repeat="answer in question.answers">
+                                <input type="radio"
+                                       ng-checked="answer.selected == true"
+                                       ng-value="answer.id"
+                                       ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))"
+                                       name="{{question.id}}" />{{answer.text}}
+                            </div>
+                            <label class="checkbox" ng-if="question.questionTypeFlags.checkboxes == true" ng-repeat="answer in question.answers">
+                                <input type="checkbox"
+                                       ng-model="answer.selected"
+                                       ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))"
+                                       ng-click="vm.onCheckboxSelected(question)">{{answer.text}}
+                                <i></i>
+                            </label>
+                            <label class="input" ng-if="question.questionTypeFlags.date == true">
+                                <input kendo-date-picker
+                                       ng-model="response.otherText"
+                                       k-ng-model="dateObject"
+                                       ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))" />
+                            </label>
+                            <div class="row" ng-if="question.questionTypeFlags.dateRange == true">
+                                <div class="col-lg-3">
+                                    <label class="input">
+                                        <input kendo-date-picker
+                                               ng-model="response.fromDate"
+                                               ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))"
+                                               k-on-change="vm.onFromDateChanged(question, response)"
+                                               k-max="vm.maxDate"
+                                               k-rebind="vm.maxDate"
+                                               k-ng-model="dateObject1" />
+                                    </label>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="input">
+                                        <input kendo-date-picker
+                                               ng-model="response.toDate"
+                                               ng-disabled="vm.isReadOnly || vm.isPostInspection || (vm.isStatusRfi && !vm.common.isQuestionRFI(question, true, vm.appStatus))"
+                                               k-min="vm.minDate"
+                                               k-rebind="vm.minDate"
+                                               k-on-change="vm.onToDateChanged(question, response)"
+                                               k-ng-model="dateObject2" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text space-multi">
+                            <span class="btn btn-base btn-icon btn-icon-right pull-right add-row" ng-if="vm.accessType != 'Inspector'" ng-click="vm.addResponse(question)">
+                                <span>Add an Entry</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <a ng-click="question.showComment = !question.showComment" ng-if="!vm.isPostInspection && !vm.isReadOnly && (!question.comments || question.comments == '')">{{question.showComment === true ? "Hide Comment" : "Enter applicable document name and page number as evidence of compliance or other comments:"}}</a>
+                    <div class="comment" ng-show="question.showComment || (question.comments && question.comments != '')">
+                        <label class="label">Comments.</label>
+                        <label class="input" ng-if="!vm.isReadOnly && !vm.isPostInspection">
+                            <textarea ng-model="question.comments"></textarea>
+                        </label>
+                        <div ng-if="vm.isReadOnly || vm.isPostInspection" class="div-textarea">&nbsp;<span ng-bind-html="question.comments"></span></div>
+                    </div>
+                    <div ng-if="!vm.common.isQuestionRFIWithComments(vm.appStatus, vm.submittedDate, question) && ((vm.appStatus === vm.config.applicationStatuses.rfiInProgress || vm.appStatus === 'RFI' || vm.appStatus === 'Post Committee RFI' || vm.appStatus === 'Applicant Response') && vm.common.isQuestionRFI(question, false, vm.appStatus))" class="rfis">
+                        <div class="row title">
+                            <div class="col-md-12 pull-left">
+                                <b>RFI comments</b>
+                                <button class="btn btn-primary round"
+                                        type="button"
+                                        ng-class="{'red': question.answerResponseStatusName !== 'RFI Completed', 'dkgreen': question.answerResponseStatusName === 'RFI Completed'}"
+                                        ng-disabled="vm.isReadOnly"
+                                        ng-click="vm.onShowRfi(question)"
+                                        ng-if="(vm.appStatus === vm.config.applicationStatuses.rfiInProgress || vm.appStatus === 'RFI' || vm.appStatus === 'Post Committee RFI' || vm.appStatus === 'Applicant Response') && vm.common.isQuestionRFI(question, false, vm.appStatus)">
+                                    Add Response
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.common.isQuestionRFIWithComments(vm.appStatus, vm.submittedDate, question)" class="rfis">
+                        <div class="row title">
+                            <div class="col-md-12 pull-left">
+                                <b>RFI comments</b>
+                                <button class="btn btn-primary round"
+                                        type="button"
+                                        ng-class="{'red': question.answerResponseStatusName !== 'RFI Completed', 'dkgreen': question.answerResponseStatusName === 'RFI Completed'}"
+                                        ng-disabled="vm.isReadOnly"
+                                        ng-click="vm.onShowRfi(question)"
+                                        ng-if="(vm.appStatus === vm.config.applicationStatuses.rfiInProgress || vm.appStatus === 'RFI' || vm.appStatus === 'Post Committee RFI' || vm.appStatus === 'Applicant Response') && vm.common.isQuestionRFI(question, false, vm.appStatus)">
+                                    Add Response
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row rfi-comments" ng-repeat="comment in question.responseCommentsRFI" ng-hide="vm.common.hideCommentFromUser(vm.appStatus, vm.submittedDate, comment)">
+                            <div class="col-md-1"><span class="pull-right" style="display: list-item; list-style-type: circle;">&nbsp;</span></div>
+                            <div class="col-md-8">
+                                <span ng-bind-html="comment.comment" style="text-transform: none;"></span><br />
+                                <label class="label" ng-if="comment.commentDocuments.length > 0" ng-repeat="doc in comment.commentDocuments">Attachment: <a ng-click="vm.onDocumentDownload(doc)" target="_blank">{{doc.name}}</a></label>
+                            </div>
+                            <div class="col-md-3">
+                                {{comment.commentFrom.fullName}}:{{comment.updatedDate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save(false, false)" ng-disabled="vm.isBusy || vm.isReadOnly" ng-if="vm.accessType != 'Inspector' && vm.allowSave == true">Save</button>
+    <button class="btn btn-primary" type="button" ng-click="vm.onNext()" ng-disabled="vm.isBusy || vm.isPostInspection || vm.isReadOnly" ng-if="vm.accessType != 'Inspector' && vm.allowSave == true && vm.section.nextSection">Save and go to next</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()" ng-disabled="vm.isBusy || vm.isRfiSaved">Cancel</button>
+</div>
+

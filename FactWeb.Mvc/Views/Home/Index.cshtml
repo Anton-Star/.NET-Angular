@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html data-ng-app="app" lang="">
+<head>
+    <style>
+        /* This helps the ng-show/ng-hide animations start at the right place. */
+        /* Since Angular has this but needs to load, this gives us the class early. */
+        .ng-hide {
+            display: none !important;
+        }
+    </style>
+    <title>FACT Accreditation Portal</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+
+    @*<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">*@
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@3.0.0/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+    @Styles.Render("~/content/Site")
+    <link href="/content/ie.css" rel="stylesheet" type="text/css">
+
+
+    @Scripts.Render("~/Scripts/jquery-2.2.0.js")
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.1.js")
+    @Scripts.Render("~/signalr/hubs")
+    <script src="https://use.typekit.net/jyu3knb.js"></script>
+    <script>
+        var doc = document.documentElement;
+        doc.setAttribute('data-useragent', navigator.userAgent);
+
+        try{Typekit.load({ async: true });}catch(e){}
+    </script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-118030893-1"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+        ga('create', 'UA-86883012-2', 'portal.factwebsite.org');
+
+        //window.dataLayer = window.dataLayer || [];
+        //function gtag(){dataLayer.push(arguments);}
+        //gtag('js', new Date());
+
+        //gtag('config', 'UA-118030893-1');
+    </script>
+
+    <base href="" />
+</head>
+<body>
+    <div class="wrapping">
+        <div data-ng-include="'app/layout/shell.html'"></div>
+    </div>
+
+    <span data-cc-scroll-to-top></span>
+
+    <script>
+        var my = my || {};
+        my.hasUser = @ViewBag.HasUser.ToString().ToLower();
+        my.useTwoFactor = "@ViewBag.UseTwoFactor" === "Y";
+        my.genericKey = '@ViewBag.GenericKey.ToString()';
+        my.factKey = '@ViewBag.FactVault.ToString()';
+    </script>
+
+    @Scripts.Render("~/Scripts/pouchDb/pouchdb-6.0.4.min.js")
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/angular-route.js")
+    @Scripts.Render("~/Scripts/angular-sanitize.js")
+    @Scripts.Render("~/Scripts/angular-cookies.js")
+    @Scripts.Render("~/Scripts/angular-animate.js")
+    @Scripts.Render("~/Scripts/textAngular-rangy.min.js")
+    @Scripts.Render("~/Scripts/textAngular-sanitize.min.js")
+    @Scripts.Render("~/Scripts/textAngular.min.js")
+    @Scripts.Render("~/Scripts/ng-file-upload/ng-file-upload-shim.js")
+    @Scripts.Render("~/Scripts/ng-file-upload/ng-file-upload.js")
+    @Scripts.Render("~/bundles/bootstrap")
+    
+    @*<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@3.0.0/js/froala_editor.pkgd.min.js'></script>
+    <script type='text/javascript' src='/scripts/angular-froala.js'></script>
+    <script type='text/javascript' src='/scripts/froala-sanitize.js'></script>*@
+    @Scripts.Render("~/appScripts")
+</body>
+</html>

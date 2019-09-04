@@ -1,0 +1,89 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-12 application elig">
+    <application-header class="requirements" application="vm.application" compliance="vm.compApplication" isComplianceApplication="vm.isComplianceApplication"></application-header>
+
+    <div ng-if="vm.application.applicationsWithRfis && vm.application.applicationsWithRfis.length > 0" class="app-rfis">
+        You currently have other applications with RFIs that need to be answered before submitting this application. Please click each link below to complete the questions.
+        <div ng-repeat="appRfi in vm.application.applicationsWithRfis">
+            <span class="red">RFI:</span> <a href ng-click="vm.onShowRfi(appRfi)">{{appRfi.applicationTypeName}}, {{appRfi.requirementNumber}}</a>
+        </div>
+    </div>
+    
+    <div class="alert alert-warning" role="alert" ng-if="vm.isFlagged">
+        This application has flagged items. To review them, look for the "Has Flag" filter in the Quick View. All questions must be complete and all flagged items must be unflagged to submit the
+        application.
+    </div>
+    
+    <application-requirement-list 
+        app-status="{{vm.application.applicantApplicationStatusName}}" 
+        class="requirements" 
+        organization="{{vm.orgName}}" 
+        ng-model="vm.requirements" 
+        access-type="{{vm.accessType}}" 
+        app-type="{{vm.applicationType}}" 
+        scope-types="vm.scopeTypes" 
+        questions="vm.questions" 
+        current-version="vm.currentVersion" 
+        is-requirement-set="true" 
+        question-types="vm.questionTypes" 
+        applicationtype="{{vm.selectedApplicationType}}" 
+        duedate="{{vm.application.dueDate}}" 
+        submitteddate="{{vm.application.submittedDate}}" 
+        uniqueid="{{vm.application.uniqueId}}"></application-requirement-list>
+    
+    <div class="wp-block default user-form" ng-if="!vm.isReadOnly && !vm.isFlagged && vm.isAppComplete() && (!vm.application.applicationsWithRfis || (vm.application.applicationsWithRfis && vm.application.applicationsWithRfis.length == 0)) && (vm.application.applicationStatusName == 'In Progress' || (vm.application.applicationStatusName == 'RFI In Progress' && vm.hasRfiResponse)) && (!vm.serialNumber || vm.serialNumber === '') && (!vm.approvals || vm.approvals.length === 0 || vm.application.applicationStatusName == 'RFI In Progress')">
+
+        <div class="form-body">
+            <form class="sky-form" name="applicationForm">
+                <section ng-if="vm.application.applicationStatusName == 'In Progress' && (!vm.approvals || vm.approvals.length == 0) && vm.application.applicationTypeName !== 'Annual Application'">
+                    Terms and Conditions:
+                    <div style="border: 1px solid grey; overflow: scroll auto;padding-left:30px">
+                        In seeking FACT accreditation:<br />
+                        <ol style="list-style: decimal">
+                            <li>We acknowledge that FACT Standards represent minimal acceptable performance guidelines that may be exceeded. We are making an informed judgment that the adoption of FACT Standards is appropriate for our institution and we assume responsibility for setting more rigorous internal requirements where appropriate.</li>
+                            <li>We acknowledge that we are responsible for the determination of which governmental laws and regulations apply to the activities in our facilities, and for compliance with these governmental laws and regulations.</li>
+                            <li>We agree to notify the FACT Accreditation Office of any significant changes in personnel (Directors) or location of any of our facilities within 90 days of the change.</li>
+                            <li>By signing this application, we attest that we have reviewed the information and are responsible for its accuracy, including our accreditation goals stated within. If, at a later date, it is revealed that this information is not complete or accurate, we are responsible for any extra costs involved for additional inspectors and/or reinspection as deemed necessary by the FACT Accreditation Office.</li>
+                        </ol>
+                    </div>
+                    <input ng-model="vm.agreeTerms" type="checkbox" required />&nbsp; I agree to the Terms and Conditions
+                </section>
+                <section ng-if="vm.application.applicationStatusName == 'In Progress' || vm.application.applicationStatusName == 'RFI In Progress'">
+                    <!--<span>{{vm.application.applicationStatusName == 'In Progress' && vm.application.applicationTypeName === 'Annual Application' ? 'Submit For Director Approval' : 'Submit Application'}}</span>-->
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.submit()" ng-disabled="applicationForm.$invalid || !vm.hasRfiResponse" ng-if="!vm.approvals || vm.approvals.length == 0 || (vm.application.applicationStatusName !== 'In Progress' && vm.application.applicationStatusName == 'RFI In Progress')">
+                        <span>{{vm.application.applicationStatusName == 'In Progress' && vm.application.applicationTypeName === 'Annual Application' ? 'Submit For Director Approval' : 'Submit Application'}}</span>
+                    </button>
+                </section>
+            </form>
+        </div>
+    </div>
+    <div ng-if="vm.common.isDirector(vm.application.organizationName) && !vm.isApproved">
+        <section>
+            Terms and Conditions:
+            <div style="border: 1px solid grey; overflow: scroll auto;padding-left:30px">
+                In seeking FACT accreditation:<br />
+                <ol style="list-style: decimal">
+                    <li>We acknowledge that FACT Standards represent minimal acceptable performance guidelines that may be exceeded. We are making an informed judgment that the adoption of FACT Standards is appropriate for our institution and we assume responsibility for setting more rigorous internal requirements where appropriate.</li>
+                    <li>We acknowledge that we are responsible for the determination of which governmental laws and regulations apply to the activities in our facilities, and for compliance with these governmental laws and regulations.</li>
+                    <li>We agree to notify the FACT Accreditation Office of any significant changes in personnel (Directors) or location of any of our facilities within 90 days of the change.</li>
+                    <li>By signing this application, we attest that we have reviewed the information and are responsible for its accuracy, including our accreditation goals stated within. If, at a later date, it is revealed that this information is not complete or accurate, we are responsible for any extra costs involved for additional inspectors and/or reinspection as deemed necessary by the FACT Accreditation Office.</li>
+                </ol>
+            </div>
+            <input ng-model="vm.agreeTerms" type="checkbox" required />&nbsp; I agree to the Terms and Conditions
+        </section>
+        <section>
+            <button class="btn btn-base" type="submit" ng-click="vm.submit()" ng-disabled="!vm.agreeTerms">
+                <span>Director Approve</span>
+            </button>
+        </section>
+        
+    </div>
+    <div ng-if="vm.common.isDirector(vm.application.organizationName) && vm.approvals.length > 0 && vm.application.applicationStatusName == 'In Progress'">
+        <div class="bold">Approvals: </div>
+        <div id="library" class="searchResults"
+             kendo-grid
+             k-options="vm.approvalOptions"></div>
+    </div>
+</div>

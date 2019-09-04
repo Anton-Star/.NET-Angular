@@ -1,0 +1,31 @@
+﻿<link href="content/facilityDemography.css" rel="stylesheet">
+
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Manage Facilities</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="facilityDemography">
+            <fieldset>    
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.add()">
+                        <span>Add Facility</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+             { "field": "facilityId" , "title": "Id" , "hidden": "true"},
+             { "field": "facilityNumber" , "title": "Facility Number"},
+             { "field": "facilityName" , "title": "Facility"},
+             { "field": "serviceType.name" , "title": "Service Type"},
+             { "template": "<button class=\" k-button\" ng-click=\"vm.edit(dataItem)\">Edit </button><button class=\"k-button\" ng-click=\"vm.delete(dataItem)\">Delete </button><button class=\"k-button\" ng-click=\"vm.onCibmtr(dataItem)\" ng-if=\"vm.isClinical(dataItem)\">Outcome/Data</button>", width: "350px"}
+            ]'>
+        </div>
+    </div>
+</div>

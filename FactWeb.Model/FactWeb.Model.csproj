@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{95785FD9-AB8A-43C2-AF8D-4B80790431B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FactWeb.Model</RootNamespace>
+    <AssemblyName>FactWeb.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.Triggers, Version=5.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Triggers.5.4.0\lib\net45\EntityFramework.Triggers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.TypedOriginalValues, Version=0.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.TypedOriginalValues.0.3.1\lib\net40\EntityFramework.TypedOriginalValues.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FileHelpers, Version=3.1.5.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <HintPath>..\packages\FileHelpers.3.1.5\lib\net45\FileHelpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccreditationOutcome.cs" />
+    <Compile Include="AccreditationRole.cs" />
+    <Compile Include="AccreditationStatus.cs" />
+    <Compile Include="Address.cs" />
+    <Compile Include="AddressType.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="ApplicationQuestionNotApplicable.cs" />
+    <Compile Include="ApplicationResponse.cs" />
+    <Compile Include="ApplicationResponseComment.cs" />
+    <Compile Include="ApplicationResponseCommentDocument.cs" />
+    <Compile Include="ApplicationResponseStatus.cs" />
+    <Compile Include="ApplicationResponseTrainee.cs" />
+    <Compile Include="ApplicationSection.cs" />
+    <Compile Include="ApplicationSectionQuestion.cs" />
+    <Compile Include="ApplicationSectionQuestionAnswer.cs" />
+    <Compile Include="ApplicationSectionQuestionAnswerDisplay.cs" />
+    <Compile Include="ApplicationSectionQuestionScopeType.cs" />
+    <Compile Include="ApplicationSectionResponse.cs" />
+    <Compile Include="ApplicationSectionScopeType.cs" />
+    <Compile Include="ApplicationSetting.cs" />
+    <Compile Include="ApplicationStatusHistory.cs" />
+    <Compile Include="ApplicationSubmitApproval.cs" />
+    <Compile Include="ApplicationType.cs" />
+    <Compile Include="ApplicationTypeCategory.cs" />
+    <Compile Include="ApplicationVersion.cs" />
+    <Compile Include="ApplicationVersionCache.cs" />
+    <Compile Include="AssociationType.cs" />
+    <Compile Include="BlankReport.cs" />
+    <Compile Include="Bug.cs" />
+    <Compile Include="CacheStatus.cs" />
+    <Compile Include="CBCategory.cs" />
+    <Compile Include="CollectionType.cs" />
+    <Compile Include="CommentType.cs" />
+    <Compile Include="ComplianceApplicationApprovalStatus.cs" />
+    <Compile Include="AppLog.cs" />
+    <Compile Include="AuditLog.cs" />
+    <Compile Include="BAAOwner.cs" />
+    <Compile Include="CBCollectionType.cs" />
+    <Compile Include="CBUnitType.cs" />
+    <Compile Include="ClinicalPopulationType.cs" />
+    <Compile Include="ClinicalType.cs" />
+    <Compile Include="CollectionProductType.cs" />
+    <Compile Include="ComplianceApplication.cs" />
+    <Compile Include="ComplianceApplicationInspectionDetail.cs" />
+    <Compile Include="ComplianceApplicationSubmitApproval.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="CpiType.cs" />
+    <Compile Include="Credential.cs" />
+    <Compile Include="DocumentAssociationType.cs" />
+    <Compile Include="DocumentType.cs" />
+    <Compile Include="EmailTemplate.cs" />
+    <Compile Include="FacilityAccreditation.cs" />
+    <Compile Include="FacilityAccreditationMapping.cs" />
+    <Compile Include="FacilityCibmtr.cs" />
+    <Compile Include="FacilityCibmtrDataManagement.cs" />
+    <Compile Include="FacilityCibmtrOutcomeAnalysis.cs" />
+    <Compile Include="FacilitySite.cs" />
+    <Compile Include="Inspection.cs" />
+    <Compile Include="InterfaceItems\AccreditationOutcomeItem.cs" />
+    <Compile Include="InterfaceItems\AddressItem.cs" />
+    <Compile Include="InterfaceItems\AddressTypeItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationCacheModels.cs" />
+    <Compile Include="InterfaceItems\ApplicationSiteResponse.cs" />
+    <Compile Include="InterfaceItems\ApplicationStatusHistoryItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationQuestionNotApplicableItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationSectionItemStatus.cs" />
+    <Compile Include="InterfaceItems\ApplicationSectionRootItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationStatusView.cs" />
+    <Compile Include="InterfaceItems\AppReportModel.cs" />
+    <Compile Include="InterfaceItems\AppResponse.cs" />
+    <Compile Include="InterfaceItems\AssociationTypeItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationResponseComment.cs" />
+    <Compile Include="InterfaceItems\CBCategoryItem.cs" />
+    <Compile Include="InterfaceItems\CbTotal.cs" />
+    <Compile Include="InterfaceItems\CibmtrDataMgmt.cs" />
+    <Compile Include="InterfaceItems\CibmtrItem.cs" />
+    <Compile Include="InterfaceItems\CibmtrOutcomeAnalysis.cs" />
+    <Compile Include="InterfaceItems\CollectionTypeItem.cs" />
+    <Compile Include="InterfaceItems\CommentDocument.cs" />
+    <Compile Include="InterfaceItems\CommentTypeItem.cs" />
+    <Compile Include="InterfaceItems\CompAppApproval.cs" />
+    <Compile Include="InterfaceItems\CompAppInspectionDetail.cs" />
+    <Compile Include="InterfaceItems\CompApplication.cs" />
+    <Compile Include="InterfaceItems\ComplianceApplicationApprovalStatusItem.cs" />
+    <Compile Include="InterfaceItems\ComplianceApplicationItem.cs" />
+    <Compile Include="InterfaceItems\ComplianceApplicationServiceType.cs" />
+    <Compile Include="InterfaceItems\ComplianceApplicationSite.cs" />
+    <Compile Include="InterfaceItems\CoordinatorApplication.cs" />
+    <Compile Include="InterfaceItems\CoordinatorViewItem.cs" />
+    <Compile Include="InterfaceItems\CopyComplianceApplicationModel.cs" />
+    <Compile Include="InterfaceItems\CpiTypeItem.cs" />
+    <Compile Include="InterfaceItems\CredentialItem.cs" />
+    <Compile Include="InterfaceItems\CtTotal.cs" />
+    <Compile Include="InterfaceItems\DocumentAssociationTypeItem.cs" />
+    <Compile Include="InterfaceItems\DoesInspectorHaveAccessModel.cs" />
+    <Compile Include="InterfaceItems\EmailContent.cs" />
+    <Compile Include="InterfaceItems\EmailTemplateItem.cs" />
+    <Compile Include="InterfaceItems\ExportModel.cs" />
+    <Compile Include="InterfaceItems\FacilitySiteItems.cs" />
+    <Compile Include="InterfaceItems\FacilitySitePageItems.cs" />
+    <Compile Include="InterfaceItems\FlatApplication.cs" />
+    <Compile Include="InterfaceItems\FlatSite.cs" />
+    <Compile Include="InterfaceItems\ImportHides.cs" />
+    <Compile Include="InterfaceItems\InspectionDetail.cs" />
+    <Compile Include="InterfaceItems\InspectionItem.cs" />
+    <Compile Include="InterfaceItems\InspectionOverallDetail.cs" />
+    <Compile Include="InterfaceItems\InspectionTeamMember.cs" />
+    <Compile Include="InterfaceItems\EmailMessage.cs" />
+    <Compile Include="InterfaceItems\NetcordMembershipTypeItem.cs" />
+    <Compile Include="InterfaceItems\OrganizationBAADocumentItem.cs" />
+    <Compile Include="InterfaceItems\OrganizationConsultantItem.cs" />
+    <Compile Include="InterfaceItems\OrganizationDocumentLibraryItem.cs" />
+    <Compile Include="InterfaceItems\OutcomeStatusItem.cs" />
+    <Compile Include="InterfaceItems\Overview.cs" />
+    <Compile Include="InterfaceItems\Personnel.cs" />
+    <Compile Include="InterfaceItems\QuestionNotApplicable.cs" />
+    <Compile Include="InterfaceItems\ReportReviewStatusItem.cs" />
+    <Compile Include="InterfaceItems\AccessRequestItem.cs" />
+    <Compile Include="InterfaceItems\RequirementImportItem.cs" />
+    <Compile Include="InterfaceItems\RfiViewItem.cs" />
+    <Compile Include="InterfaceItems\SectionDocument.cs" />
+    <Compile Include="InterfaceItems\SimpleOrganization.cs" />
+    <Compile Include="InterfaceItems\SiteAddressItem.cs" />
+    <Compile Include="InterfaceItems\SiteApplicationSection.cs" />
+    <Compile Include="InterfaceItems\SiteApplicationVersionItem.cs" />
+    <Compile Include="InterfaceItems\SiteCollectionTotalItem.cs" />
+    <Compile Include="InterfaceItems\SiteCordBloodTransplantTotalItem.cs" />
+    <Compile Include="InterfaceItems\SiteProcessingMethodologyTotalItem.cs" />
+    <Compile Include="InterfaceItems\SiteProcessingTotalItem.cs" />
+    <Compile Include="InterfaceItems\SiteProcessingTotalTransplantCellTypeItem.cs" />
+    <Compile Include="InterfaceItems\SiteQuestionResponse.cs" />
+    <Compile Include="InterfaceItems\SiteScopeTypeItem.cs" />
+    <Compile Include="InterfaceItems\SiteTransplantTotalItem.cs" />
+    <Compile Include="InterfaceItems\Statistics.cs" />
+    <Compile Include="InterfaceItems\SubmittedComplianceModel.cs" />
+    <Compile Include="InterfaceItems\TransplantCellTypeItem.cs" />
+    <Compile Include="InterfaceItems\UserCredentialItem.cs" />
+    <Compile Include="InterfaceItems\UserOrganizationItem.cs" />
+    <Compile Include="NetcordMembershipType.cs" />
+    <Compile Include="OrganizationAccreditationCycle.cs" />
+    <Compile Include="OrganizationAccreditationHistory.cs" />
+    <Compile Include="OrganizationBAADocument.cs" />
+    <Compile Include="OrganizationConsutant.cs" />
+    <Compile Include="OrganizationDocumentLibrary.cs" />
+    <Compile Include="OutcomeStatus.cs" />
+    <Compile Include="QuestionAnswer.cs" />
+    <Compile Include="Reporting\Document.cs" />
+    <Compile Include="Reporting\DocumentRequest.cs" />
+    <Compile Include="Reporting\Login.cs" />
+    <Compile Include="Reporting\Report.cs" />
+    <Compile Include="ReportReviewStatus.cs" />
+    <Compile Include="AccessRequest.cs" />
+    <Compile Include="SectionComment.cs" />
+    <Compile Include="SectionQuestion.cs" />
+    <Compile Include="SiteAddress.cs" />
+    <Compile Include="InterfaceItems\CBUnitTypeItem.cs" />
+    <Compile Include="InterfaceItems\DocumentDownload.cs" />
+    <Compile Include="InterfaceItems\QuestionAnswerDisplay.cs" />
+    <Compile Include="InterfaceItems\QuestionResponse.cs" />
+    <Compile Include="InterfaceItems\QuestionTypeFlags.cs" />
+    <Compile Include="InterfaceItems\SiteTotalItem.cs" />
+    <Compile Include="MasterServiceType.cs" />
+    <Compile Include="InterfaceItems\AccreditationStatusItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationStatusItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationVersionItem.cs" />
+    <Compile Include="InterfaceItems\BAAOwnerItem.cs" />
+    <Compile Include="InterfaceItems\CountryItem.cs" />
+    <Compile Include="Distance.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="InterfaceItems\AccreditationRoleItem.cs" />
+    <Compile Include="InterfaceItems\Answer.cs" />
+    <Compile Include="InterfaceItems\ApplicationItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationResponseStatusItem.cs" />
+    <Compile Include="InterfaceItems\ApplicationSectionItem.cs" />
+    <Compile Include="ApplicationStatus.cs" />
+    <Compile Include="InterfaceItems\ApplicationTypeItem.cs" />
+    <Compile Include="BaseModel.cs" />
+    <Compile Include="Facility.cs" />
+    <Compile Include="FacilityAddress.cs" />
+    <Compile Include="InspectionCategory.cs" />
+    <Compile Include="InspectionSchedule.cs" />
+    <Compile Include="InspectionScheduleDetail.cs" />
+    <Compile Include="InspectionScheduleSite.cs" />
+    <Compile Include="InterfaceItems\AuditLogItem.cs" />
+    <Compile Include="InterfaceItems\CBCollectionTypeItem.cs" />
+    <Compile Include="InterfaceItems\ClinicalPopulationTypeItem.cs" />
+    <Compile Include="InterfaceItems\ClinicalTypeItem.cs" />
+    <Compile Include="InterfaceItems\CollectionProductTypeItem.cs" />
+    <Compile Include="InterfaceItems\DocumentItem.cs" />
+    <Compile Include="InterfaceItems\FacilityItems.cs" />
+    <Compile Include="InterfaceItems\MasterServiceTypeItem.cs" />
+    <Compile Include="InterfaceItems\FaciltyAccreditationItem.cs" />
+    <Compile Include="InterfaceItems\InspectionCategoryItem.cs" />
+    <Compile Include="InterfaceItems\InspectionScheduleDetailItems.cs" />
+    <Compile Include="InterfaceItems\InspectionScheduleDetailPageItems.cs" />
+    <Compile Include="InterfaceItems\InspectionScheduleItems.cs" />
+    <Compile Include="InterfaceItems\JobFunctionItem.cs" />
+    <Compile Include="InterfaceItems\LanguageItem.cs" />
+    <Compile Include="InterfaceItems\MembershipItem.cs" />
+    <Compile Include="InterfaceItems\OrganizationAddressItem.cs" />
+    <Compile Include="InterfaceItems\OrganizationFacilityItems.cs" />
+    <Compile Include="InterfaceItems\OrganizationFacilityPageItems.cs" />
+    <Compile Include="InterfaceItems\OrganizationItem.cs" />
+    <Compile Include="InterfaceItems\OrganizationTypeItem.cs" />
+    <Compile Include="InterfaceItems\Question.cs" />
+    <Compile Include="InterfaceItems\QuestionTypeItem.cs" />
+    <Compile Include="InterfaceItems\RoleItem.cs" />
+    <Compile Include="InterfaceItems\ScopeTypeItem.cs" />
+    <Compile Include="InterfaceItems\ServiceTypeItem.cs" />
+    <Compile Include="InterfaceItems\SiteItems.cs" />
+    <Compile Include="InterfaceItems\StateItem.cs" />
+    <Compile Include="InterfaceItems\TransplantTypeItem.cs" />
+    <Compile Include="InterfaceItems\UserItem.cs" />
+    <Compile Include="InterfaceItems\UserMembershipItem.cs" />
+    <Compile Include="JobFunction.cs" />
+    <Compile Include="Language.cs" />
+    <Compile Include="Membership.cs" />
+    <Compile Include="Organization.cs" />
+    <Compile Include="OrganizationAddress.cs" />
+    <Compile Include="OrganizationDocument.cs" />
+    <Compile Include="OrganizationFacility.cs" />
+    <Compile Include="OrganizationType.cs" />
+    <Compile Include="ProcessingType.cs" />
+    <Compile Include="InterfaceItems\ProcessingTypeItem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionType.cs" />
+    <Compile Include="Role.cs" />
+    <Compile Include="ScopeType.cs" />
+    <Compile Include="ServiceType.cs" />
+    <Compile Include="Site.cs" />
+    <Compile Include="SiteAddressDistance.cs" />
+    <Compile Include="SiteApplicationVersion.cs" />
+    <Compile Include="SiteApplicationVersionQuestionNotApplicable.cs" />
+    <Compile Include="SiteClinicalType.cs" />
+    <Compile Include="SiteCollectionTotal.cs" />
+    <Compile Include="SiteProcessingMethodologyTotal.cs" />
+    <Compile Include="SiteProcessingTotal.cs" />
+    <Compile Include="SiteProcessingTotalTransplantCellType.cs" />
+    <Compile Include="SiteProcessingType.cs" />
+    <Compile Include="SiteScopeType.cs" />
+    <Compile Include="SiteCordBloodTransplantTotal.cs" />
+    <Compile Include="SiteTransplantTotal.cs" />
+    <Compile Include="SiteTransplantType.cs" />
+    <Compile Include="State.cs" />
+    <Compile Include="Template.cs" />
+    <Compile Include="TransplantCellType.cs" />
+    <Compile Include="TransplantType.cs" />
+    <Compile Include="TrueVault\AccessTokenDetail.cs" />
+    <Compile Include="TrueVault\AllGroupResult.cs" />
+    <Compile Include="TrueVault\AllUserResult.cs" />
+    <Compile Include="TrueVault\AllVaultResult.cs" />
+    <Compile Include="TrueVault\ApiKeyResult.cs" />
+    <Compile Include="TrueVault\CreateOrgResult.cs" />
+    <Compile Include="TrueVault\GroupResult.cs" />
+    <Compile Include="TrueVault\UploadResult.cs" />
+    <Compile Include="TrueVault\UserResult.cs" />
+    <Compile Include="TrueVault\UserUserResult.cs" />
+    <Compile Include="TrueVault\Vault.cs" />
+    <Compile Include="TrueVault\VaultResult.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserAccreditationRole.cs" />
+    <Compile Include="UserAddress.cs" />
+    <Compile Include="UserCredential.cs" />
+    <Compile Include="UserJobFunction.cs" />
+    <Compile Include="UserLanguage.cs" />
+    <Compile Include="UserMembership.cs" />
+    <Compile Include="UserOrganization.cs" />
+    <Compile Include="Workflow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

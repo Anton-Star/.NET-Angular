@@ -1,0 +1,83 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Add Comments</h3>
+</div>
+<div class="modal-body">
+    <form name="applicationResponseComments" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label class="label">Comments:</label>
+                    </div>
+                    <div class="col-xs-6 pull-left">
+                        <label class="input">
+                            <label class="input">
+                                <textarea kendo-editor k-encoded="false" k-ng-model="vm.comment" required spellcheck="true"></textarea>
+                            </label>
+                        </label>
+                    </div>
+                    <div class="col-xs-4">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label class="label">Attach File:</label>
+                    </div>
+                    <div class="col-xs-6 pull-left">
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="file" file-model="vm.file" />
+                        </label>
+                    </div><div class="col-xs-4">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <label class="label">File Name:</label>
+                    </div>
+                    <div class="col-xs-6 pull-left">
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="text" ng-model="vm.fileName" />
+                        </label>
+                    </div>
+                    <div class="col-xs-4">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.clearForm()" ng-hide="vm.saveMode">
+                        <span>Clear</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.saveComment()" ng-disabled="applicationResponseComments.$invalid" ng-hide="vm.saveMode">
+                        <span>Add</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="reset" ng-click="vm.cancel()" ng-show="vm.saveMode">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.saveComment()" ng-disabled="applicationResponseComments.$invalid" ng-show="vm.saveMode">
+                        <span>Save</span>
+                    </button>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="form-group" data-ng-show="vm.results.length > 0">
+    <div id="reportGrid" class="searchResults"
+         kendo-grid="grid"
+         k-options="vm.gridOptions"
+         k-columns='[
+         { "field":"applicationResponseCommentId" , "title":"Id" , "hidden":"true" },
+         { "field":"updatedDate" , "title":"Date Time" , width: "150px" },
+         { "field":"commentFrom.fullName" , "title":"From" , width: "120px" },
+         { "field":"commentTo" , "title":"To" , width:"120px" },
+         { "field":"comment" , "title":"Comment" , width:"430px" },
+         { "template": "<button class=\" k-button\" ng-click=\"vm.editComment(dataItem)\" ng-show=\"vm.application.applicationStatusId != 9\">Edit </button><button class=\"k-button\" ng-click=\"vm.deleteComment(dataItem)\">Delete </button><button class=\"k-button\" ng-show=\"vm.showDownload(dataItem)\" ng-click=\"vm.download(dataItem)\">Download</button>"}]'>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="vm.closeModal()">Close</button>
+</div>

@@ -1,0 +1,62 @@
+﻿<link href="content/facilitysite.css" rel="stylesheet">
+
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Facility Site Relationship</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="facilitySite">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Facility</label>
+                        <label class="select">
+                            <select name="facility" ng-model="vm.selectedFacility" required>
+                                <option ng-repeat="fac in vm.facilities" value="{{fac.facilityId}}">{{fac.facilityName}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+
+                    </div>
+                </section>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Site</label>
+                        <label class="select">
+                            <select name="site" ng-model="vm.selectedSite" required>
+                                <option ng-repeat="site in vm.sites" value="{{site.siteId}}">{{site.siteName}}</option>
+                            </select>
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.add(dataItem)">
+                        <span>Add New Site</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.clearForm()" ng-hide="vm.saveMode">
+                        <span>Clear</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.saveRelation()" ng-disabled="facilitySite.$invalid || vm.selectedSite == 0 || vm.selectedFacility == 0" ng-hide="vm.saveMode">
+                        <span>Add Relation</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-group" data-ng-show="vm.results.length > 0">
+        <div id="reportGrid" class="searchResults"
+             kendo-grid="grid"
+             k-options="vm.gridOptions"
+             k-columns='[
+                            { "field": "facilitySiteId" , "title": "Id" , "hidden": "true" },
+                            { "field": "facilityId" , "title": "facilityId" , "hidden": "true" },
+                            { "field": "siteId" , "title": "siteId" , "hidden": "true" },
+                            { "field": "facilityName" , "title": "Facility" , "width": "340px"},
+                            { "field": "siteName" , "title": "Site" , "width": "340px"},
+                            { "field": "createdOn" , "title": "Created On" , "width": "150px", "hidden": "true" },
+                            { "template": "<button class=\"k-button\" ng-click=\"vm.deleteRelation(#=facilitySiteId#)\">Delete </button>" }
+                        ]'>
+        </div>
+    </div>
+</div>

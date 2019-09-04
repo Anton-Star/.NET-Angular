@@ -1,0 +1,65 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Find an Organization</h3>
+</div>
+<div class="modal-body">
+    <form name="orgSearch" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label">Organization Name</label>
+                    <label class="label">
+                        This will search the various organization name fields. The search ignores case and will find the search term anywhere in the field as long as the term starts a word. Examples: "company" will
+                        find "XYZ Company". "pan" will find "Pans", "Panther", not "Company", "Expansion". *pan will find "Japan", not "Panther". *pan* will find both "Pans", "Panther" and "Company", "Expansion".
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Company</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.searchText" name="searchText" required/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">City</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.city" name="city"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">State</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.state" name="state"/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" type="submit" ng-click="vm.search()" ng-disabled="vm.isBusy">
+                    <span>Search</span>
+                </button>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="form-group" ng-show="vm.results.length > 0">
+    <div id="reportGrid" class="searchResults"
+         kendo-grid="grid"
+         k-options="vm.gridOptions"
+         k-columns='[
+                     { field: "organizationName" , title: "Organization Name" },
+                     { field: "organizationNumber" , title: "Organization Number"},
+                     ]' />
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>
+

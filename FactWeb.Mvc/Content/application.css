@@ -1,0 +1,515 @@
+﻿.quest {
+  padding-left: 15px !important;
+}
+application-requirement {
+  min-height: 80px;
+}
+.panel-heading {
+  min-height: 65px !important;
+}
+.approval {
+  color: #ff0000;
+  font-weight: bold;
+}
+.modal-xxl {
+  width: 900px;
+}
+.modal-xxl h4 {
+  font-weight: normal;
+  font-size: 1.3em;
+}
+.modal-xxl textarea {
+  width: 100%;
+  height: 75px;
+}
+.modal-xxl .radiogroup {
+  width: 100%;
+}
+.modal-xxl .radiogroup .radios {
+  width: 100%;
+}
+.modal-body .app-modal {
+  height: 100%;
+  max-height: 600px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.round {
+  border-radius: 24px;
+  box-shadow: 0 1px 2px #fff, /*bottom external highlight*/ 0 -1px 1px #666, /*top external shadow*/ inset 0 -1px 1px rgba(0, 0, 0, 0.5), /*bottom internal shadow*/ inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  /*top internal highlight*/
+  background: #ff3b3b !important;
+  color: #880015 !important;
+  margin-left: 20px;
+}
+.round:hover {
+  background: #FF6565 !important;
+}
+.round.dkgreen {
+  background: #67953D !important;
+  color: #000 !important;
+}
+.round.dkgreen:hover {
+  background: #7ba951 !important;
+}
+.div-textarea {
+  width: 100%;
+  height: 75px;
+  background-color: #ebebe4;
+  border-color: #a9a9a9;
+  overflow: auto;
+  border-style: solid;
+  border-width: 1px;
+}
+.app-rfis {
+  background-color: #fff;
+  font-weight: bold;
+  color: #ff0000;
+  margin-bottom: 20px;
+}
+.app-rfis a {
+  color: #00f;
+}
+.app-rfis div {
+  background-color: #fff;
+}
+.app-rfis .red {
+  background: #fff;
+  color: #ff0000;
+}
+.k-datepicker input {
+  padding: 0.177em 0 0.177em 0 !important;
+}
+.k-webkit .k-combobox .k-dropdown-wrap:before,
+.k-webkit .k-picker-wrap:before,
+.k-webkit .k-numeric-wrap:before {
+  content: none !important;
+}
+.panel-body.title {
+  padding: 5px 15px 5px 15px;
+  margin-bottom: 0;
+}
+.panel-body.comment {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.elig .panel .panel {
+  padding-left: 15px;
+}
+.application .k-treeview {
+  font-size: 1.2em;
+}
+.application .glyphicon-ok {
+  color: #00ff00;
+}
+.application .glyphicon-adjust {
+  color: #ffd800;
+}
+.application .glyphicon-info-sign::before {
+  color: #ff0000;
+}
+.application .button {
+  margin-top: 20px;
+  height: 55px;
+  background-color: #fff;
+}
+.application .requirements .no-margin-row {
+  padding-left: 1px;
+}
+.application .requirements .no-margin-row .col-md-3 {
+  padding-left: 5px !important;
+}
+.application .requirements .panel {
+  margin-bottom: 10px;
+}
+.application .requirements .panel .panel-heading {
+  background-color: #D9E3ED;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+.application .requirements .panel .panel-heading:after {
+  margin-top: -20px;
+  content: '';
+}
+.application .requirements .panel .panel-heading.req:after {
+  content: '';
+}
+.application .requirements .panel .panel-body {
+  border: none;
+  padding-top: 5px;
+  padding-right: 0;
+}
+.application .requirements .panel .panel-title .col-lg-6 {
+  padding-left: 0;
+}
+.application .requirements .panel .panel {
+  background-color: #fff;
+  border: none;
+  margin-bottom: 0;
+  padding-left: 10px;
+}
+.application .requirements .panel .panel .panel-heading {
+  background-color: #fff;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-left: 0;
+}
+.application .requirements .panel .panel .panel-body {
+  border: none;
+  padding-top: 5px;
+  padding-right: 0;
+}
+.application .requirements .panel .panel [class*="col-"] {
+  padding-left: 10px;
+}
+.application .requirements .panel .panel .col-lg-8 {
+  padding-left: 15px;
+}
+.application .requirements .panel .panel .col-lg-3 {
+  padding-left: 15px;
+  padding-right: 0;
+}
+.application .requirements .panel .panel .panel .col-lg-2 {
+  margin-left: -7px;
+}
+.application .requirements .panel .panel .panel .panel .col-lg-2 {
+  margin-left: -18px;
+}
+.application .requirements .panel .panel .panel .panel .panel .col-lg-2 {
+  margin-left: -30px;
+}
+.application .requirements .panel-group {
+  margin-bottom: 0;
+}
+.application .requirements .panel-body {
+  padding-bottom: 5px;
+}
+.application .requirements .panel-open .panel-heading:after {
+  content: '';
+}
+.application .requirements .icons a {
+  color: #0066A4 !important;
+}
+.application .requirements .first-row {
+  margin-left: -25px;
+}
+.comp-application .k-treeview {
+  font-size: 1.2em;
+}
+.comp-application .glyphicon-ok {
+  color: #00ff00;
+}
+.comp-application .glyphicon-adjust {
+  color: #ffd800;
+}
+.comp-application .glyphicon-info-sign::before {
+  color: #ff0000;
+}
+.comp-application .button {
+  margin-top: 20px;
+  height: 55px;
+  background-color: #fff;
+}
+.comp-application .quest {
+  padding-left: 15px !important;
+}
+.comp-application .requirements .panel {
+  margin-bottom: 10px;
+}
+.comp-application .requirements .panel .panel-heading {
+  min-height: 50px;
+  background-color: #D9E3ED;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.comp-application .requirements .panel .panel-heading:after {
+  margin-top: -20px;
+}
+.comp-application .requirements .panel .panel-heading.req:after {
+  content: '';
+}
+.comp-application .requirements .panel .panel-body {
+  border: none;
+  padding-top: 5px;
+  padding-right: 0;
+}
+.comp-application .requirements .panel .panel {
+  background-color: #fff;
+  border: none;
+  margin-bottom: 0;
+  border-bottom: 1px solid #000;
+}
+.comp-application .requirements .panel .panel .panel-heading {
+  background-color: #fff;
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-left: 0;
+}
+.comp-application .requirements .panel .panel .panel-body {
+  border: none;
+  padding-top: 5px;
+  padding-right: 0;
+}
+.comp-application .requirements .panel .panel [class*="col-"] {
+  padding-left: 5px;
+}
+.comp-application .requirements .panel .panel .col-lg-8 {
+  padding-left: 15px;
+}
+.comp-application .requirements .panel .panel .col-lg-3 {
+  padding-left: 15px;
+  padding-right: 0;
+}
+.comp-application .requirements .panel .panel .panel {
+  border-bottom: none;
+}
+.comp-application .requirements .panel .panel .panel .panel .col-lg-2 {
+  margin-left: -7px;
+}
+.comp-application .requirements .panel .panel .panel .panel .panel .panel-heading {
+  height: 110px;
+}
+.comp-application .requirements .panel .panel .panel .panel .panel .col-lg-2 {
+  margin-left: -14px;
+}
+.comp-application .requirements .panel-group {
+  margin-bottom: 0;
+}
+.comp-application .requirements .panel-body {
+  padding-bottom: 5px;
+}
+.comp-application .requirements .panel-open .panel-heading:after {
+  content: "-";
+}
+.comp-application .requirements .icons a {
+  color: #0066A4 !important;
+}
+.glyphicon-flag-red {
+  color: #FF0000 !important;
+  cursor: pointer;
+}
+.glyphicon-flag-grey {
+  color: gray !important;
+  cursor: pointer;
+}
+.multiple .multiple-row {
+  border: 1px solid #d1d1d1;
+  margin: 0;
+  margin-bottom: 20px;
+  padding: 0 10px 10px 10px;
+}
+.multiple .pull-right.remove {
+  padding-right: 20px;
+  cursor: pointer;
+}
+.multiple .remove-btn {
+  margin-top: 40px;
+  margin-right: -30px;
+}
+.multiple .text {
+  padding-bottom: 20px;
+}
+.multiple .text .add-row span {
+  padding: 0;
+}
+.complete {
+  border: 1px solid #000;
+}
+.status-view {
+  background-color: #DDDDDF;
+  font-family: "acumin-pro" !important;
+}
+.status-view .Complete {
+  background-color: #747728;
+}
+.status-view .New {
+  background-color: #FAF06D;
+  color: #000;
+}
+.status-view .NoResponse {
+  background-color: #E3DFD6;
+}
+.status-view .HasFACTOnlyComments {
+  background-color: #BF8673;
+}
+.status-view .Incomplete {
+  background-color: #9256A6;
+}
+.status-view .InProgress,
+.status-view .NotStarted {
+  background-color: #FAF06D;
+  color: #000;
+}
+.status-view .InProgress a,
+.status-view .NotStarted a {
+  color: #000 !important;
+}
+.status-view .FollowUp {
+  background-color: #3C90CE;
+}
+.status-view .Reviewed {
+  background-color: #2276AC;
+}
+.status-view .RFI {
+  background-color: #D21502;
+}
+.status-view .RFICompleted {
+  background-color: #C7D19C;
+}
+.status-view .NotApplicable {
+  background-color: #FFBD0F;
+}
+.status-view .NotCompliant {
+  background-color: #872175;
+}
+.status-view .Compliant {
+  background-color: #61C2BB;
+}
+.status-view .coordinator {
+  padding-left: 30px;
+}
+.status-view .ForReview {
+  background-color: #FE7D68;
+}
+.status-view a {
+  color: #000;
+}
+.status-view .filters {
+  color: #fff;
+}
+.status-view .filters h3 {
+  margin-top: 10px;
+  font-family: "acumin-pro" !important;
+  padding-left: 20%;
+  font-size: 1.4em;
+  font-weight: normal;
+  color: #000;
+}
+.status-view .filters input[type=checkbox] {
+  margin-top: 6px;
+}
+.status-view .filters .col-md-12 {
+  padding-bottom: 2px;
+  margin-bottom: 5px;
+}
+.status-view .filters span {
+  text-transform: uppercase;
+}
+.status-view .filters .showAll {
+  background-color: #1993A0;
+}
+.status-view .filters .HasAttachments,
+.status-view .filters .HasRFI,
+.status-view .filters .HasCitationNotes,
+.status-view .filters .HasFlag,
+.status-view .filters .HasFACTOnlyComments,
+.status-view .filters .HasRFIComments,
+.status-view .filters .HasSuggestions {
+  color: #000;
+}
+.status-view .content {
+  background-color: #fff;
+  padding-bottom: 10px;
+  padding-left: 20px;
+}
+.status-view .statusview {
+  padding-bottom: 10px;
+}
+.status-view .statusview .col-md-12 {
+  padding-bottom: 5px;
+}
+.status-view .statusview .col-md-2 {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.status-view .status {
+  color: #fff;
+  text-align: center;
+  width: 15%;
+  margin-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+.review .circle {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.review .circle.red {
+  background: #ff0000;
+}
+.review .circle .glyphicon {
+  font-size: 12px;
+  margin-top: 3px;
+  margin-left: 4px;
+  position: absolute;
+}
+.review .circle .glyphicon.red {
+  background-color: transparent;
+}
+.review .circle .glyphicon.glyphicon-ok {
+  color: #fff;
+}
+.download-button {
+  padding-bottom: 20px;
+  height: 30px;
+}
+.user-form .form-header.light {
+  border-radius: 15px;
+}
+.report h2 {
+  padding-top: 10px;
+  font-size: 40px;
+}
+.report .top {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.report .report-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.report .report-row a {
+  margin-left: 20px;
+}
+.report .Org {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 0;
+}
+.report .Site {
+  background-color: #00929F;
+  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid DarkGray;
+}
+.report .App {
+  background-color: #61AFAF;
+  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid DarkGray;
+}
+.report .row {
+  display: flex;
+}
+.report .Req {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid DarkGray;
+}
+.report .question {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid DarkGray;
+}
+.report .header {
+  background-color: #0066a4;
+  color: #fff;
+  text-align: center;
+}

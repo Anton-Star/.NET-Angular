@@ -1,0 +1,31 @@
+﻿<link href="content/admin.css" rel="stylesheet">
+
+<div class="col-md-11 coordinator-applications">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Manage Auditor/Observer</h2>
+        </div>
+        <div class="form-body">
+            <form class="sky-form auditorObserver">
+                <fieldset class="no-padding">
+                    <section class="topSection">
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.onAdd()">
+                            <span>Add New</span>
+                        </button>
+                    </section>
+                    <section>
+                        <div class="searchResults"
+                             kendo-grid="vm.grid"
+                             k-options="vm.gridOptions">
+                        </div>
+                    </section>
+                    <section class="bottom"></section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-kendo-template" id="type">
+    {{dataItem.isAuditor ? 'Auditor' : dataItem.isObserver ? 'Observer' : ''}}
+</script>

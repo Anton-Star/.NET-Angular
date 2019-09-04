@@ -1,0 +1,74 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-12 comp-application application ">
+    <application-header class="requirements" application="vm.application" compliance="vm.compApplication" isComplianceApplication="vm.isComplianceApplication"></application-header>
+
+    <div class="alert alert-warning" role="alert" ng-if="vm.isFlagged">
+        This application has flagged items. To review them, look for the "Has Flag" filter in the Quick View. All questions must be complete and all flagged items must be unflagged to submit the
+        application.
+    </div>
+
+    <div class="requirements" ng-repeat="appSite in vm.compApplication.complianceApplicationSites">
+        <uib-accordion close-others="oneAtATime">
+            <uib-accordion-group is-open="appSite.open" ng-click="vm.onResize()">
+                <uib-accordion-heading>
+                    <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': appSite.open, 'glyphicon-chevron-right': !appSite.open}"></i>
+                    <div class="pull-left circle {{appSite.statusName.replace(' ', '').replace('/', '')}}" title="{{appSite.statusName}}" ng-if="appSite.statusName != ''"></div>
+                    <div class="head-text text-uppercase">{{appSite.siteName}}</div>
+                </uib-accordion-heading>
+                <div class="requirements" ng-repeat="application in appSite.appResponses" ng-show="appSite.open">
+                    <uib-accordion close-others="oneAtATime">
+                        <uib-accordion-group is-open="application.open">
+                            <uib-accordion-heading>
+                                <div class="panel">
+                                    <div class="panel-heading req">
+                                        <div class="col-lg-12">
+                                            <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': application.open, 'glyphicon-chevron-right': !application.open}"></i>
+                                            <div class="pull-left circle {{application.applicationTypeStatusName.replace(' ', '').replace('/', '')}}" title="{{application.applicationTypeStatusName}}" ng-if="application.applicationTypeStatusName != ''"></div>
+                                            <span class="head-text text-uppercase" ng-click="vm.onSiteAppView(application)">{{application.applicationTypeName}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-accordion-heading>
+
+                            <app-requirement-list 
+                                app-status="{{vm.application.applicationStatusName}}" 
+                                ng-if="appSite.open" 
+                                level="0" 
+                                class="requirements" 
+                                organization="{{vm.application.organizationName}}" 
+                                ng-model="application.applicationSectionResponses" 
+                                access-type="{{vm.accessType}}" 
+                                site="appSite.site" 
+                                app-type="{{application.applicationTypeName}}" 
+                                scope-types="vm.scopeTypes" 
+                                is-requirement-set="true" 
+                                question-types="vm.questionTypes" 
+                                applicationtype="{{application.applicationTypeName}}" 
+                                duedate="{{vm.appDueDate}}" 
+                                app-unique-id="{{application.applicationUniqueId}}" 
+                                submitteddate="{{vm.application.submittedDate}}"></app-requirement-list>
+                        </uib-accordion-group>
+                    </uib-accordion>
+                </div>
+            </uib-accordion-group>
+        </uib-accordion>
+    </div>
+    <div ng-if="!vm.isFlagged && vm.isCompComplete(vm.application.applicationStatusName == 'RFI' || vm.application.applicationStatusName == 'RFI In Progress' || vm.application.applicationStatusName == 'Post Committee RFI' || vm.application.applicationStatusName == 'Applicant Response') && (vm.application.applicationStatusName == 'RFI' || vm.application.applicationStatusName == 'In Progress' || vm.application.applicationStatusName == 'RFI In Progress' || vm.application.applicationStatusName == 'Post Committee RFI' || vm.application.applicationStatusName == 'Applicant Response')">
+        <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.submit()" ng-disabled="applicationForm.$invalid" ng-if="!vm.approvals || vm.approvals.length == 0 || vm.application.applicationStatusName !== 'In Progress'">
+            <span>{{vm.application.applicationStatusName == 'In Progress' ? 'Submit For Director Approval' : 'Submit Application'}}</span>
+        </button>
+        
+        <button class="btn btn-base" type="submit" ng-click="vm.updateStatus(true)" ng-if="vm.common.isDirector(vm.application.organizationName) && vm.approvals.length > 0 && vm.application.applicationStatusName == 'In Progress' && !vm.isApproved">
+            <span>Director Approve</span>
+        </button>
+    </div>
+
+    <div ng-if="vm.common.isDirector(vm.application.organizationName) && vm.approvals.length > 0 && vm.application.applicationStatusName == 'In Progress'">
+        <div class="bold">Approvals: </div>
+        <div id="library" class="searchResults"
+             kendo-grid
+             k-options="vm.approvalOptions"></div>
+    </div>
+</div>

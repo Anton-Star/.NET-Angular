@@ -1,0 +1,223 @@
+﻿<link href="content/application.css" rel="stylesheet">
+<div class="modal-header">
+    <h3 class="modal-title"><span ng-bind-html="vm.section.parentName"></span></h3>
+</div>
+<div class="modal-body">
+    <form name="application" class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <h4>
+                                {{vm.section.uniqueIdentifier}}: <span ng-bind-html="vm.section.name"></span>
+                            </h4>
+                        </div>
+                        <div class="col-sm-2">
+                            <a ng-if="vm.section.helpText != undefined && vm.section.helpText != null" ng-click="vm.onDisplayText('Guidance', vm.section.helpText)">Get Guidance <span class="glyphicon glyphicon-exclamation-sign"></span></a>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        <section ng-repeat="question in vm.sectionQuestions">
+            <div class="form-group" ng-class="{radios: question.type == 'Radio Buttons'}" ng-if="question.type != 'Multiple'">
+                {{$index + 1}}.&nbsp;<span ng-bind-html="question.text"></span>
+                <a ng-if="question.description && question.description !== ''" ng-click="vm.onDisplayText('Tips', question.description)"><span class="glyphicon glyphicon-question-sign" ng-class="glyphicon-flag-red"></span></a>
+                <div class="row pd-10">
+                    <div class="col-md-{{vm.columnWidth}} bold" ng-repeat="section in vm.sections">
+                        {{section.site.siteName}}
+                    </div>
+                </div>
+                <div class="row multi">
+                    <div class="col-md-{{vm.columnWidth}} bold" ng-repeat="section in vm.sections">
+                        <label class="input" ng-if="question.type == 'Text Area'">
+                            <textarea kendo-editor k-encoded="false" ng-model="section.section.questions[$parent.$parent.$parent.$index].questionResponses[0].otherText"  k-ng-model="section.section.questions[$parent.$parent.$parent.$index].questionResponses[0].otherText" ng-if="vm.accessType != 'Inspector' && !vm.isReadOnly && !section.section.questions[$parent.$parent.$index].isHidden" ng-change="vm.onSetOtherText($parent.$parent.$parent.$index, $parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$index].questionResponses[0].otherText)"></textarea>
+                            <textarea disabled="disabled" ng-if="section.section.questions[$parent.$parent.$index].isHidden"></textarea>
+                        </label>
+                        <div ng-if="vm.isReadOnly && !section.section.questions[$parent.$parent.$index].isHidden" class="div-textarea">&nbsp;<span ng-bind-html="section.section.questions[$parent.$parent.$index].questionResponses[0].otherText"></span>
+                        </div>
+                        <label class="input" ng-if="question.type == 'Text Box'">
+                            <input type="text" ng-model="section.section.questions[$parent.$parent.$index].questionResponses[0].otherText" required ng-disabled="vm.isReadOnly" ng-if="!section.section.questions[$parent.$parent.$index].isHidden" ng-change="vm.onSetOtherText($parent.$parent.$index, $parent.$index, section.section.questions[$parent.$parent.$index].questionResponses[0].otherText)"/>
+                            <input type="text" disabled="disabled" ng-if="section.section.questions[$parent.$parent.$index].isHidden"/>
+                        </label>
+                        <div class="row" ng-if="question.type == 'Checkboxes'">
+                            <div class="col-xs-6" ng-repeat="answer in section.section.questions[$parent.$parent.$index].answers">
+                                <label class="checkbox">
+                                    <input type="checkbox" ng-model="answer.selected" ng-click="vm.onCheckboxSelected($parent.$parent.$index, $parent.$index, section.section.questions)" ng-disabled="vm.isReadOnly" ng-if="!section.section.questions[$parent.$parent.$index].isHidden">
+                                    <input type="checkbox" disabled="disabled" ng-if="section.section.questions[$parent.$parent.$index].isHidden">{{answer.text}}
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div ng-if="question.type == 'Document Upload'">
+                            <label><span style="text-transform:none;">File: <a href="" ng-click="vm.trueVaultService.onDocumentDownload(question.questionResponses[0].document, vm.organization,vm.accessToken)" target="_blank" class="ng-binding">{{question.questionResponses[0].document.name}}</a></span></label>
+                            
+                            <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" type="submit" ng-if="vm.accessType != 'Inspector' && !section.section.questions[$parent.$parent.$index].isHidden" ng-click="vm.showDocumentLibrary($parent.$parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$index], section.section.questions[$parent.$parent.$parent.$index].questionResponses[0])" ng-disabled="vm.isBusy">
+                                <span>Document Library</span>
+                            </button>
+                        </div>
+                        <label class="input" ng-if="question.type == 'Date'">
+                            <input kendo-date-picker
+                                   ng-model="section.section.questions[$parent.$parent.$parent.$index].questionResponses[0].otherText"
+                                   k-ng-model="dateObject" ng-disabled="vm.isReadOnly" ng-if="!section.section.questions[$parent.$parent.$index].isHidden"
+                                   ng-change="vm.onSetOtherText($parent.$parent.$parent.$index, $parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$index].questionResponses[0].otherText)"/>
+                            <input kendo-date-picker
+                                   k-ng-model="dateObject" disabled="disabled" ng-if="section.section.questions[$parent.$parent.$index].isHidden"/>
+                        </label>
+                        <div class="row" ng-if="question.type == 'Date Range'">
+                            <div class="col-lg-3">
+                                <label class="input">
+                                    <input kendo-date-picker ng-disabled="vm.isReadOnly"
+                                           ng-model="section.section.questions[$parent.$parent.$index].questionResponses[0].fromDate"
+                                           k-on-change="vm.onFromDateChanged($parent.$parent.$parent.$index, $parent.$parent.$index, question, section.section.questions[$parent.$parent.$index].questionResponses[0])"
+                                           k-max="vm.maxDate"
+                                           k-rebind="vm.maxDate"
+                                           k-ng-model="dateObject1"
+                                           ng-if="!section.section.questions[$parent.$parent.$index].isHidden"/>
+                                    <input kendo-date-picker disabled="disabled"
+                                           k-ng-model="dateObject1"
+                                           ng-if="section.section.questions[$parent.$parent.$index].isHidden"/>
+                                </label>
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="input">
+                                    <input kendo-date-picker ng-disabled="vm.isReadOnly"
+                                           ng-model="section.section.questions[$parent.$parent.$index].questionResponses[0].toDate"
+                                           k-min="vm.minDate"
+                                           k-rebind="vm.minDate"
+                                           k-on-change="vm.onToDateChanged($parent.$parent.$parent.$index, $parent.$parent.$index, question, section.section.questions[$parent.$parent.$index].questionResponses[0])"
+                                           k-ng-model="dateObject2"
+                                           ng-if="!section.section.questions[$parent.$parent.$index].isHidden"/>
+                                    <input kendo-date-picker disabled="disabled"
+                                           k-ng-model="dateObject2"
+                                           ng-if="section.section.questions[$parent.$parent.$index].isHidden"/>
+                                </label>
+                            </div>
+                        </div>
+                        <label class="select" ng-if="question.type == 'People Picker'">
+                            <select ng-model="section.section.questions[$parent.$parent.$index].questionResponses[0].userId" required ng-disabled="vm.isReadOnly" ng-if="!section.section.questions[$parent.$parent.$index].isHidden" ng-change="vm.onUserChange($parent.$parent.$index, $parent.$index, section.section.questions[$parent.$parent.$index].questionResponses[0].userId)">
+                                <option ng-repeat="u in vm.users" value="{{u.userId}}">{{u.fullName}}</option>
+                            </select>
+                            <select disabled="disabled" ng-if="section.section.questions[$parent.$parent.$index].isHidden">
+                                <option value=""></option>
+                            </select>
+                            <i></i>
+                        </label>
+                        <div class="radios" ng-if="question.type == 'Radio Buttons'" ng-class="answer.selected ? 'active' : ''" ng-click="vm.onRadioSelected($parent.$parent.$parent.$index, $parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$index], answer)" ng-repeat="answer in  section.section.questions[$parent.$parent.$index].answers">
+                            <input type="radio" ng-checked="answer.selected == true" ng-value="answer.id" name="{{question.id + section.site.siteId}}" ng-disabled="vm.isReadOnly" ng-if="!section.section.questions[$parent.$parent.$parent.$index].isHidden"/>
+                            <input type="radio" disabled="disabled" ng-if="section.section.questions[$parent.$parent.$parent.$index].isHidden"/>
+                            {{answer.text}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group multiple" ng-if="question.type == 'Multiple'" ng-disabled="vm.isReadOnly">
+                <div class="text">
+                    {{$index + 1}}.&nbsp;{{question.text}}
+                    <a uib-popover-html="question.description" popover-title="Guidance" popover-placement="right-top" ng-if="question.description && question.description !== ''"><span class="glyphicon glyphicon-question-sign" ng-class="glyphicon-flag-red"></span></a>
+                    <button class="btn btn-base btn-icon btn-icon-right pull-right add-row" type="submit" ng-if="vm.accessType != 'Inspector' && !section.section.questions[$parent.$parent.$index].isHidden" ng-click="vm.addResponse(section.section.questions[$parent.$parent.$index])">
+                        <span>Add Another Row</span>
+                    </button>
+                </div>
+
+
+                <div class="row multiple-row" ng-repeat="response in section.section.questions[$parent.$parent.$index].questionResponses">
+                    <div class="row">
+                        <div class="pull-right remove">
+                            <span class="glyphicon glyphicon-remove" ng-if="vm.accessType != 'Inspector' && !section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden" ng-click="vm.onRemoveResponse(section.section.questions[$parent.$parent.$parent.$parent.$index], $index)"></span>
+                        </div>
+                    </div>
+                    <label class="input" ng-if="question.questionTypeFlags.textArea == true">
+                        <textarea kendo-editor k-encoded="false" ng-model="response.otherText" k-ng-model="response.otherText" ng-if="!vm.isReadOnly && !section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden" ng-change="vm.onSetOtherText($parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$index, response.otherText, $index)"></textarea>
+                        <textarea disabled="disabled" ng-if="section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden"></textarea>
+                    </label>
+                    <div ng-if="vm.isReadOnly && !section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden && question.questionTypeFlags.textArea == true" class="div-textarea">&nbsp;<span ng-bind-html="response.otherText"></span>
+                    </div>
+                    <label class="input" ng-if="question.questionTypeFlags.textBox == true">
+                        <input type="text" ng-model="response.otherText" required ng-disabled="vm.isReadOnly" ng-if="!section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden" ng-change="vm.onSetOtherText($parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$index, response.otherText, $index)"/>
+                        <input type="text" disabled="disabled" ng-if="section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden"/>
+                    </label>
+                    <label class="select" ng-if="question.questionTypeFlags.peoplePicker == true">
+                        <select ng-model="response.userId" required ng-disabled="vm.isReadOnly" ng-if="!section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden" ng-change="vm.onUserChange($parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$index, section.section.questions[$parent.$parent.$index].questionResponses[0].userId, $index)">
+                            <option ng-repeat="u in vm.users" value="{{u.userId}}">{{u.fullName}}</option>
+                        </select>
+                        <select disabled="disabled" ng-if="section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden">
+                            <option value=""></option>
+                        </select>
+                        <i></i>
+                    </label>
+                    <div ng-if="question.questionTypeFlags.documentUpload == true">
+                        <label class="label" ng-if="!section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden">File: <a href="/Download?fileName={{response.document.path}}" target="_blank">{{response.document.name}}</a></label>
+                        <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" ng-if="vm.accessType != 'Inspector' && !section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden" type="submit" ng-click="vm.showDocumentLibrary($parent.$parent.$parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$parent.$index], response, $index)" ng-disabled="vm.isBusy">
+                            <span>Document Library</span>
+                        </button>
+                    </div>
+                    <div class="btn btn-default radios"
+                         ng-if="question.questionTypeFlags.radioButtons == true"
+                         ng-class="answer.selected ? 'active' : ''"
+                         ng-click="vm.onRadioSelected($parent.$parent.$parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$parent.$index], answer)"
+                         ng-repeat="answer in section.section.questions[$parent.$parent.$parent.$parent.$index].answers">
+                        <input type="radio" ng-checked="answer.selected == true" ng-value="answer.id" ng-click="vm.onRadioSelected($parent.$parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$parent.$parent.$index], answer)" ng-disabled="vm.isReadOnly" name="{{question.id}}" ng-if="!section.section.questions[$parent.$parent.$parent.$parent.$parent.$index].isHidden"/>
+                        <input type="radio" disabled="disabled" ng-if="section.section.questions[$parent.$parent.$parent.$parent.$parent.$index].isHidden"/>
+                        {{answer.text}}
+                    </div>
+                    <label class="checkbox" ng-if="question.questionTypeFlags.checkboxes == true" ng-repeat="answer in question.answers">
+                        <input type="checkbox" ng-model="answer.selected" ng-disabled="vm.isReadOnly" ng-click="vm.onCheckboxSelected($parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$parent.$index])" ng-if="!section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden">
+                        <input type="checkbox" disabled="disabled" ng-if="section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden">
+                        {{answer.text}}
+                        <i></i>
+                    </label>
+                    <label class="input" ng-if="question.questionTypeFlags.date == true">
+                        <input kendo-date-picker
+                               ng-model="response.otherText"
+                               ng-change="vm.onSetOtherText($parent.$parent.$parent.$parent.$index, response.otherText, $index)"
+                               k-ng-model="dateObject" ng-disabled="vm.isReadOnly" ng-if="!section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden"/>
+                        <input kendo-date-picker
+                               disabled="disabled"
+                               k-ng-model="dateObject" ng-if="section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden"/>
+                    </label>
+                    <div class="row" ng-if="question.questionTypeFlags.dateRange == true">
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="response.fromDate" ng-disabled="vm.isReadOnly"
+                                       k-on-change="vm.onFromDateChanged($parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$parent.$index], response, $index)"
+                                       k-max="vm.maxDate"
+                                       k-rebind="vm.maxDate"
+                                       k-ng-model="dateObject1"
+                                       ng-if="!section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden"/>
+                                <input kendo-date-picker
+                                       disabled="disabled"
+                                       k-ng-model="dateObject1"
+                                       ng-if="section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden"/>
+                            </label>
+                        </div>
+                        <div class="col-lg-3">
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="response.toDate" ng-disabled="vm.isReadOnly"
+                                       k-min="vm.minDate"
+                                       k-rebind="vm.minDate"
+                                       k-on-change="vm.onToDateChanged($parent.$parent.$parent.$parent.$index, $parent.$parent.$parent.$index, section.section.questions[$parent.$parent.$parent.$parent.$index], response, $index)"
+                                       k-ng-model="dateObject2"
+                                       ng-if="!section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden"/>
+                                <input kendo-date-picker
+                                       disabled="disabled"
+                                       k-ng-model="dateObject2"
+                                       ng-if="section.section.questions[$parent.$parent.$parent.$parent.$index].isHidden"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save(false)" ng-disabled="vm.isBusy || vm.isReadOnly" ng-if="vm.accessType != 'Inspector'">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()" ng-disabled="vm.isBusy">Cancel</button>
+</div>
+

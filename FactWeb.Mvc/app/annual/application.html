@@ -1,0 +1,70 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-12 application">
+    <div class="wp-block default">
+        <div class="row">
+            <div class="col-md-6">Annual Application</div>
+            <div class="col-md-6">
+                <div class="pull-right">{{vm.application.applicantApplicationStatusName}}</div>
+                <div class="pull-right circle {{vm.application.applicantApplicationStatusName.replace(' ', '')}}"></div>
+            </div>
+        </div>
+        <div class="row boxes">
+            <div class="col-md-2">
+                <div class="box">
+                    <div class="title">submitted</div>
+                    <div class="details">
+                        <div class="date">{{vm.application.submittedDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="box">
+                    <div class="title">due</div>
+                    <div class="details">
+                        <div class="date">{{vm.application.dueDate || 'N/A' | date: 'MM/dd/yyyy'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="coordinator">
+                    <div class="head" ng-if="vm.application.coordinator != null">coordinator:</div>
+                    <div ng-if="vm.application.coordinator != null">
+                        {{vm.application.coordinator.lastName}}, {{vm.application.coordinator.firstName}}<br/>
+                        <a href="mailto: {{vm.application.coordinator.emailAddress}}">{{vm.application.coordinator.emailAddress}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <application-requirement-list class="requirements" ng-model="vm.requirements" app-type="{{vm.applicationType}}" scope-types="vm.scopeTypes" questions="vm.questions" current-version="vm.currentVersion" is-requirement-set="true" question-types="vm.questionTypes" dueDate="{{application.dueDate}}" appUniqueId="{{application.uniqueId}}"></application-requirement-list>
+
+    <div class="wp-block default user-form" ng-if="!vm.isFlagged && vm.isComplete">
+
+        <div class="form-body">
+            <form class="sky-form" name="applicationForm">
+                <section>
+                    Terms and Conditions:
+                    <div style="border: 1px solid grey; overflow: scroll auto;padding-left:15px">
+                        In seeking FACT accreditation:<br />
+                        <ol style="list-style: decimal">
+                            <li>We acknowledge that FACT Standards represent minimal acceptable performance guidelines that may be exceeded. We are making an informed judgment that the adoption of FACT Standards is appropriate for our institution and we assume responsibility for setting more rigorous internal requirements where appropriate.</li>
+                            <li>We acknowledge that we are responsible for the determination of which governmental laws and regulations apply to the activities in our facilities, and for compliance with these governmental laws and regulations.</li>
+                            <li>We agree to notify the FACT Accreditation Office of any significant changes in personnel (Directors) or location of any of our facilities within 90 days of the change.</li>
+                            <li>By signing the compliance application, we attest that we have reviewed the information and are responsible for its accuracy, including our accreditation goals stated within. If, at a later date, it is revealed that this information is not complete or accurate, we are responsible for any extra costs involved for additional inspectors and/or reinspection as deemed necessary by the FACT Accreditation Office.</li>
+                        </ol>
+                    </div>
+                    <input ng-model="vm.agreeTerms" type="checkbox" required/>&nbsp; I agree to the Terms and Conditions
+                </section>
+                <section ng-if="vm.application.applicationStatusName == 'For Review'">
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.submit()" ng-disabled="applicationForm.$invalid || vm.isFlagged || !vm.isComplete">
+                        <span>Submit Application</span>
+                    </button>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>

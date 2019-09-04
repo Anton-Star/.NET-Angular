@@ -1,0 +1,87 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">
+        <span ng-show="vm.isNew && !vm.isRequirementSet">Add New Requirement: </span>
+        <span ng-show="vm.isRequirementSet">Add New {{vm.requirementSettingName}} </span>
+        <span ng-show="!vm.isNew">Edit: </span>
+        <span style="text-transform:none;" ng-bind-html="vm.requirement.name"></span> 
+    </h3>
+</div>
+<div class="modal-body">
+    <form name="requirements" class="sky-form requirements">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label">Unique Identifier</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.displayRequirement.uniqueIdentifier" /> 
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Display Order</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.displayRequirement.order" ng-change="vm.onOrderChange()" required/>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Text/Description</label>
+                    <label class="textarea">
+                        <textarea kendo-editor k-encoded="false" k-ng-model="vm.displayRequirement.name"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="label">Scopes</label>
+                        </div>
+                    </div>                   
+                    <div class="col-xs-6" ng-repeat="j in vm.scopeTypes">
+                        <label class="checkbox">
+                            <input type="checkbox" value="{{j.id}}" ng-model="j.isSelected"><i></i>{{j.name}}
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label class="checkbox">
+                                <input type="checkbox" ng-model="vm.displayRequirement.isVariance"><i></i><label class="label">Requirement is a Variance?</label>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Guidance/Help Text</label>
+                    <label class="textarea">
+                        <textarea kendo-editor k-encoded="false" k-ng-model="vm.displayRequirement.helpText"></textarea>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Version</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-lock"></i>
+                        <input type="text" ng-model="vm.displayRequirement.version" required/>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.save()" ng-disabled="vm.isInvalid() || vm.isBusy">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>
+

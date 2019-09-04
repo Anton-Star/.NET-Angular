@@ -1,0 +1,23 @@
+﻿<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Compliance Application Approval</h2>
+    </div>
+    <div class="form-body">
+        <form class="sky-form" name="complianceApplicationApproval">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">
+                            <span ng-bind-html="vm.complianceApplication.rejectionComments"></span>
+                        </label>
+                    </div>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-footer light" ng-if="!vm.isCoordinator">
+        <p>
+            <a href="/#/Compliance/ManageCompliance?app={{vm.appId}}&sub={{vm.complianceApplicationId}}&c=">Return to the Compliance Application Approval page.</a>
+        </p>
+    </div>
+</div>

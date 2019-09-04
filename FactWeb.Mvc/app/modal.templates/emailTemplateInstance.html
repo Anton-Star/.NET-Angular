@@ -1,0 +1,22 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Email Template</h3>
+</div>
+<div class="modal-body">
+    <form class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="input">
+                        <textarea kendo-editor k-encoded="false" k-ng-model="vm.template"></textarea>
+                    </label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSave()">Continue</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

@@ -1,0 +1,64 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Copy Application</h3>
+</div>
+<div class="modal-body">
+    <form class="sky-form">
+        <fieldset>
+            <section>
+                <div class="form-group">
+                    <label class="label">Copy from Site</label>
+                    <label class="select">
+                        <select ng-model="vm.copyFrom" ng-change="vm.onCopyFrom()">
+                            <option ng-repeat="u in vm.sitesWithApps" value="{{u.siteName}}">{{u.siteName}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Application</label>
+                    <label class="select">
+                        <select ng-model="vm.application" ng-change="vm.onAppSelected()">
+                            <option ng-repeat="u in vm.applications" value="{{u.applicationTypeName}}">{{u.applicationTypeName}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Copy to Site</label>
+                    <label class="select">
+                        <select ng-model="vm.copyTo">
+                            <option ng-repeat="u in vm.sites" value="{{u.site}}">{{u.site}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label">Application Status</label>
+                    <label class="select">
+                        <select ng-model="vm.applicationStatus">
+                            <option ng-repeat="u in vm.values.applicationStatuses" value="{{u.name}}">{{u.name}}</option>
+                        </select>
+                        <i></i>
+                    </label>
+                </div>
+            </section>
+            <section>
+                <div class="form-group">
+                    <label class="label"><input type="checkbox" ng-model="vm.deleteOriginal" /> Delete Original</label>
+                </div>
+            </section>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSave()" ng-disabled="vm.copyFrom === '' || vm.application === '' || vm.copyTo === ''">Save</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.onCancel()">Cancel</button>
+</div>
+

@@ -1,0 +1,119 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<style>
+    .glyphicon-flag-red {
+        color: #FF0000 !important;
+        cursor: pointer;
+    }
+
+    .glyphicon-flag-grey {
+        color: gray !important;
+        cursor: pointer;
+    }
+</style>
+
+<div class="col-md-12 comp-application application">
+    
+    <application-header class="requirements" application="vm.application" compliance="vm.compApplication" isComplianceApplication="vm.isComplianceApplication" iscoordinatorview=false></application-header>
+
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Application Answers Review</h2>
+        </div>
+        <div class="form-body">
+            <div class="qm" ng-if="(vm.application.hasQmRestriction || vm.compApp.hasQmRestriction) && vm.common.isFact">
+                {{vm.config.qmMessage}}
+            </div>
+            <form class="sky-form" name="applicationForm">
+                <section ng-if="!vm.isComplianceApplication">
+                    <div ng-if="vm.application.applicationsWithRfis && vm.application.applicationsWithRfis.length > 0" class="app-rfis">
+                        There are other applications with RFIs that need to be submitted.
+                        <div ng-repeat="appRfi in vm.application.applicationsWithRfis">
+                            <span class="red">RFI:</span> <a href ng-click="vm.onShowRfi(appRfi)">{{appRfi.applicationTypeName}}, {{appRfi.requirementNumber}}</a>
+                        </div>
+                    </div>
+                    <application-requirement-list class="requirements" ng-model="vm.requirements"
+                                                  organization="{{vm.orgName}}"
+                                                  app-type="{{vm.applicationType}}"
+                                                  scope-types="vm.scopeTypes"
+                                                  questions="vm.questions"
+                                                  current-version="vm.currentVersion"
+                                                  is-requirement-set="true"
+                                                  question-types="vm.questionTypes"
+                                                  applicationtype="{{vm.selectedApplicationType}}"
+                                                  dueDate="{{application.dueDate}}"
+                                                  app-unique-id="{{vm.appUniqueId}}"
+                                                  is-review="true">
+                    </application-requirement-list>
+                </section>
+                <section ng-show="vm.isComplianceApplication">
+                    <div class="requirements" ng-repeat="appSite in vm.compApplication.complianceApplicationSites">
+                        <uib-accordion close-others="oneAtATime">
+                            <uib-accordion-group is-open="appSite.open">
+                                <uib-accordion-heading>
+                                    <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': appSite.open, 'glyphicon-chevron-right': !appSite.open}"></i>
+                                    <div class="pull-left circle {{appSite.statusName.replace(' ', '').replace('/', '')}}" title="{{appSite.statusName}}" ng-if="appSite.statusName != ''"></div>
+                                    <div class="head-text text-uppercase">{{appSite.siteName}}</div>
+                                </uib-accordion-heading>
+                                <div class="requirements" ng-repeat="application in appSite.appResponses">
+                                    <uib-accordion close-others="oneAtATime">
+                                        <uib-accordion-group is-open="application.open">
+                                            <uib-accordion-heading>
+                                                <div class="panel first-row">
+                                                    <div class="panel-heading req">
+                                                        <div class="col-lg-12">
+                                                            <i class="pull-left glyphicon" ng-class="{'glyphicon-chevron-down': application.open, 'glyphicon-chevron-right': !application.open}"></i>
+                                                            <div class="pull-left circle {{application.applicationTypeStatusName.replace(' ', '').replace('/', '')}}" title="{{application.applicationTypeStatusName}}" ng-if="application.applicationTypeStatusName != ''"></div>
+                                                            <span class="head-text text-uppercase" ng-click="vm.onSiteAppView(application)">{{application.applicationTypeName}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </uib-accordion-heading>
+                                            <app-requirement-list 
+                                                class="requirements" 
+                                                level="0" 
+                                                organization="{{vm.application.organizationName}}" 
+                                                ng-model="application.applicationSectionResponses" 
+                                                access-type="{{vm.accessType}}" 
+                                                site="appSite.site" 
+                                                app-type="{{application.applicationTypeName}}" 
+                                                scope-types="vm.scopeTypes"  
+                                                is-requirement-set="true" 
+                                                question-types="vm.questionTypes" 
+                                                applicationtype="{{application.applicationTypeName}}" 
+                                                duedate="{{vm.appDueDate}}" 
+                                                app-unique-id="{{application.applicationUniqueId}}" 
+                                                submitteddate="{{vm.submittedDate}}" 
+                                                is-review="true"></app-requirement-list>
+                                        </uib-accordion-group>
+                                    </uib-accordion>
+                                </div>
+                            </uib-accordion-group>
+                        </uib-accordion>
+                    </div>
+                </section>
+                <section>
+                    <label class="select" style="float: left;" ng-if="vm.isUser == false && vm.user.role.roleName !== vm.config.roles.inspector">
+                        Due Date: <input name="dueDate" id="dueDate" class="date-fix" k-parse-formats="['MM/dd/yyyy', 'MM/dd/yy']" kendo-date-picker k-options="vm.dateOptions" k-format="MM/dd/yyyy" k-ng-model="vm.application.rfiDueDate" ng-disabled="!vm.common.isFact()"/>
+                    </label>&nbsp;
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.backForRFI()" ng-show="vm.hasRfi == true && vm.application.applicationStatusName != 'RFI' && vm.application.applicationStatusName != 'RFI In Progress' && vm.user.role.roleName !== vm.config.roles.inspector && vm.isUser == false">
+                        <span>Back To RFI</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.sendToFact()" ng-show="vm.hasRfi && vm.isLead">
+                        <span>Send RFI to FACT</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.sendToInspection()" ng-show="vm.isUser == false && vm.user.role.roleName !== vm.config.roles.inspector && vm.application.applicationTypeName.indexOf('Compliance') != -1">
+                        <span>Send To Schedule Inspection</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.save()" ng-show="vm.isUser == false && vm.user.role.roleName !== vm.config.roles.inspector">
+                        <span>Save</span>
+                    </button>
+                    <button class="btn btn-base btn-icon btn-icon-right btn-check" type="submit" ng-click="vm.markComplete()" ng-show="vm.isUser == false && vm.application.applicationTypeName == 'Annual Application'">
+                        <span>Mark Complete</span>
+                    </button>
+                </section>
+            </form>
+        </div>
+    </div>
+</div>

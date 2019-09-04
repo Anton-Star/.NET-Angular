@@ -1,0 +1,151 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-11 compApp">
+    <div class="wp-block default user-form">
+        <div class="form-header light">
+            <h2>Application History</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form">
+                <fieldset class="no-padding">
+                    <section>
+                        <fieldset class="no-padding">
+                            <section>
+                                <div class="form-group">
+                                    <label class="label">Organization: {{vm.application.organizationName}}</label>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label">Creation Date: {{vm.application.createdDateString}}</label>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label">Created By: {{vm.application.createdBy}}</label>
+                                </div>
+                            </section>
+                            <section ng-if="vm.common.isFact() || vm.common.isConsultantCoordinator()">
+                                <div class="form-group">
+                                    <label class="label">Use Two Year Accreditation Cycle: {{vm.organization.useTwoYearCycle != null && vm.organization.useTwoYearCycle != undefined && vm.organization.useTwoYearCycle === true ? 'Yes' : 'No'}}</label>
+                                </div>
+                            </section>
+                            <!--<section>
+                                <div class="form-group">
+                                    <label class="label">Inspection Start Date: {{vm.inspectionSchedule.startDate}}</label>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="form-group">
+                                    <label class="label">Inspection End Date: {{vm.inspectionSchedule.endDate}}</label>
+                                </div>
+                            </section>-->
+                            <section ng-if="vm.common.isFact() || vm.common.isConsultantCoordinator()">
+                                <label class="label" ng-show="vm.accreditationOutcomes.length > 0">Accreditation Outcomes</label>
+                                <div class="form-group" data-ng-show="vm.accreditationOutcomes.length > 0">
+                                    <div id="reportGrid" class="searchResults"
+                                         kendo-grid="grid"
+                                         k-options="vm.gridAccreditationOutcomes"
+                                         k-columns='[
+                                             {
+                                                 field: "id" ,
+                                                 title: "Id" ,
+                                                 hidden: "true"
+                                             },
+                                             {
+                                                 field: "outcomeStatusName" ,
+                                                 title: "Outcome Status" ,
+                                                 width: "220px"
+                                             },
+                                             {
+                                                 field: "reportReviewStatusName" ,
+                                                 title: "Report Review Status" ,
+                                                 width: "220px"
+                                             },
+                                             {
+                                                 field: "committeeDate" ,
+                                                 title: "Committee Date" ,
+                                                 width: "140px"
+                                             },
+                                             {
+                                                 field: "createdBy" ,
+                                                 title: "Created By" ,
+                                                 width: "140px"
+                                             }
+                                        ]'>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <label class="label" ng-show="vm.inspectionScheduleList.length > 0">Inspections</label>
+                                <div class="form-group" data-ng-show="vm.inspectionScheduleList.length > 0">
+                                    <div id="reportGrid1" class="searchResults"
+                                         kendo-grid="grid"
+                                         k-options="vm.gridInspections"
+                                         k-columns='[
+                                           {
+                                                field: "siteName" ,
+                                                title: "Site Name" 
+                                            },
+                                            {
+                                                field: "startDate" ,
+                                                title: "Inspection Start Date" 
+                                            },
+                                            {
+                                                field: "endDate" ,
+                                                title: "Inspection End Date" 
+                                            }                                          
+                                        ]'>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <label class="label" ng-show="vm.appStatus.length > 0">Application Status History</label>
+                                <div class="form-group" data-ng-show="vm.appStatus.length > 0">
+                                    <div id="reportGrid" class="searchResults"
+                                         kendo-grid="grid"
+                                         k-options="vm.gridAppStatus"
+                                         k-columns='[
+                                            {
+                                                field: "id" ,
+                                                title: "Id" ,
+                                                hidden: "true"
+                                            },
+                                            {
+                                                field: "applicationId" ,
+                                                title: "Application Id" ,
+                                                hidden: "true"
+                                            },
+                                            {
+                                                field: "applicationStatusOld.name" ,
+                                                title: "Old Status" ,
+                                                width: "150px"
+                                            },
+                                            {
+                                                field: "applicationStatusNew.name" ,
+                                                title: "New Status" ,
+                                                width: "150px"
+                                            },
+                                            {
+                                                field: "createdBy" ,
+                                                title: "Modified By" ,
+                                                width: "150px"
+                                            },
+                                            {
+                                                field: "createdDate" ,
+                                                title: "Modified Date" ,
+                                                width: "150px"
+                                            }
+                                        ]'>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </fieldset>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

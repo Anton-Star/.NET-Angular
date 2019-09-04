@@ -1,0 +1,39 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">Not Applicable Requirements</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12 pull-right">
+            <input type="checkbox" ng-model="vm.showChildren"/> Show Children
+        </div>
+    </div>
+    
+    <form name="notApplicable" class="sky-form not-applicable" ng-if="!vm.showChildren">
+        <div class="requirements">
+            <uib-accordion close-others="oneAtATime">
+                <uib-accordion-group ng-repeat="row in vm.values.requirements">
+                    <uib-accordion-heading>
+                        <div class="col-lg-11">
+                            <div class="head-text">
+                                {{row.uniqueIdentifier}}. <span ng-bind-html="row.name"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="pull-right icons">
+                                <button class="btn btn-primary" ng-click="vm.onNotApplicableRow(row, $event)">{{row.isNotApplicable ? 'Not Applicable' : 'Included' }}</button>
+                            </div>
+                        </div>
+                    </uib-accordion-heading>
+                </uib-accordion-group>
+            </uib-accordion>
+        </div>
+    </form>
+
+    <form name="notApplicable" class="sky-form not-applicable" ng-if="vm.showChildren">
+        <not-applicable-requirement-list ng-model="vm.values.requirements"></not-applicable-requirement-list>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.onSave()">Return</button>
+</div>

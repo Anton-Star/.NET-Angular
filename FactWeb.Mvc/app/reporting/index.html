@@ -1,0 +1,254 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+<link href="content/report.css" rel="stylesheet">
+
+<style type="text/css">
+    html#html, body#body, form#form1, div#content, center#center {
+        border: 0px solid black;
+        padding: 0px;
+        margin: 0px;
+        height: 100%;
+    }
+</style>
+<div class="col-md-12 reporting">
+    <application-header class="requirements" application="vm.common.application" compliance="vm.common.compApplication" isComplianceApplication="vm.isComplianceApplication"></application-header>
+
+<div class="row">
+    <div class="col-md-12 bigger">
+        {{vm.selectedReport}}
+    </div>
+</div>
+
+    <div class="wp-block default user-form" ng-if="vm.showSite || (vm.selectedReport === vm.config.reportNames.traineeInspectionSummary && vm.isMentor) || vm.selectedReport === vm.config.reportNames.activity">
+        <div class="form-header light">
+            <h2>Reporting</h2>
+        </div>
+        <div class="form-body">
+            <form name="registration" class="sky-form" ng-if="vm.showSite">
+                <fieldset class="no-padding">
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Select Site:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.siteName" ng-change="vm.onSelectedReport()">
+                                    <option value="" ng-if="vm.common.currentUser.role.roleName != 'User'">All</option>
+                                    <option value="{{site.siteName}}" ng-repeat="site in vm.sites">{{site.siteName}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                </fieldset>
+            </form>
+            <form class="sky-form" ng-if="vm.selectedReport === vm.config.reportNames.traineeInspectionSummary && vm.isMentor">
+                <fieldset class="no-padding feed">
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Trainee Inspection Report Assessment</label>
+                            <label class="textarea">
+                                <textarea required kendo-editor k-encoded="false" k-ng-model="vm.mentor.mentorFeedback"></textarea>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.onSubmitFeedback()">
+                            <span>Save</span>
+                        </button>
+                    </section>
+                    <section>
+                        <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.onMentorComplete()">
+                            <span>Submit Feedback</span>
+                        </button>
+                    </section>
+                </fieldset>
+            </form>
+            <form name="registration" class="sky-form" ng-if="vm.selectedReport === vm.config.reportNames.activity">
+                <fieldset class="no-padding">
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Start Date:</label>
+                            <label class="textarea">
+                                <textarea required kendo-editor k-encoded="false" k-ng-model="vm.siteDescription"></textarea>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">End Date:</label>
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.activity.endDate"
+                                       k-ng-model="dateObject2" />
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Organization Number:</label>
+                            <label class="input">
+                                <input type="text" ng-model="vm.activity.orgNumber" />
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Organization Name:</label>
+                            <label class="input">
+                                <input type="text" ng-model="vm.activity.orgName" />
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">City:</label>
+                            <label class="input">
+                                <input type="text" ng-model="vm.activity.city" />
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">State:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.activity.state">
+                                    <option value="">All</option>
+                                    <option value="{{s.name}}" ng-repeat="s in vm.config.states">{{s.name}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Country:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.activity.country">
+                                    <option value="">All</option>
+                                    <option value="{{s.name}}" ng-repeat="s in vm.config.countries">{{s.name}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Report Review Status:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.activity.reportReviewStatus">
+                                    <option value="">All</option>
+                                    <option value="{{s.name}}" ng-repeat="s in vm.config.reportReviewStatuses">{{s.name}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Committee Date:</label>
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.activity.committeeDate"
+                                       k-ng-model="dateObject3" />
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Accreditation Outcome Status:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.activity.outcomeStatus">
+                                    <option value="">All</option>
+                                    <option value="{{s.name}}" ng-repeat="s in vm.config.outcomeStatuses">{{s.name}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Facility Type:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.activity.facilityType">
+                                    <option value="">All</option>
+                                    <option value="CT">CT</option>
+                                    <option value="CB">CB</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Original Accreditation Status:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.activity.origStatus">
+                                    <option value="">All</option>
+                                    <option value="{{s.name}}" ng-repeat="s in vm.config.accreditationStatuses">{{s.name}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">New Accreditation Status:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.activity.newStatus">
+                                    <option value="">All</option>
+                                    <option value="{{s.name}}" ng-repeat="s in vm.config.accreditationStatuses">{{s.name}}</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Accreditation Status Changed Date:</label>
+                            <label class="input">
+                                <input kendo-date-picker
+                                       ng-model="vm.activity.changedDate"
+                                       k-ng-model="dateObject4" />
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <label class="label">Order By:</label>
+                            <label class="select">
+                                <select name="type" ng-model="vm.activity.sortBy">
+                                    <option value="OrganizationNumber">Organization Number</option>
+                                    <option value="OrganizationName">Organization Name</option>
+                                    <option value="City">City</option>
+                                    <option value="State">State</option>
+                                    <option value="Country">Country</option>
+                                    <option value="ReportReviewStatus">Report Review Status</option>
+                                    <option value="CommitteeDate">Committee Date</option>
+                                    <option value="OutcomeStatusName">Outcome Status Name</option>
+                                    <option value="FacilityType">Facility Type</option>
+                                    <option value="OrigStatus">Original Accreditation Status</option>
+                                    <option value="NewStatus">New Accreditation Status</option>
+                                    <option value="ChangeDate">Accreditation Status Changed Date</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="form-group">
+                            <button class="btn btn-base btn-icon btn-icon-right btn-check pull-right" type="submit" ng-click="vm.onSelectedReport()">
+                                <span>Run Report</span>
+                            </button>
+                        </div>
+                    </section>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div id="reportViewer1" style="display: none;">
+        loading...
+    </div>
+    <div ng-if="vm.reportParms">
+        <report name="{{vm.reportPath}}" parameters="{{vm.reportParms}}" height="{{vm.reportHeight}}"></report>
+    </div>
+
+</div>

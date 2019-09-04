@@ -1,0 +1,140 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+
+<application-header class="requirements" application="vm.common.application" compliance="vm.common.compApp" isComplianceApplication="vm.isComplianceApplication"></application-header>
+
+<div class="wp-block default user-form">
+    <div class="form-header light">
+        <h2>Document Library</h2>
+    </div>
+    <div class="form-group padding-top pd-10">
+        <div kendo-tab-strip k-content-urls="[ null, null]">
+            <!-- tab list -->
+            <ul>
+                <li class="k-state-active">By Requirement</li>
+                <li>Full List</li>
+                <li>Latest Documents</li>
+            </ul>
+
+            <div style="padding: 1em">
+                <div class="form-group" ng-show="vm.sites && vm.sites.length > 0">
+                    <select ng-model="vm.selectedSite" ng-change="vm.onSelectedSite()">
+                        <option value="">All</option>
+                        <option value="{{s}}" ng-repeat="s in vm.sites">{{s}}</option>
+                    </select>
+                </div>
+                <div class="form-group" data-ng-show="vm.byRequirement.length > 0">
+                    <div class="download-button">
+                        <button class="btn btn-base" type="submit" ng-click="vm.onDownloadCheckedByReq()" ng-disabled="vm.noCheckedByReq">
+                            <span>Download Checked</span>
+                        </button>
+                    </div>
+                    <div id="library" class="searchResults"
+                         kendo-grid="gridByReq"
+                         k-options="vm.byReqOptions"></div>
+
+                </div>
+            </div>
+
+            <div style="padding: 1em">
+                <div class="form-group" data-ng-show="vm.results.length > 0">
+                    <div class="download-button">
+                        <button class="btn btn-base" type="submit" ng-click="vm.onDownloadChecked()" ng-disabled="vm.noChecked">
+                            <span>Download Checked</span>
+                        </button>
+                    </div>
+                    <div id="library" class="searchResults"
+                         kendo-grid="grid"
+                         k-options="vm.gridOptions"></div>
+
+                </div>
+            </div>
+            
+
+            <div style="padding: 1em">
+                <div class="form-group" data-ng-show="vm.results.length > 0">
+                    <div class="download-button">
+                        <button class="btn btn-base" type="submit" ng-click="vm.onDownloadCheckedLatest()" ng-disabled="vm.noCheckedLatest">
+                            <span>Download Checked</span>
+                        </button>
+                    </div>
+                    <div id="library" class="searchResults"
+                         kendo-grid="grid"
+                         k-options="vm.latestOptions"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <form name="documentLibrary" class="sky-form pd-10" ng-if="!vm.common.isConsultantCoordinator()">
+            <fieldset>
+                <section>
+                    <div class="form-group">
+                        <label class="label">Add New File</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="file" multi-file-model="vm.files" multiple />
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <div class="row">
+                        <div class="col-md-4">File Name</div>
+                        <div class="col-md-5">New Version of:</div>
+                    </div>
+                    <div class="row" ng-repeat="file in vm.files track by $index">
+                        <div class="col-md-4">{{file.name}}</div>
+                        <div class="col-md-5">
+                            <input kendo-combo-box ng-model="vm.replacementOfs[$index]"
+                                   ng-change="vm.onReplacement($index)"
+                                   k-data-source="vm.docs" k-data-text-field="'name'"
+                                   k-data-value-field="'id'" k-filter="'contains'"
+                                   style="width: 100%;"/>
+                        </div>
+                    </div>
+                </section>
+                <section ng-if="vm.common.isFact()">
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="vm.factOnly">FACT Only
+                            <i></i>
+                        </label>
+                    </div>
+                </section>
+                <section>
+                    <button class="btn btn-base btn-icon btn-icon-right fa fa-search search pull-right" type="submit" ng-click="vm.addMulitpleFiles()" ng-class="{'disabled': vm.files.length==0}">
+                        <span>Upload to Library</span>
+                    </button>
+                </section>
+            </fieldset>
+        </form>
+    </div>
+    <img id="img" />
+</div>
+
+<script type="text/x-kendo-template" id="selectAllByReq">
+    <input type="checkbox" ng-click="vm.onSelectAllByReq()" ng-model="vm.selectAllByReq" />
+</script>
+
+<script type="text/x-kendo-template" id="checkByReq">
+    <input type="checkbox" ng-click="vm.onSelectByReq(dataItem.document)" ng-model="dataItem.document.isSelected" />
+</script>
+
+<script type="text/x-kendo-template" id="selectAll">
+    <input type="checkbox" ng-click="vm.onSelectAll()" ng-model="vm.selectAll" />
+</script>
+
+<script type="text/x-kendo-template" id="check">
+    <input type="checkbox" ng-click="vm.onSelect(dataItem)" ng-model="dataItem.isSelected" />
+</script>
+
+<script type="text/x-kendo-template" id="selectAllLatest">
+    <input type="checkbox" ng-click="vm.onSelectAllLatest()" ng-model="vm.selectAllLatest" />
+</script>
+
+<script type="text/x-kendo-template" id="checkLatest">
+    <input type="checkbox" ng-click="vm.onSelectLatest(dataItem)" ng-model="dataItem.isSelected" />
+</script>

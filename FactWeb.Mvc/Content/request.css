@@ -1,0 +1,39 @@
+﻿.col-md-8 {
+  padding: 0;
+}
+.request {
+  width: 900px;
+  margin: auto;
+  margin-left: 50px;
+}
+.request .row {
+  margin: 0;
+  padding-bottom: 20px;
+}
+.request .form-body {
+  padding: 0;
+}
+.request h1 {
+  padding-top: 90px;
+}
+.request img {
+  width: 700px;
+}
+.request .sky-form {
+  padding: 10px 70px 40px 70px;
+}
+.request .sky-form .form-group {
+  margin-bottom: 30px;
+}
+.request p {
+  text-align: center;
+}
+.request fieldset {
+  padding: 0;
+}
+.request input {
+  background-color: #fff !important;
+}
+.request .push {
+  padding-left: 20px;
+}

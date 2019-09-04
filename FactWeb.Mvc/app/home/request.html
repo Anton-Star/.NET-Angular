@@ -1,0 +1,164 @@
+﻿<link href="content/request.css" rel="stylesheet">
+<script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit"
+        async defer></script>
+
+<div class="login request">
+    <div class="row">
+        <img src="/content/images/fact-logo.png" alt="FACT Logo" />
+    </div>
+    <div class="row" ng-hide="vm.confirm === 'success'">
+        <div class="wp-block default user-form">
+            <div class="form-body">
+                <h1>Complete the form below to begin the accreditation process.</h1>
+                <form class="sky-form" name="frm">
+                    <fieldset>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Official Organization Name as you would like it to appear on the Accreditation Certificate
+                                </label>
+                                <label class="input">
+                                    <input type="text" ng-model="vm.model.organizationName" required />
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Organization Director
+                                </label>
+                                <label class="input">
+                                    <input type="text" placeholder="First Name Last Name, Credentials" ng-model="vm.model.directorName" required />
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Organization Director Email Address
+                                </label>
+                                <label class="input">
+                                    <input type="text" ng-model="vm.model.directorEmailAddress" required />
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Primary Contact Name
+                                </label>
+                                <label class="input">
+                                    <input type="text" placeholder="First Name Last Name, Credentials" ng-model="vm.model.primaryContactName" required />
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Primary Contact Email Address
+                                </label>
+                                <label class="input">
+                                    <input type="text" ng-model="vm.model.primaryContactEmailAddress" required />
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Primary Contact Phone Number
+                                </label>
+                                <label class="input">
+                                    <input type="text" ng-model="vm.model.primaryContactPhoneNumber" required />
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Organization's Primary Mailing Address<br />
+                                    Please include province and country if your organization is outside the US.
+                                </label>
+                                <label class="input">
+                                    <textarea kendo-editor k-encoded="false" k-ng-model="vm.model.organizationAddress" required></textarea>
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Field of Accreditation
+                                </label>
+                                <label class="select">
+                                    <select ng-model="vm.model.serviceType" required>
+                                        <option ng-repeat="u in vm.serviceTypes" value="{{u.name}}">{{u.name}}</option>
+                                    </select>
+                                    <i></i>
+                                </label>
+                            </div>
+                        </section>
+                        <section class="push" ng-if="vm.model.serviceType === 'Other'">
+                            <div class="form-group">
+                                <label class="label">
+                                    <span class="required-field">*</span>
+                                    Please describe
+                                </label>
+                                <label class="input">
+                                    <textarea kendo-editor k-encoded="false" k-ng-model="vm.model.masterServiceTypeOtherComment" required></textarea>
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <label class="label">
+                                    Other Comments
+                                </label>
+                                <label class="input">
+                                    <textarea kendo-editor k-encoded="false" k-ng-model="vm.model.otherComments" required></textarea>
+                                </label>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="form-group">
+                                <div vc-recaptcha key="'6LfyJwoUAAAAABhp2-HH7ixBJZiI-W2NF38Dzoof'"></div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-base center" type="submit" ng-click="vm.onSubmit()" ng-disabled="frm.$invalid || vm.isComplete()">
+                                    <span>Submit Request</span>
+                                </button>
+                            </div>
+                        </section>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="vm.confirm === 'success'">
+        <div class="wp-block default user-form">
+            <div class="form-body">
+                <h1>Your request has been submitted.</h1>
+                <p>
+                    Please allow up to seven (7) days for your account to be created.  You will be notified via email when your account is ready.  If you have any questions or concerns, please contact us at portal@factwebsite.org.
+
+                    Searching for extra credit?
+                    Training materials for the portal can be found <a href="http://www.factwebsite.org/portal">here</a>.  Begin reviewing them now to expedite and ease your application process.
+                </p>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <p>
+            Click <a href="#/">here</a> to return to the login screen.
+        </p>
+    </div>
+</div>
+

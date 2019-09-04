@@ -1,0 +1,49 @@
+﻿<link href="content/eligibility.css" rel="stylesheet">
+<link href="content/application.css" rel="stylesheet">
+
+<div class="col-md-12 compApp report">
+    <application-header class="requirements" application="vm.common.application" compliance="vm.common.compApplication" isComplianceApplication="vm.isComplianceApplication"></application-header>
+    <div class="row top" ng-if="vm.compAppId">
+        <div class="col-md-2"><div class="pull-right">Site:</div></div>
+        <div class="col-md-5">
+            <select kendo-drop-down-list
+                    ng-change="vm.onSiteChange()"
+                    ng-model="vm.site"
+                    k-data-text-field="'siteName'"
+                    k-data-value-field="'siteName'"
+                    k-data-source="vm.sites"
+                    style="width: 100%"></select>
+        </div>
+    </div>
+    <div class="row report-row">
+        <!--<button class="btn btn-base" type="submit" ng-click="vm.onExport()" ng-disabled="vm.site === '' || vm.site === null">
+            <span>Export Version</span>
+        </button>-->
+        
+        <a ng-if="vm.reportData.length <= 1" href class="btn btn-base" disabled="disabled">
+            <span>Export</span>
+        </a>
+        <a ng-if="vm.reportData.length > 1" href="/api/Application/Report/Export?uniqueId={{vm.uniqueId}}&id={{vm.compAppId}}&siteName={{vm.encodedSite}}" target="_blank" class="btn btn-base" ng-disabled="(vm.site === '' || vm.site === null) && !vm.uniqueId">
+            <span>Export</span>
+        </a>
+    </div>
+    <div id="report" ng-if="vm.reportData">
+        <div class="row top">
+            <div class="col-md-3"><img src="/content/images/fact-head.png" alt="FACT Head Image" height="70"></div>
+            <div class="col-md-6"><h2>Application Report</h2></div>
+        </div>
+        <div class="row report-row" ng-repeat="row in vm.reportData track by $index">
+            <div class="col-md-12 {{row.type}}" ng-if="row.type === 'Org' || row.type === 'Site' || row.type === 'App' || row.type === 'Req'">{{row.text}}</div>
+            <div class="col-md-1 header" ng-if="row.type === 'Header'">Standard</div>
+            <div class="col-md-6 header" ng-if="row.type === 'Header'">Question</div>
+            <div class="col-md-3 header" ng-if="row.type === 'Header'">Response</div>
+            <div class="col-md-2 header" ng-if="row.type === 'Header'">Comment</div>
+            <div class="col-md-1 question" ng-if="row.type === 'Res'">&nbsp;</div>
+            <div class="col-md-6 question" ng-if="row.type === 'Res'" ng-bind-html="row.text"></div>
+            <div class="col-md-3 question" ng-if="row.type === 'Res'" ng-bind-html="row.response"></div>
+            <div class="col-md-2 question" ng-if="row.type === 'Res'" ng-bind-html="row.comments"></div>
+        </div>
+    </div>
+    
+
+</div>
